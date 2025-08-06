@@ -22,12 +22,13 @@ OPENAI_API_KEY="API_KEY"
 OPENAI_BASE_URL=https://api.chatanywhere.org/v1
 
 # JWT 密鑰（請改成你自己的隨機字串）
-SECRET_KEY=WHEN-I-WAS-9-I-WAS-25-EMOTIONAL-DAMAGE-TASTE-FAILURE-IS-THE-ORDER-A-RABBIT
+SECRET_KEY=隨機字串
 
 # 資料庫設定（SQLite 會自動建立檔案）
 DATABASE_URL=sqlite:///./rag_users.db
 ```
 其中 API_KEY 請改成申請到的金鑰
+SECRET_KEY=打上隨機的字串
 # 檔案說明：
 RAG_Helper.py：RAG 系統的核心，負責讀取檔案、切割、轉換向量、處理問題等等
 Main.py：在終端機輸入問題，列出檢索到語意最接近的段落和語言模型的回答
