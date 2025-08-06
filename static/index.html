@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RAG 問答系統</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* 登入相關樣式 */
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .auth-input {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .auth-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .auth-toggle {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+        }
+        .auth-toggle a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .user-info {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* 主要布局樣式 */
+        .main-layout {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 左側統計區域 */
+        .stats-sidebar {
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 右側主要內容區域 */
+        .main-content {
+            flex: 1;
+            min-width: 0; /* 防止內容溢出 */
+        }
+
+        /* 統計區塊樣式 */
+        .stats-block {
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .user-stats {
+            background: linear-gradient(135deg, #e9f7ef 0%, #d4edda 100%);
+        }
+
+        .admin-stats {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        }
+
+        .stats-block h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .stats-sidebar {
+                width: 100%;
+                order: 2; /* 在手機上，統計區塊移到下方 */
+            }
+            
+            .main-content {
+                order: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 登入/註冊頁面 -->
+    <div class="auth-container" id="authSection">
+        <h1 id="authTitle">登入系統</h1>
+        
+        <form class="auth-form" id="authForm">
+            <input type="text" id="username" class="auth-input" placeholder="使用者名稱" required>
+            <input type="password" id="password" class="auth-input" placeholder="密碼" required>
+            <button type="submit" class="auth-btn" id="authBtn">登入</button>
+        </form>
+        
+        <div class="auth-toggle">
+            <span id="toggleText">還沒有帳號嗎？</span>
+            <a href="#" id="toggleLink">立即註冊</a>
+        </div>
+    </div>
+
+    <!-- 主要問答系統 -->
+    <div class="main-layout hidden" id="mainSection">
+        <!-- 左側統計區域 -->
+        <div class="stats-sidebar">
+            <!-- 使用者統計資訊 -->
+            <div class="stats-block user-stats" id="userStats">
+                <h3>📊 我的統計</h3>
+                <div id="userStatsContent">讀取中...</div>
+            </div>
+
+            <!-- 管理員統計資訊（預設隱藏） -->
+            <div class="stats-block admin-stats hidden" id="adminStats">
+                <h3>🛠 管理員統計</h3>
+                <div id="adminStatsContent">讀取中...</div>
+            </div>
+        </div>
+
+        <!-- 右側主要內容區域 -->
+        <div class="main-content">
+            <div class="container">
+                <h1>計算機概論問答系統</h1>
+                <div class="subtitle">基於計算機概論教材的問答系統</div>
+
+                <!-- 使用者資訊 -->
+                <div class="user-info" id="userInfo">
+                    <span>歡迎，<strong id="currentUser"></strong>！</span>
+                    <button class="clear-history-btn" onclick="clearChatHistory()">清除歷史</button>
+                    <button class="logout-btn" onclick="logout()">登出</button>
+                </div>
+
+                <div id="systemStatus" class="system-status status-loading">
+                    🔄 正在初始化系統，請稍候...
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="welcome-message" id="welcomeMessage">
+                            系統初始化完成後，您就可以開始提問了！
+                        </div>
+                    </div>
+                    <div class="loading-indicator" id="loadingIndicator">
+                        🤔 AI 正在思考中...
+                    </div>
+                    <div class="input-group">
+                        <textarea 
+                            class="question-input" 
+                            id="questionInput" 
+                            placeholder="請輸入您的問題..."
+                            rows="1"
+                            disabled
+                            onkeydown="handleKeyDown(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" onclick="askQuestion()" disabled>
+                            發送
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全域變數
+        let isSystemReady = false;  // 記錄系統是否初始化完成
+        let isLoginMode = true;     // true:登入模式，false:註冊模式
+        
+        // DOM 元素
+        const authSection = document.getElementById('authSection'); // 登入區塊
+        const mainSection = document.getElementById('mainSection');// 問答主頁區塊
+        const authForm = document.getElementById('authForm');   // 登入/註冊表單
+        const authTitle = document.getElementById('authTitle'); // 標題文字（登入系統 / 註冊帳號）
+        const authBtn = document.getElementById('authBtn'); // 提交按鈕（登入 / 註冊）
+        const emailInput = document.getElementById('email');     // 信箱輸入欄（已移除）
+        const toggleText = document.getElementById('toggleText');    // 底下提示文字
+        const toggleLink = document.getElementById('toggleLink');   // 切換登入/註冊的連結
+        const currentUser = document.getElementById('currentUser'); // 顯示目前使用者名稱
+
+        // 檢查登入狀態
+        function checkAuthStatus() {
+            const token = localStorage.getItem('auth_token');   // 從 localStorage 拿出 token
+            const userInfo = localStorage.getItem('user_info'); // 拿出儲存的使用者資料
+            
+            if (token && userInfo) {
+                // 若都有，表示登入過，直接進入主畫面
+                const user = JSON.parse(userInfo);  // 把字串轉成物件
+                showMainSection(user);  // 顯示主畫面
+                initializeSystem(); // 啟動系統初始化
+                loadUserStats(); // 顯示個人統計
+                if (user.is_admin) {
+                    loadAdminStats(); // 如果是管理員，顯示管理統計
+                }
+            } else {
+                showAuthSection();  // 否則顯示登入/註冊畫面
+            }
+        }
+
+        // 顯示登入頁面
+        function showAuthSection() {
+            authSection.classList.remove('hidden'); // 顯示登入畫面
+            mainSection.classList.add('hidden');    // 隱藏主畫面
+        }
+
+        // 修改 showMainSection 函數，載入歷史後再載入統計
+        function showMainSection(user) {
+            authSection.classList.add('hidden');
+            mainSection.classList.remove('hidden');
+            currentUser.textContent = user.username;
+
+            // 載入聊天歷史
+            loadChatHistory();
+        }
+
+        // 登出功能(按下按鈕時觸發)
+        function logout() {
+            localStorage.removeItem('auth_token');// 清除 token
+            localStorage.removeItem('user_info');// 清除使用者資訊
+            location.reload();   // 重新整理頁面，回到登入畫面，
+        }
+
+        // 產生認證用的 HTTP 標頭（夾帶 token）
+        function getAuthHeaders() {
+            const token = localStorage.getItem('auth_token');   // 拿 token
+            const headers = {
+                'Content-Type': 'application/json'   // 告訴伺服器傳送的是 JSON 格式
+            };
+            
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;   // 加上 token（JWT）到 Authorization 欄位
+            }
+            
+            return headers;
+        }
+
+        // 切換登入/註冊模式
+        toggleLink.addEventListener('click', (e) => {
+            e.preventDefault(); // 防止頁面跳轉
+            isLoginMode = !isLoginMode;      // 切換模式
+            
+            if (isLoginMode) {
+                 // 切換回「登入」模式
+                authTitle.textContent = '登入系統';
+                authBtn.textContent = '登入';
+                toggleText.textContent = '還沒有帳號嗎？';
+                toggleLink.textContent = '立即註冊';
+            } else {
+                authTitle.textContent = '註冊帳號';
+                authBtn.textContent = '註冊';
+                toggleText.textContent = '已經有帳號了？';
+                toggleLink.textContent = '立即登入';
+            }
+        });
+
+        // 登入/註冊表單提交（點登入/註冊按鈕）
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // 阻止表單預設送出行為（不換頁）
+            
+             // 抓取輸入值
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // 根據目前模式決定送到哪個後端 API
+            const endpoint = isLoginMode ? '/login' : '/register';
+
+            // 組成送出的資料物件（移除 email）
+            const payload = { username, password };
+            
+            try {
+                 // 送出 POST 請求到後端
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();// 將回應解析為 JSON
+                
+                if (response.ok) {
+                    if (isLoginMode) {
+                         // 登入成功 → 儲存 token 與使用者資料
+                        localStorage.setItem('auth_token', result.access_token);
+                        localStorage.setItem('user_info', JSON.stringify(result.user_info));
+                        showMainSection(result.user_info);// 顯示主畫面
+                        initializeSystem();               // 初始化系統
+                        loadUserStats(); // 顯示個人統計
+                        if (result.user_info.is_admin) {
+                            loadAdminStats(); // 如果是管理員，顯示管理統計
+                        }
+                    } else {
+                        alert('註冊成功！請登入');
+                        toggleLink.click(); // 自動切換到登入模式
+                        authForm.reset();   // 清除輸入內容
+                    }
+                } else {
+                    // 若登入或註冊失敗，顯示錯誤訊息
+                    alert(result.detail || '操作失敗');
+                }
+            } catch (error) {
+                alert('網路錯誤：' + error.message);
+            }
+        });
+
+
+        async function initializeSystem() {
+            const statusDiv = document.getElementById('systemStatus');
+            try {
+                statusDiv.innerHTML = '🔄 正在載入文件並建立向量資料庫...';
+                statusDiv.className = 'system-status status-loading';
+                
+                const response = await fetch('/initialize', { 
+                    method: 'POST',
+                    headers: getAuthHeaders()
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    isSystemReady = true;
+                    statusDiv.innerHTML = '✅ 系統已就緒！您現在可以開始提問了';
+                    statusDiv.className = 'system-status status-ready';
+                    // 啟用輸入框和按鈕
+                    document.getElementById('questionInput').disabled = false;
+                    document.getElementById('sendBtn').disabled = false;
+                    document.getElementById('questionInput').focus();
+                    // 隱藏歡迎訊息
+                    document.getElementById('welcomeMessage').style.display = 'none';
+                } else {
+                    if (response.status === 401) {
+                        // Token 過期，重新登入
+                        logout();
+                        return;
+                    }
+                    const errorMsg = result.detail || result.message || '未知錯誤';
+                    statusDiv.innerHTML = `❌ 初始化失敗：${errorMsg}`;
+                    statusDiv.className = 'system-status status-error';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `❌ 網路連接錯誤：${error.message}`;
+                statusDiv.className = 'system-status status-error';
+            }
+        }
+
+        async function loadUserStats() {
+            try {
+                const res = await fetch('/stats', { headers: getAuthHeaders() });
+                const data = await res.json();
+
+                if (res.ok) {
+                    document.getElementById('userStatsContent').innerHTML = `
+                        👤 總提問次數：${data.total_questions} <br>
+                        📅 今日提問次數：${data.questions_today} <br>
+                        ⏱ 平均回應時間：${data.avg_response_time} 秒 <br>
+                        🧠 常見主題：${data.most_asked_topics.join(', ')}
+                    `;
+                } else {
+                    document.getElementById('userStatsContent').textContent = '❌ 無法載入使用者統計資料';
+                }
+            } catch (e) {
+                document.getElementById('userStatsContent').textContent = '❌ 錯誤：' + e.message;
+            }
+        }
+
+        async function loadAdminStats() {
+            try {
+                const res = await fetch('/admin/stats', { headers: getAuthHeaders() });
+                const data = await res.json();
+
+                if (res.ok) {
+                    document.getElementById('adminStats').classList.remove('hidden');
+                    document.getElementById('adminStatsContent').innerHTML = `
+                        👥 使用者總數：${data.total_users} <br>
+                        ❓ 問題總數：${data.total_questions} <br>
+                        📆 今日問題數：${data.questions_today}
+                    `;
+                } else {
+                    document.getElementById('adminStatsContent').textContent = '❌ 無法載入管理統計資料';
+                }
+            } catch (e) {
+                document.getElementById('adminStatsContent').textContent = '❌ 錯誤：' + e.message;
+            }
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                askQuestion();
+            }
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
+        }
+
+        // 修改 askQuestion 函數，移除 sources 參數
+        async function askQuestion() {
+            if (!isSystemReady) {
+                alert('⚠️ 系統尚未準備就緒，請等待初始化完成');
+                return;
+            }
+            
+            const questionInput = document.getElementById('questionInput');
+            const question = questionInput.value.trim();
+            if (!question) return;
+
+            // 添加用戶訊息到聊天區（不含時間戳記，表示是新訊息）
+            addMessage(question, 'user');
+            questionInput.value = '';
+            questionInput.style.height = 'auto';
+
+            // 顯示載入指示器
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const sendBtn = document.getElementById('sendBtn');
+            loadingIndicator.classList.add('show');
+            sendBtn.disabled = true;
+            sendBtn.textContent = '思考中...';
+            questionInput.disabled = true;
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ question: question })
+                });
+
+                if (response.status === 401) {
+                    logout();
+                    return;
+                }
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // 移除 sources 參數
+                    addMessage(result.answer, 'bot');
+                    
+                    // 更新統計資料
+                    loadUserStats();
+                } else {
+                    addMessage(`❌ 錯誤：${result.detail}`, 'bot');
+                }
+            } catch (error) {
+                addMessage(`❌ 網路錯誤：${error.message}`, 'bot');
+            } finally {
+                loadingIndicator.classList.remove('show');
+                sendBtn.disabled = false;
+                sendBtn.textContent = '發送';
+                questionInput.disabled = false;
+                questionInput.focus();
+            }
+        }
+
+        // 修改 addMessage 函數，支援時間戳記
+        function addMessage(content, sender, sources = null, timestamp = null) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            // 格式化時間
+            let timeHtml = '';
+            if (timestamp) {
+                const date = new Date(timestamp);
+                timeHtml = `<div class="message-time">${date.toLocaleString('zh-TW')}</div>`;
+            }
+            
+            // 來源資訊（目前已經移除，所以這部分可以省略）
+            let sourcesHtml = '';
+            // if (sources && sources.length > 0) {
+            //     sourcesHtml = '<div class="sources"><strong>📚 參考來源：</strong>';
+            //     sources.forEach((source, index) => {
+            //         sourcesHtml += `<div class="source-item">
+            //             ${index + 1}. 📄 ${source.source} (第 ${source.page} 頁)
+            //             <br><small>內容預覽：${source.content_preview}</small>
+            //         </div>`;
+            //     });
+            //     sourcesHtml += '</div>';
+            // }
+
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    ${content.replace(/\n/g, '<br>')}
+                    ${sourcesHtml}
+                </div>
+                ${timeHtml}
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 載入聊天歷史
+        async function loadChatHistory() {
+            try {
+                const response = await fetch('/chat/history?limit=50', {
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const chatMessages = document.getElementById('chatMessages');
+                    
+                    // 清空現有訊息（除了歡迎訊息）
+                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">系統初始化完成後，您就可以開始提問了！</div>';
+                    
+                    // 反向遍歷歷史紀錄（因為後端是倒序，前端要正序顯示）
+                    data.history.reverse().forEach(item => {
+                        addMessage(item.question, 'user', null, item.timestamp);
+                        addMessage(item.answer, 'bot', null, item.timestamp);
+                    });
+                    
+                    // 如果有歷史紀錄，隱藏歡迎訊息
+                    if (data.history.length > 0) {
+                        document.getElementById('welcomeMessage').style.display = 'none';
+                    }
+                    
+                    // 顯示載入的歷史數量
+                    console.log(`載入了 ${data.history.length} 筆歷史對話`);
+                    
+                } else if (response.status === 401) {
+                    logout();
+                }
+            } catch (error) {
+                console.error('載入歷史紀錄失敗:', error);
+            }
+        }
+
+        // 清除聊天歷史
+        async function clearChatHistory() {
+            if (!confirm('確定要清除所有聊天歷史嗎？此操作無法復原。')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/chat/history', {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                    
+                    // 清空聊天視窗
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">系統初始化完成後，您就可以開始提問了！</div>';
+                    
+                    // 重新載入統計資料
+                    loadUserStats();
+                    
+                } else if (response.status === 401) {
+                    logout();
+                } else {
+                    const error = await response.json();
+                    alert('清除失敗：' + error.detail);
+                }
+            } catch (error) {
+                alert('清除失敗：' + error.message);
+            }
+        }
+
+        // 頁面載入時檢查登入狀態
+        window.addEventListener('load', function() {
+            checkAuthStatus();
+        });
+    </script>
+</body>
+</html>

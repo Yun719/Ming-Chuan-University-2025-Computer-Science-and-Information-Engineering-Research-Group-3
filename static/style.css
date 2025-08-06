@@ -1,0 +1,235 @@
+body { 
+	font-family: Arial, sans-serif; 	/*設定字體為 Arial*/
+	margin: 0;	/*沒有邊界*/
+	padding: 20px; 	
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);	/*背景是漸層色：從藍紫色到深紫色 (135度斜角)*/
+	min-height: 100vh;	/* 確保至少佔滿整個螢幕高度*/
+}
+.container {
+	max-width: 900px;
+	margin: 0; /* 改為靠左對齊，原來是 "0 auto" 會置中 */
+	background: white;
+	padding: 30px;
+	border-radius: 15px;
+	box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+h1 { 
+	color: #333; 
+	text-align: center;	/*置中*/ 
+	margin-bottom: 10px;
+	font-size: 2.5em;	/*2.5倍大小*/
+}
+.subtitle {
+	text-align: center;
+	color: #666;
+	margin-bottom: 30px;
+	font-size: 1.1em;
+}
+.system-status {
+	text-align: center;
+	padding: 15px;
+	margin-bottom: 25px;
+	border-radius: 8px;
+	font-weight: bold;
+}
+.status-loading {		/* 載入中：黃色 */
+	background: #fff3cd;
+	color: #856404;
+	border: 1px solid #ffeaa7;
+}
+.status-ready {		/* 就緒：綠色 */
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+.status-error {		/* 錯誤：紅色 */
+	background: #f8d7da;
+	color: #721c24;
+	border: 1px solid #f5c6cb;
+}
+.chat-container { 
+	margin-top: 20px; 
+}
+.chat-messages { 
+	height: 500px; 				/*固定高度 500px*/
+	overflow-y: auto; 			/*內容太多時可滾動*/
+	border: 1px solid #e9ecef; 
+	padding: 20px; 
+	margin-bottom: 20px; 
+	background: #f8f9fa; 
+	border-radius: 10px;
+	scroll-behavior: smooth;	/*平滑滾動效果*/
+}
+.message { 
+	margin-bottom: 20px; 
+	animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {		/*新訊息會有淡入動畫：從透明+向下10px 漸變到完全顯示*/
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+.user-message { 
+	text-align: right; 	/* 使用者訊息靠右 */
+}
+.bot-message { 
+	text-align: left; 	/* AI 訊息靠左 */
+}
+.message-content { 
+	display: inline-block; 
+	max-width: 75%; 
+	padding: 15px 20px; 
+	border-radius: 20px;
+	word-wrap: break-word;
+	line-height: 1.5;
+}
+.user-message .message-content { 
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);	/*使用者訊息 漸層背景（藍紫色），白字，右下角較尖*/
+	color: white; 
+	border-bottom-right-radius: 5px;
+}
+.bot-message .message-content { 		/*AI 訊息 白色背景，灰框，左下角較尖*/
+	background: white;
+	color: #333; 
+	border: 1px solid #e9ecef;
+	border-bottom-left-radius: 5px;
+}
+.input-group { 		/*輸入框和按鈕並排，圓角設計*/
+	display: flex; 
+	gap: 12px;
+	align-items: flex-end;
+}
+.question-input { 
+	flex: 1; 
+	padding: 15px; 
+	border: 2px solid #e9ecef; 
+	border-radius: 25px; 
+	font-size: 16px;
+	outline: none;
+	transition: border-color 0.3s ease;
+	resize: none;
+	min-height: 50px;
+	max-height: 150px;
+}
+.question-input:focus {	/*聚焦時邊框變藍色（有過渡動畫）*/
+	border-color: #667eea;
+}
+.send-btn { 
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white; 
+	padding: 15px 25px; 
+	border: none; 
+	border-radius: 25px; 
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	transition: transform 0.2s ease;
+	min-height: 50px;
+}
+.send-btn:hover { 
+	transform: translateY(-2px);	/*滑鼠懸停時按鈕會向上浮 2px*/
+}
+.send-btn:disabled { 
+	background: #6c757d; 	/*停用時變灰色，游標變成禁止符號*/
+	cursor: not-allowed;
+	transform: none;
+}
+.sources { 
+	margin-top: 15px; 
+	font-size: 13px; 
+	color: #666; 
+}
+.source-item { 
+	background: #f1f3f4; 	/*淡灰背景，左邊有藍色粗線，像書籤效果*/
+	padding: 10px; 
+	margin: 8px 0; 
+	border-radius: 6px; 
+	border-left: 4px solid #667eea;
+}
+.loading-indicator {
+	display: none;	/* 預設隱藏 */
+	text-align: center;
+	padding: 20px;
+	color: #667eea;
+	font-style: italic;
+}
+.loading-indicator.show {
+	display: block;	/* 有 show 類別時顯示 */
+}
+.welcome-message {
+	text-align: center;
+	padding: 40px 20px;
+	color: #666;
+	font-style: italic;
+}
+
+/* 清除歷史按鈕樣式 */
+.clear-history-btn {
+	background: #ffc107;
+	color: #212529;
+	border: none;
+	padding: 5px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+.clear-history-btn:hover {
+	background: #e0a800;
+}
+
+/* 訊息時間戳記樣式 */
+.message-time {
+	font-size: 12px;
+	color: #888;
+	margin-top: 5px;
+	text-align: right;
+}
+
+.user-message .message-time {
+	text-align: right;
+}
+
+.bot-message .message-time {
+	text-align: left;
+}
+
+/* 歷史訊息與新訊息的區別 */
+.message.history {
+	opacity: 0.85;
+}
+
+.message.history .message-time {
+	display: block;
+}
+
+/* 載入歷史的提示 */
+.history-loaded-indicator {
+	text-align: center;
+	color: #666;
+	font-size: 14px;
+	margin: 10px 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+}
+
+
+/*響應式設計（手機版）*/
+@media (max-width: 768px) {	/*螢幕寬度小於 768px 時啟用*/
+	.container { 
+		padding: 20px; 
+		margin: 10px;
+	}
+	.message-content { 
+		max-width: 85%; 
+	}
+	.input-group { 
+		flex-direction: column; 	/* 手機上垂直排列 */
+	}
+	.send-btn { 
+		width: 100%; /* 按鈕佔滿寬度 */
+	}
+	h1 {
+		font-size: 2em;
+	}
+}
