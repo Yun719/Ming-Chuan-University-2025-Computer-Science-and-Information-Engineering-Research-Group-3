@@ -1,7 +1,7 @@
 # 銘傳大學 2025 資訊工程學系 專研第 3 組
 一個基於 RAG 系統的計算機概論學習助理
 # 安裝必要套件
-為避免套件間因為版本互相干擾，建議使用虛擬環境安裝
+為避免套件因版本互相干擾，建議使用虛擬環境安裝
 ```bash
 pip install langchain
 pip install -qU "langchain[openai]"
