@@ -28,8 +28,9 @@ SECRET_KEY=隨機字串
 # 資料庫設定（SQLite 會自動建立檔案）
 DATABASE_URL=sqlite:///./rag_users.db
 ```
-其中 API_KEY 請改成申請到的金鑰
-SECRET_KEY=打上隨機的字串
+其中 API_KEY 請改成申請到的金鑰  
+
+SECRET_KEY 請加上隨機的字串，比如 `Thsi-kid-aspires-to-be-homeless`
 # 檔案說明：
 RAG_Helper.py：RAG 系統的核心，負責讀取檔案、切割、轉換向量、處理問題等等  
 
