@@ -136,7 +136,7 @@ class UserStats(BaseModel):
     total_questions: int        #	總共問了幾次問題
     questions_today: int        #   今天問了幾次問題
     avg_response_time: float    #   每次回答平均花幾秒
-    most_asked_topics: List[str]#   最常問的主題（字串清單）
+    #most_asked_topics: List[str]#   最常問的主題（字串清單）
 
 # 聊天歷史紀錄
 class ChatHistoryItem(BaseModel):
@@ -329,6 +329,7 @@ async def initialize_system(current_user: str = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail=f"系統初始化失敗：{str(e)}")
 
 
+
 # 問答功能（需要登入）
 @app.post("/ask", response_model=AnswerResponse)
 async def ask_question(request: QuestionRequest, current_user: str = Depends(get_current_user)):
@@ -385,6 +386,7 @@ async def get_user_stats(current_user: str = Depends(get_current_user)):
     cursor.execute("SELECT AVG(response_time) FROM questions_log WHERE user_id = ?", (current_user,))
     avg_response_time = cursor.fetchone()[0] or 0.0
 
+    """
     # 取得最近 50 筆問題
     cursor.execute('''
                    SELECT question
@@ -393,9 +395,9 @@ async def get_user_stats(current_user: str = Depends(get_current_user)):
                    ORDER BY created_at DESC LIMIT 50
                    ''', (current_user,))
     recent_questions = cursor.fetchall()
-
+    """
     conn.close()
-
+    """
     # 統計關鍵字出現次數（簡單字詞分析）
     keyword_counts = {}
     keywords_to_check = ["TCP", "函數", "陣列", "銘傳", "學分", "網路", "電腦", "二進位", "資料庫"]
@@ -408,12 +410,12 @@ async def get_user_stats(current_user: str = Depends(get_current_user)):
     # 排序最多的前幾名
     sorted_keywords = sorted(keyword_counts.items(), key=lambda x: x[1], reverse=True)
     most_asked_topics = [kw for kw, count in sorted_keywords[:3]]
-
+    """
     return UserStats(
         total_questions=total_questions,
         questions_today=questions_today,
         avg_response_time=round(avg_response_time, 2),
-        most_asked_topics = most_asked_topics
+        #most_asked_topics = most_asked_topics
     )
 
 
