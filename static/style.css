@@ -1,17 +1,22 @@
 body { 
 	font-family: Arial, sans-serif; 	/*設定字體為 Arial*/
 	margin: 0;	/*沒有邊界*/
-	padding: 20px; 	
+	padding: 0px; 	
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);	/*背景是漸層色：從藍紫色到深紫色 (135度斜角)*/
-	min-height: 100vh;	/* 確保至少佔滿整個螢幕高度*/
+	height: 100vh;	/* 確保至少佔滿整個螢幕高度*/
+	overflow: hidden;	/* 防止整頁滾動 */
 }
 .container {
-	max-width: 900px;
-	margin: 0; /* 改為靠左對齊，原來是 "0 auto" 會置中 */
+	/*max-width: 1400px;
+	margin: 0 ; 
 	background: white;
-	padding: 30px;
+	padding: 20px;
 	border-radius: 15px;
-	box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+	box-shadow: 0 10px 40px rgba(0,0,0,0.2);*/
+	display: flex;
+	height: 100%; /* 占滿父容器高度 */
+	flex-direction: column;
+	padding: 0px; /* 底部 padding 從 20px 改為 15px */
 }
 h1 { 
 	color: #333; 
@@ -25,39 +30,51 @@ h1 {
 	margin-bottom: 30px;
 	font-size: 1.1em;
 }
-.system-status {
-	text-align: center;
-	padding: 15px;
-	margin-bottom: 25px;
-	border-radius: 8px;
-	font-weight: bold;
+
+/* 標題區域樣式 */
+.header-section {
+    flex-shrink: 0;
+    margin-bottom: 15px;
 }
+
+/* 系統狀態樣式調整（適應左側布局） */
+.system-status {
+    text-align: center;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px; /* 稍微縮小字體 */
+    transition: all 0.3s ease;
+    margin-bottom: 0; /* 移除底部間距 */
+}
+
 .status-loading {		/* 載入中：黃色 */
-	background: #fff3cd;
-	color: #856404;
-	border: 1px solid #ffeaa7;
+    background: linear-gradient(135deg, #ffd89b 0%, #ff8f00 100%);
+    color: white
 }
 .status-ready {		/* 就緒：綠色 */
-	background: #d4edda;
-	color: #155724;
-	border: 1px solid #c3e6cb;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
 }
 .status-error {		/* 錯誤：紅色 */
-	background: #f8d7da;
-	color: #721c24;
-	border: 1px solid #f5c6cb;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #721c24;
 }
 .chat-container { 
-	margin-top: 20px; 
+    flex: 1; /* 關鍵：占滿剩餘空間 */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* 允許子元素縮小 */
+	margin-bottom: 5px;
 }
 .chat-messages { 
-	height: 500px; 				/*固定高度 500px*/
+	flex: 1;              /* 占滿剩餘空間 */
 	overflow-y: auto; 			/*內容太多時可滾動*/
-	border: 1px solid #e9ecef; 
-	padding: 20px; 
-	margin-bottom: 20px; 
+	border: 0px solid #e9ecef; 
+	padding: 10px; 
+	margin-bottom: 0px; 
 	background: #f8f9fa; 
-	border-radius: 10px;
+	/*border-radius: 10px;*/
 	scroll-behavior: smooth;	/*平滑滾動效果*/
 }
 .message { 
@@ -69,10 +86,17 @@ h1 {
 	to { opacity: 1; transform: translateY(0); }
 }
 .user-message { 
-	text-align: right; 	/* 使用者訊息靠右 */
+	display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+	 flex-direction: column; /* 加這行：讓內容垂直排列 */
+    align-items: flex-end;  /* 加這行：讓所有內容靠右對齊 */
 }
 .bot-message { 
-	text-align: left; 	/* AI 訊息靠左 */
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;	/* 所有內容靠左 */
+    margin-bottom: 15px;
 }
 .message-content { 
 	display: inline-block; 
@@ -84,8 +108,12 @@ h1 {
 }
 .user-message .message-content { 
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);	/*使用者訊息 漸層背景（藍紫色），白字，右下角較尖*/
-	color: white; 
-	border-bottom-right-radius: 5px;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 18px 18px 5px 18px;
+    max-width: 70%;
+    word-wrap: break-word;
+    text-align: left; /* 改為左對齊 */
 }
 .bot-message .message-content { 		/*AI 訊息 白色背景，灰框，左下角較尖*/
 	background: white;
@@ -94,9 +122,11 @@ h1 {
 	border-bottom-left-radius: 5px;
 }
 .input-group { 		/*輸入框和按鈕並排，圓角設計*/
-	display: flex; 
-	gap: 12px;
-	align-items: flex-end;
+    flex-shrink: 0;
+    display: flex; 
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 8px; /* 與底部保持小距離 */
 }
 .question-input { 
 	flex: 1; 
@@ -146,11 +176,12 @@ h1 {
 	border-left: 4px solid #667eea;
 }
 .loading-indicator {
-	display: none;	/* 預設隱藏 */
-	text-align: center;
-	padding: 20px;
-	color: #667eea;
-	font-style: italic;
+    display: none;
+    text-align: center;
+    padding: 15px 20px;
+    color: #667eea;
+    font-style: italic;
+    margin-bottom: 10px; /* 與輸入框保持距離 */
 }
 .loading-indicator.show {
 	display: block;	/* 有 show 類別時顯示 */
@@ -162,6 +193,19 @@ h1 {
 	font-style: italic;
 }
 
+.user-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.user-welcome {
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: #333;
+}
+
 /* 清除歷史按鈕樣式 */
 .clear-history-btn {
 	background: #ffc107;
@@ -170,12 +214,29 @@ h1 {
 	padding: 5px 15px;
 	border-radius: 5px;
 	cursor: pointer;
-	margin-left: 10px;
-	margin-right: 5px;
+	/*margin-left: 10px;
+	margin-right: 5px;*/
+}
+
+.clear-history-btn {
+    background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+    color: white;
 }
 
 .clear-history-btn:hover {
-	background: #e0a800;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.clear-history-btn, .logout-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    flex: 1;
 }
 
 /* 訊息時間戳記樣式 */
@@ -188,12 +249,17 @@ h1 {
 
 .user-message .message-time {
 	text-align: right;
+	margin-top: 5px;
+    font-size: 12px;
+    color: #888;
 }
 
 .bot-message .message-time {
-	text-align: left;
+    text-align: left;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
 }
-
 /* 歷史訊息與新訊息的區別 */
 .message.history {
 	opacity: 0.85;
@@ -214,22 +280,156 @@ h1 {
 }
 
 
-/*響應式設計（手機版）*/
-@media (max-width: 768px) {	/*螢幕寬度小於 768px 時啟用*/
-	.container { 
-		padding: 20px; 
-		margin: 10px;
-	}
-	.message-content { 
-		max-width: 85%; 
-	}
-	.input-group { 
-		flex-direction: column; 	/* 手機上垂直排列 */
-	}
-	.send-btn { 
-		width: 100%; /* 按鈕佔滿寬度 */
-	}
-	h1 {
-		font-size: 2em;
-	}
+/* 登入相關樣式 */
+.auth-container {
+	max-width: 400px;
+	margin: 50px auto;
+	padding: 30px;
+	background: white;
+	border-radius: 15px;
+	box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.auth-input {
+	padding: 12px;
+	border: 2px solid #e9ecef;
+	border-radius: 8px;
+	font-size: 16px;
+}
+.auth-btn {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+}
+.auth-toggle {
+	text-align: center;
+	margin-top: 15px;
+	color: #666;
+}
+.auth-toggle a {
+	color: #667eea;
+	text-decoration: none;
+}
+.user-info {
+	padding: 15px;
+	background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+	border-radius: 12px;
+	margin-bottom: 10px;
+}
+.logout-btn {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.logout-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.hidden {
+	display: none !important;
+}
+
+/* 主要布局樣式 */
+.main-layout {
+	display: flex;
+	gap: 15px;
+	max-width: 1400px;
+	margin: 0 ;
+	padding: 0px 0px 0px 330px;
+	height: 100vh; /* 占滿整個視窗高度 */
+}
+
+/* 左側統計區域 */
+.stats-sidebar {
+	width: 300px;
+	min-width: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* 右側主要內容區域 */
+.main-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	background: rgba(255, 255, 255, 0.95);
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+/* 統計區塊樣式 */
+.stats-block {
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-stats {
+	background: linear-gradient(135deg, #e9f7ef 0%, #d4edda 100%);
+}
+
+.admin-stats {
+	background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+}
+
+.stats-block h3 {
+	margin: 0 0 10px 0;
+	font-size: 18px;
+	color: #333;
+}
+
+/* 系統狀態區塊樣式（在左側時） */
+.system-status-block {
+    padding: 0; /* 移除 padding，讓內部的 system-status 控制間距 */
+    background: transparent;
+    box-shadow: none;
+}
+
+/* 響應式設計調整 */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        padding: 10px;
+        height: 100vh;
+    }
+    
+    .stats-sidebar {
+        width: 100%;
+        order: 2;
+        max-height: 40vh; /* 限制左側區域高度 */
+        overflow-y: auto;
+    }
+    
+    .main-content {
+        order: 1;
+        flex: 1;
+        min-height: 0;
+    }
+    
+    /* 手機版系統狀態 */
+    .system-status {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+    
+    /* 手機版輸入框調整 */
+    .container {
+        padding: 15px 15px 10px 15px;
+    }
+    
+    .input-group {
+        margin-bottom: 5px;
+    }
 }

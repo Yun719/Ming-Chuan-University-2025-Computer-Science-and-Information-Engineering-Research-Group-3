@@ -5,127 +5,7 @@
     <title>RAG 問答系統</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
-        /* 登入相關樣式 */
-        .auth-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .auth-input {
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        .auth-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .auth-toggle {
-            text-align: center;
-            margin-top: 15px;
-            color: #666;
-        }
-        .auth-toggle a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        .user-info {
-            text-align: center;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .logout-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .hidden {
-            display: none !important;
-        }
-
-        /* 主要布局樣式 */
-        .main-layout {
-            display: flex;
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* 左側統計區域 */
-        .stats-sidebar {
-            width: 300px;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* 右側主要內容區域 */
-        .main-content {
-            flex: 1;
-            min-width: 0; /* 防止內容溢出 */
-        }
-
-        /* 統計區塊樣式 */
-        .stats-block {
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .user-stats {
-            background: linear-gradient(135deg, #e9f7ef 0%, #d4edda 100%);
-        }
-
-        .admin-stats {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-        }
-
-        .stats-block h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-            color: #333;
-        }
-
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            .main-layout {
-                flex-direction: column;
-                padding: 10px;
-            }
-            
-            .stats-sidebar {
-                width: 100%;
-                order: 2; /* 在手機上，統計區塊移到下方 */
-            }
-            
-            .main-content {
-                order: 1;
-            }
-        }
-
+        
     </style>
 </head>
 <body>
@@ -149,6 +29,29 @@
     <div class="main-layout hidden" id="mainSection">
         <!-- 左側統計區域 -->
         <div class="stats-sidebar">
+
+            <!-- 系統狀態移到這裡 -->
+            <div class="stats-block system-status-block">
+                <div class="header-section">
+                    <h1>計算機概論智慧家教系統</h1>
+                </div>
+
+                <div id="systemStatus" class="system-status status-loading">
+                    🔄 正在初始化系統，請稍候...
+                </div>
+            </div>
+
+             <!-- 使用者資訊 -->
+            <div class="user-info" id="userInfo">
+                <div class="user-welcome">
+                    歡迎，<strong id="currentUser"></strong>！
+                </div>
+                <div class="user-actions">
+                    <button class="clear-history-btn" onclick="clearChatHistory()">清除歷史紀錄</button>
+                    <button class="logout-btn" onclick="logout()">登出</button>
+                </div>
+            </div>
+
             <!-- 使用者統計資訊 -->
             <div class="stats-block user-stats" id="userStats">
                 <h3>📊 我的統計</h3>
@@ -160,25 +63,12 @@
                 <h3>🛠 管理員統計</h3>
                 <div id="adminStatsContent">讀取中...</div>
             </div>
+
         </div>
 
         <!-- 右側主要內容區域 -->
         <div class="main-content">
             <div class="container">
-                <h1>計算機概論問答系統</h1>
-                <div class="subtitle">基於計算機概論教材的問答系統</div>
-
-                <!-- 使用者資訊 -->
-                <div class="user-info" id="userInfo">
-                    <span>歡迎，<strong id="currentUser"></strong>！</span>
-                    <button class="clear-history-btn" onclick="clearChatHistory()">清除歷史</button>
-                    <button class="logout-btn" onclick="logout()">登出</button>
-                </div>
-
-                <div id="systemStatus" class="system-status status-loading">
-                    🔄 正在初始化系統，請稍候...
-                </div>
-
                 <div class="chat-container">
                     <div class="chat-messages" id="chatMessages">
                         <div class="welcome-message" id="welcomeMessage">
@@ -232,7 +122,7 @@
                 // 若都有，表示登入過，直接進入主畫面
                 const user = JSON.parse(userInfo);  // 把字串轉成物件
                 showMainSection(user);  // 顯示主畫面
-                initializeSystem(); // 啟動系統初始化
+                checkSystemStatus();
                 loadUserStats(); // 顯示個人統計
                 if (user.is_admin) {
                     loadAdminStats(); // 如果是管理員，顯示管理統計
@@ -398,9 +288,9 @@
                     document.getElementById('userStatsContent').innerHTML = `
                         👤 總提問次數：${data.total_questions} <br>
                         📅 今日提問次數：${data.questions_today} <br>
-                        ⏱ 平均回應時間：${data.avg_response_time} 秒 <br>
-                        🧠 常見主題：${data.most_asked_topics.join(', ')}
+                        ⏱ 平均回應時間：${data.avg_response_time} 秒 <br>   
                     `;
+                    //🧠 常見主題：${data.most_asked_topics.join(', ')}  
                 } else {
                     document.getElementById('userStatsContent').textContent = '❌ 無法載入使用者統計資料';
                 }
@@ -419,7 +309,7 @@
                     document.getElementById('adminStatsContent').innerHTML = `
                         👥 使用者總數：${data.total_users} <br>
                         ❓ 問題總數：${data.total_questions} <br>
-                        📆 今日問題數：${data.questions_today}
+                        📆 今日問題數：${data.questions_today}                        
                     `;
                 } else {
                     document.getElementById('adminStatsContent').textContent = '❌ 無法載入管理統計資料';
@@ -605,6 +495,37 @@
             } catch (error) {
                 alert('清除失敗：' + error.message);
             }
+        }
+
+        // 新增系統狀態檢查函數
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('/status', { headers: getAuthHeaders() });
+                const result = await response.json();
+                
+                if (result.status === 'ready') {
+                    // 系統已就緒
+                    systemReady();
+                } else {
+                    // 需要初始化
+                    initializeSystem();
+                }
+            } catch (error) {
+                // 如果無法檢查狀態，嘗試初始化
+                initializeSystem();
+            }
+        }
+
+        // 系統就緒狀態
+        function systemReady() {
+            isSystemReady = true;
+            const statusDiv = document.getElementById('systemStatus');
+            statusDiv.innerHTML = '✅ 系統已就緒！';
+            statusDiv.className = 'system-status status-ready';
+            
+            document.getElementById('questionInput').disabled = false;
+            document.getElementById('sendBtn').disabled = false;
+            document.getElementById('welcomeMessage').style.display = 'none';
         }
 
         // 頁面載入時檢查登入狀態
