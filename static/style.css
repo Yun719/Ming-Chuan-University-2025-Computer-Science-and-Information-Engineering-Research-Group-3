@@ -16,7 +16,7 @@ body {
 	display: flex;
 	height: 100%; /* 占滿父容器高度 */
 	flex-direction: column;
-	padding: 0px; /* 底部 padding 從 20px 改為 15px */
+	padding: 5px; /* 底部 padding 從 20px 改為 15px */
 }
 h1 { 
 	color: #333; 
@@ -126,7 +126,7 @@ h1 {
     display: flex; 
     gap: 12px;
     align-items: flex-end;
-    margin-bottom: 8px; /* 與底部保持小距離 */
+    margin-bottom: 15px; /* 與底部保持小距離 */
 }
 .question-input { 
 	flex: 1; 
@@ -139,6 +139,7 @@ h1 {
 	resize: none;
 	min-height: 50px;
 	max-height: 150px;
+
 }
 .question-input:focus {	/*聚焦時邊框變藍色（有過渡動畫）*/
 	border-color: #667eea;
@@ -431,5 +432,6 @@ h1 {
     
     .input-group {
         margin-bottom: 5px;
+		
     }
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>RAG 問答系統</title>
+    <title>計算機概論智慧家教系統</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
         
@@ -33,7 +33,9 @@
             <!-- 系統狀態移到這裡 -->
             <div class="stats-block system-status-block">
                 <div class="header-section">
-                    <h1>計算機概論智慧家教系統</h1>
+                    
+                    <h1><font face="DFKai-sb">計算機概論智慧家教系統</font></h1>
+
                 </div>
 
                 <div id="systemStatus" class="system-status status-loading">
@@ -72,7 +74,7 @@
                 <div class="chat-container">
                     <div class="chat-messages" id="chatMessages">
                         <div class="welcome-message" id="welcomeMessage">
-                            系統初始化完成後，您就可以開始提問了！
+                            啟動學習模式，今天也加油～
                         </div>
                     </div>
                     <div class="loading-indicator" id="loadingIndicator">
@@ -439,7 +441,7 @@
                     const chatMessages = document.getElementById('chatMessages');
                     
                     // 清空現有訊息（除了歡迎訊息）
-                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">系統初始化完成後，您就可以開始提問了！</div>';
+                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">啟動學習模式，今天也加油～</div>';
                     
                     // 反向遍歷歷史紀錄（因為後端是倒序，前端要正序顯示）
                     data.history.reverse().forEach(item => {
@@ -481,7 +483,7 @@
                     
                     // 清空聊天視窗
                     const chatMessages = document.getElementById('chatMessages');
-                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">系統初始化完成後，您就可以開始提問了！</div>';
+                    chatMessages.innerHTML = '<div class="welcome-message" id="welcomeMessage">啟動學習模式，今天也加油～</div>';
                     
                     // 重新載入統計資料
                     loadUserStats();
