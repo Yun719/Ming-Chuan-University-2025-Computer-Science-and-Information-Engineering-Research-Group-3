@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>計算機概論智慧家教系統</title>
+    <title>概論通</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
         
@@ -11,7 +11,10 @@
 <body>
     <!-- 登入/註冊頁面 -->
     <div class="auth-container" id="authSection">
-        <h1 id="authTitle">登入系統</h1>
+        <div class="auth-Title">
+                概論通<br>  
+                帳號登入系統
+        </div>
         
         <form class="auth-form" id="authForm">
             <input type="text" id="username" class="auth-input" placeholder="使用者名稱" required>
@@ -20,7 +23,11 @@
         </form>
         
         <div class="auth-toggle">
-            <span id="toggleText">還沒有帳號嗎？</span>
+            <span id="toggleText">
+                <font color="black">
+                    還沒有帳號嗎？
+                </font>
+            </span>
             <a href="#" id="toggleLink">立即註冊</a>
         </div>
     </div>
@@ -34,7 +41,7 @@
             <div class="stats-block system-status-block">
                 <div class="header-section">
                     
-                    <h1><font face="DFKai-sb">計算機概論智慧家教系統</font></h1>
+                    <h1><font face="DFKai-sb" color="white">概 論 通<br>為您打通一切學習計概的阻礙</font></h1>
 
                 </div>
 
@@ -46,7 +53,9 @@
              <!-- 使用者資訊 -->
             <div class="user-info" id="userInfo">
                 <div class="user-welcome">
-                    歡迎，<strong id="currentUser"></strong>！
+                    <font face="DFKai-sb" color="white" size = 5>
+                        歡迎，<strong id="currentUser"></strong>
+                    </font>
                 </div>
                 <div class="user-actions">
                     <button class="clear-history-btn" onclick="clearChatHistory()">清除歷史紀錄</button>
@@ -56,14 +65,18 @@
 
             <!-- 使用者統計資訊 -->
             <div class="stats-block user-stats" id="userStats">
-                <h3>📊 我的統計</h3>
-                <div id="userStatsContent">讀取中...</div>
+                <font face="DFKai-sb" color="black" size = 4>
+                    <h3>📊 我的統計</h3>
+                    <div id="userStatsContent">讀取中...</div>
+                </font>
             </div>
 
             <!-- 管理員統計資訊（預設隱藏） -->
             <div class="stats-block admin-stats hidden" id="adminStats">
-                <h3>🛠 管理員統計</h3>
-                <div id="adminStatsContent">讀取中...</div>
+                <font face="DFKai-sb" color="black" size = 4>
+                    <h3>🛠 管理員統計</h3>
+                    <div id="adminStatsContent">讀取中...</div>
+                </font>
             </div>
 
         </div>
@@ -124,6 +137,7 @@
                 // 若都有，表示登入過，直接進入主畫面
                 const user = JSON.parse(userInfo);  // 把字串轉成物件
                 showMainSection(user);  // 顯示主畫面
+                document.body.className = 'chat-mode';
                 checkSystemStatus();
                 loadUserStats(); // 顯示個人統計
                 if (user.is_admin) {
@@ -131,6 +145,7 @@
                 }
             } else {
                 showAuthSection();  // 否則顯示登入/註冊畫面
+                document.body.className = 'auth-mode';
             }
         }
 
@@ -154,6 +169,7 @@
         function logout() {
             localStorage.removeItem('auth_token');// 清除 token
             localStorage.removeItem('user_info');// 清除使用者資訊
+            document.body.className = 'auth-mode';
             location.reload();   // 重新整理頁面，回到登入畫面，
         }
 
@@ -221,6 +237,7 @@
                          // 登入成功 → 儲存 token 與使用者資料
                         localStorage.setItem('auth_token', result.access_token);
                         localStorage.setItem('user_info', JSON.stringify(result.user_info));
+                        document.body.className = 'chat-mode'; // 添加這行
                         showMainSection(result.user_info);// 顯示主畫面
                         initializeSystem();               // 初始化系統
                         loadUserStats(); // 顯示個人統計
