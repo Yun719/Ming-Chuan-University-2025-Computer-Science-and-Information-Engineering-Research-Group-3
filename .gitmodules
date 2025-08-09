@@ -1,0 +1,4 @@
+[submodule "modules/pdf_Cutting_TextReplaceImage"]
+	path = modules/pdf_Cutting_TextReplaceImage
+	url = https://github.com/Hanson6047/Interpretation_of_ChartCutting.git
+	branch = main
