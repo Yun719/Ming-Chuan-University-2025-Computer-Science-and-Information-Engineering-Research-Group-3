@@ -466,6 +466,96 @@ h1 {
     box-shadow: none;
 }
 
+/* 為 Markdown 內容添加樣式 */
+.message-content h1, .message-content h2, .message-content h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: inherit;
+}
+
+.message-content h1 { font-size: 1.5em; }
+.message-content h2 { font-size: 1.3em; }
+.message-content h3 { font-size: 1.2em; }
+
+.message-content p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.message-content ul, .message-content ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.message-content li {
+    margin: 5px 0;
+}
+
+.message-content blockquote {
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-left: 4px solid #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 0 8px 8px 0;
+}
+
+.message-content code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.message-content pre {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.message-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.message-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.message-content th, .message-content td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.message-content th {
+    background: rgba(102, 126, 234, 0.1);
+    font-weight: bold;
+}
+
+/* KaTeX 數學公式樣式調整 */
+.katex {
+    font-size: 1.1em;
+}
+
+.katex-display {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* 確保在深色背景下的可讀性 */
+.bot-message .message-content .katex {
+    color: #333;
+}
+
+.user-message .message-content .katex {
+    color: white;
+}
+
 /* 響應式設計調整 */
 @media (max-width: 768px) {
     .main-layout {

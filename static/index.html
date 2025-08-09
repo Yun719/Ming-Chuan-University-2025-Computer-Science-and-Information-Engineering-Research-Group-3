@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>概論通</title>
     <link rel="stylesheet" href="/static/style.css">
-    <style>
-        
-    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
 </head>
 <body>
     <!-- 登入/註冊頁面 -->
@@ -41,7 +44,7 @@
             <div class="stats-block system-status-block">
                 <div class="header-section">
                     
-                    <h1><font face="DFKai-sb" color="white">概 論 通<br>為您打通一切學習計概的阻礙</font></h1>
+                    <h1><font face="DFKai-sb" color="white">概 論 通<br>學計概就該這麼簡單</font></h1>
 
                 </div>
 
@@ -436,7 +439,7 @@
 
             messageDiv.innerHTML = `
                 <div class="message-content">
-                    ${content.replace(/\n/g, '<br>')}
+                    ${sender === 'bot' ? renderMarkdownWithMath(content) : content.replace(/\n/g, '<br>')}
                     ${sourcesHtml}
                 </div>
                 ${timeHtml}
@@ -551,6 +554,80 @@
         window.addEventListener('load', function() {
             checkAuthStatus();
         });
+
+    // Markdown 和數學公式渲染函數
+    function renderMarkdownWithMath(content) {
+        // 先處理數學公式，用更安全的臨時標記保護
+        const mathPlaceholders = [];
+        let mathCounter = 0;
+        
+        // 處理塊級數學公式 $$...$$ (先處理塊級，避免被行內公式干擾)
+        content = content.replace(/\$\$([^$]+?)\$\$/g, (match, formula) => {
+            const placeholder = `ΞMATHBLOCKΞ${mathCounter}ΞENDΞ`;
+            mathPlaceholders.push({
+                type: 'block',
+                formula: formula.trim(),
+                placeholder: placeholder
+            });
+            mathCounter++;
+            return placeholder;
+        });
+        
+        // 處理行內數學公式 $...$
+        content = content.replace(/\$([^$\n]+?)\$/g, (match, formula) => {
+            const placeholder = `ΞMATHINLINEΞ${mathCounter}ΞENDΞ`;
+            mathPlaceholders.push({
+                type: 'inline',
+                formula: formula.trim(),
+                placeholder: placeholder
+            });
+            mathCounter++;
+            return placeholder;
+        });
+        
+        // 配置 marked
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (typeof hljs !== 'undefined' && lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {
+                        return code;
+                    }
+                }
+                return code;
+            },
+            breaks: true,
+            gfm: true
+        });
+        
+        // 渲染 Markdown
+        let html = marked.parse(content);
+        
+        // 還原數學公式並用 KaTeX 渲染
+        mathPlaceholders.forEach(math => {
+            try {
+                const rendered = katex.renderToString(math.formula, {
+                    displayMode: math.type === 'block',
+                    throwOnError: false
+                });
+                html = html.replace(new RegExp(escapeRegExp(math.placeholder), 'g'), rendered);
+            } catch (e) {
+                // 如果渲染失敗，保持原始公式
+                const fallback = math.type === 'block' ? `$$${math.formula}$$` : `$${math.formula}$`;
+                html = html.replace(new RegExp(escapeRegExp(math.placeholder), 'g'), fallback);
+                console.warn('KaTeX 渲染失敗:', math.formula, e);
+            }
+        });
+        
+        return html;
+    }
+
+    // 輔助函數：轉義正則表達式特殊字符
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
     </script>
 </body>
 </html>
