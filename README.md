@@ -1,6 +1,39 @@
 # 銘傳大學 2025 資訊工程學系 專研第 3 組
 一個基於 RAG 系統的計算機概論學習助理專案
-# 安裝必要套件
+
+## 🚀 快速安裝（推薦）
+
+### 方法一：一鍵安裝腳本
+```bash
+# 1. Clone 專案（不需要 --recurse-submodules）
+git clone https://github.com/your-username/Ming-Chuan-University-2025-Computer-Science-and-Information-Engineering-Research-Group-3.git
+cd Ming-Chuan-University-2025-Computer-Science-and-Information-Engineering-Research-Group-3
+
+# 2. 運行自動安裝腳本
+# Linux/macOS
+chmod +x setup.sh
+./setup.sh
+
+# Windows
+setup.bat
+```
+
+腳本會自動處理：
+- ✅ Git submodules 初始化
+- ✅ Python 環境檢查
+- ✅ 虛擬環境建立（可選）
+- ✅ 所有套件安裝
+- ✅ .env 設定檔模板建立
+
+### 方法二：傳統安裝
+如果你不想使用自動腳本，可以依照以下步驟：
+
+```bash
+# Clone 專案並初始化 submodules
+git clone --recurse-submodules https://github.com/your-username/Ming-Chuan-University-2025-Computer-Science-and-Information-Engineering-Research-Group-3.git
+```
+
+## 📦 手動安裝必要套件
 為避免套件因版本互相干擾，建議使用虛擬環境安裝
 ```bash
 pip install langchain
