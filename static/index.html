@@ -81,6 +81,15 @@
                     <div id="adminStatsContent">讀取中...</div>
                 </font>
             </div>
+            
+            <div class="character-container">
+                <div class="speech-bubble" id="speechBubble">
+                     啟動學習模式，今天也加油～
+                </div>
+                <div class="character-avatar">
+                    <img src="/static/character.png" alt="Q版助手" id="characterImg">
+                </div>
+            </div>
 
         </div>
 
@@ -436,10 +445,11 @@
             //     });
             //     sourcesHtml += '</div>';
             // }
-
+            //${content.replace(/\n/g, '<br>')}
             messageDiv.innerHTML = `
                 <div class="message-content">
                     ${sender === 'bot' ? renderMarkdownWithMath(content) : content.replace(/\n/g, '<br>')}
+                    
                     ${sourcesHtml}
                 </div>
                 ${timeHtml}
@@ -549,6 +559,34 @@
             document.getElementById('sendBtn').disabled = false;
             document.getElementById('welcomeMessage').style.display = 'none';
         }
+
+        // Q版人物對話功能
+        const characterDialogues = [
+            "嘿，今天也有好好努力喔♡",
+            "累了就休息一下，然後再繼續加油吧～",
+            "腦袋裝滿知識的感覺，好棒！",
+            "今天也給努力的自己一個抱抱吧",
+            "學會了什麼的瞬間，最閃亮了呢☆",
+            "知識魔法，今天也要施放一次～",
+            "嗯嗯～今天也來學點東西吧～",
+            "學習模式，啾～啟動♡",
+            "小腦袋要乖乖吃知識飯～",
+            "來吧來吧～我們的學習時間到了～",
+            "來吧～知識的冒險又開始了！",
+            "今天也一起乖乖學習吧～"
+        ];
+
+        function updateCharacterDialogue() {
+            const speechBubble = document.getElementById('speechBubble');
+            if (speechBubble) {
+                const randomIndex = Math.floor(Math.random() * characterDialogues.length);
+                speechBubble.textContent = characterDialogues[randomIndex];
+            }
+        }
+
+        // 每20秒更換一次對話
+        setInterval(updateCharacterDialogue, 20000);
+
 
         // 頁面載入時檢查登入狀態
         window.addEventListener('load', function() {
