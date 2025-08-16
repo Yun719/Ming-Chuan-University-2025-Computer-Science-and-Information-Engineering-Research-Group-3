@@ -15,7 +15,7 @@
 <body>
     <!-- 登入/註冊頁面 -->
     <div class="auth-container" id="authSection">
-        <div class="auth-Title">
+        <div class="auth-Title" id="authTitle">
                 概論通<br>  
                 帳號登入系統
         </div>
@@ -207,7 +207,7 @@
             
             if (isLoginMode) {
                  // 切換回「登入」模式
-                authTitle.textContent = '登入系統';
+                authTitle.innerHTML = '概論通<br>帳號登入系統';
                 authBtn.textContent = '登入';
                 toggleText.textContent = '還沒有帳號嗎？';
                 toggleLink.textContent = '立即註冊';
@@ -587,7 +587,6 @@
 
         // 每20秒更換一次對話
         setInterval(updateCharacterDialogue, 20000);
-
 
         // 頁面載入時檢查登入狀態
         window.addEventListener('load', function() {
