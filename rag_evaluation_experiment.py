@@ -1,4 +1,4 @@
-"""
+"""主要實驗腳本
 RAG_Helper.py 系統評估實驗
 
 使用 TruLens 對現有 RAG 系統進行全面評估
@@ -10,6 +10,10 @@ import asyncio
 import json
 from datetime import datetime
 from pathlib import Path
+from dotenv import load_dotenv
+
+# 載入 .env 檔案
+load_dotenv()
 
 # 設定 UTF-8 編碼
 if sys.platform == "win32":
@@ -21,7 +25,7 @@ if sys.platform == "win32":
         sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer)
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer)
 
-# TruLens 匯入
+# TruLens 匯入 (使用穩定的 API)
 from trulens_eval.feedback import Feedback
 from trulens.core import TruSession
 from trulens.apps.basic import TruBasicApp
