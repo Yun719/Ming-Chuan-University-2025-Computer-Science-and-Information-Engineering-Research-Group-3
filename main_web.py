@@ -37,12 +37,21 @@ if not DATABASE_URL:
 def get_db_connection():
     """取得 PostgreSQL 資料庫連線"""
     try:
-        # Render 的 PostgreSQL 需要 SSL 連線
-        conn = psycopg2.connect(
-            DATABASE_URL,
-            cursor_factory=RealDictCursor,
-            sslmode='require'  # Render 需要 SSL 連線
-        )
+        # 檢查是否為 Render 部署環境
+        if "render.com" in DATABASE_URL or "amazonaws.com" in DATABASE_URL:
+            # 雲端環境需要 SSL 連線
+            conn = psycopg2.connect(
+                DATABASE_URL,
+                cursor_factory=RealDictCursor,
+                sslmode='require'
+            )
+        else:
+            # 本地環境不需要 SSL 連線
+            conn = psycopg2.connect(
+                DATABASE_URL,
+                cursor_factory=RealDictCursor,
+                sslmode='disable'  # 本地測試時停用 SSL
+            )
         return conn
     except Exception as e:
         print(f"資料庫連線失敗: {e}")
@@ -121,6 +130,7 @@ app = FastAPI(
 
 # 掛載 /static 用來提供 CSS、JS 檔案
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 # 設定 CORS
 app.add_middleware(
@@ -355,14 +365,38 @@ async def initialize_system(current_user: str = Depends(get_current_user)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"系統初始化失敗：{str(e)}")
 
+
+# 在 ask_question 函數中新增圖片測試邏輯
 @app.post("/ask", response_model=AnswerResponse)
 async def ask_question(request: QuestionRequest, current_user: str = Depends(get_current_user)):
     """回答問題（需登入）"""
     global rag_instance
 
+    # 檢查是否為圖片測試指令
+    if re.match(r'^\d+$', request.question.strip()):
+        try:
+            image_id = int(request.question.strip())
+            image_response = await get_test_image(image_id, current_user)
+
+            # 記錄問答
+            start_time = datetime.now()
+            response_time = (datetime.now() - start_time).total_seconds()
+            log_question(current_user, request.question, f"顯示圖片：{image_response.image_name}", 0, response_time)
+
+            return AnswerResponse(
+                answer=f"IMAGE:{image_response.image_url}|{image_response.message}",
+                sources=[]
+            )
+        except HTTPException as e:
+            return AnswerResponse(
+                answer=f"❌ {e.detail}",
+                sources=[]
+            )
+
     if not rag_instance:
         raise HTTPException(status_code=400, detail="系統尚未初始化")
 
+    # 原有的 RAG 問答邏輯...
     try:
         start_time = datetime.now()
         answer, sources = rag_instance.ask(request.question)
@@ -514,24 +548,28 @@ async def clear_chat_history(current_user: str = Depends(get_current_user)):
 
     return {"message": f"已清除 {deleted_count} 筆歷史紀錄"}
 
+def natural_sort_key(s):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(r'(\d+)', s)]
+
 @app.get("/test/image/{image_id}")
 async def get_test_image(image_id: int, current_user: str = Depends(get_current_user)):
     """測試圖片顯示功能"""
 
     # 檢查 images 資料夾是否存在
-    images_folder = "./images"
+    images_folder = "./static/images"
     if not os.path.exists(images_folder):
         raise HTTPException(status_code=404, detail="圖片資料夾不存在")
 
     # 獲取資料夾中的所有圖片檔案
     image_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.bmp', '*.webp']
-    image_files = []
+    image_files =set()
     for ext in image_extensions:
-        image_files.extend(glob.glob(os.path.join(images_folder, ext)))
-        image_files.extend(glob.glob(os.path.join(images_folder, ext.upper())))
+        image_files.update(glob.glob(os.path.join(images_folder, ext)))
+        image_files.update(glob.glob(os.path.join(images_folder, ext.upper())))
 
     # 按檔名排序
-    image_files.sort()
+    image_files = sorted(list(image_files), key=natural_sort_key)
 
     if not image_files:
         raise HTTPException(status_code=404, detail="沒有找到任何圖片")
@@ -552,7 +590,7 @@ async def get_test_image(image_id: int, current_user: str = Depends(get_current_
 @app.get("/test/image-list")
 async def get_image_list(current_user: str = Depends(get_current_user)):
     """獲取所有測試圖片列表"""
-    images_folder = "./images"
+    images_folder = "./static/images"
     if not os.path.exists(images_folder):
         return {"images": [], "count": 0, "message": "圖片資料夾不存在"}
 
