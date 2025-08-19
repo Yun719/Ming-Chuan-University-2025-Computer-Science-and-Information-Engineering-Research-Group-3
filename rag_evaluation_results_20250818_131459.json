@@ -1,0 +1,221 @@
+{
+  "experiment_info": {
+    "timestamp": "2025-08-18T13:14:19.749857",
+    "pdf_folder": "pdfFiles",
+    "evaluations": []
+  },
+  "test_cases": [
+    {
+      "test_case": {
+        "id": "basic_01",
+        "category": "基礎概念",
+        "query": "什麼是計算機？",
+        "expected_keywords": [
+          "電腦",
+          "資料",
+          "處理",
+          "程式"
+        ],
+        "difficulty": "易"
+      },
+      "rag_output": {
+        "answer": "計算機是一種用來協助人們進行計算的工具。從最早的算盤到現代的數位計算機，計算機的主要功能就是處理和運算數字資料。想像一下，計算機就像是一位非常聰明的助手，能夠快速而準確地完成我們需要的計算工作。它不僅可以幫助我們進行簡單的加減乘除，還能處理複雜的邏輯運算和數據分析。\n\n現代計算機通常指的是自動化的數位計算機，它能夠以數位化的方式處理資料，並且可以執行各種程序來完成不同的任務。這些程序和資料都儲存在計算機的記憶體中，讓計算機能夠快速地存取和運行。\n\n你知道嗎？計算機的運作就像是我們的大腦，控制單元就像是大腦的中樞神經，負責指揮其他部分的運作。輸入和輸出系統則像是我們的感官，幫助我們與外界互動。記憶體則是用來儲存我們的記憶和知識。這樣的比喻是不是讓你更容易理解計算機的運作呢？\n\n你有想過計算機是如何幫助我們解決日常生活中的問題嗎？例如，計算機如何協助我們進行財務管理或是科學研究呢？這些都是計算機應用的精彩例子！",
+        "context_count": 5,
+        "context_length": 1058
+      },
+      "scores": {
+        "answer_relevance": 0.0,
+        "context_faithfulness": 0.0,
+        "context_relevance": 0.0,
+        "answer_completeness": 0.8,
+        "overall_quality": 0.16000000000000003
+      },
+      "timestamp": "2025-08-18T13:14:32.945511"
+    },
+    {
+      "test_case": {
+        "id": "basic_02",
+        "category": "基礎概念",
+        "query": "計算機的組成部分有哪些？",
+        "expected_keywords": [
+          "CPU",
+          "記憶體",
+          "輸入",
+          "輸出"
+        ],
+        "difficulty": "易"
+      },
+      "rag_output": {
+        "answer": "太棒了！你正在探索計算機的基本組成部分。計算機主要由以下三個部分組成：\n\n1. **計算機硬件**：這是計算機的物理部分，包括所有的電子和機械部件。硬件可以進一步分為四個子系統：\n   - **存儲器 (Memory)**：用來儲存程序和數據。就像我們的大腦一樣，記憶體幫助計算機記住需要處理的信息。\n   - **算術邏輯單元 (Arithmetic Logic Unit, ALU)**：負責進行數學和邏輯運算。你可以把它想像成計算機的大腦，進行各種計算和決策。\n   - **控制單元 (Control Unit)**：控制計算機的運作，指揮其他部分如何協同工作。就像指揮家一樣，它確保所有部件都在正確的時間做正確的事情。\n   - **輸入/輸出 (Input/Output)**：負責與外界的互動。輸入設備（如鍵盤和滑鼠）讓我們能夠告訴計算機我們想做什麼，而輸出設備（如螢幕和印表機）則顯示計算機的結果。\n\n2. **數據**：這是計算機處理的信息。數據可以是文字、數字、圖片等等，所有這些都可以被計算機理解和處理。\n\n3. **計算機軟件**：這是指運行在硬件上的程序和應用。軟件指導硬件如何執行特定的任務，就像一本使用手冊，告訴計算機如何完成工作。\n\n這些組成部分共同合作，使計算機能夠執行各種複雜的任務。你可以想像計算機是一個高效的團隊，每個成員都有自己的角色和責任。你還有其他相關的問題嗎？例如，想了解更多關於某個特定子系統的功能？",
+        "context_count": 5,
+        "context_length": 949
+      },
+      "scores": {
+        "answer_relevance": 0.0,
+        "context_faithfulness": 0.14285714285714285,
+        "context_relevance": 0.0,
+        "answer_completeness": 0.9,
+        "overall_quality": 0.21571428571428575
+      },
+      "timestamp": "2025-08-18T13:14:38.689748"
+    },
+    {
+      "test_case": {
+        "id": "intermediate_01",
+        "category": "程式設計",
+        "query": "什麼是演算法？",
+        "expected_keywords": [
+          "步驟",
+          "問題",
+          "解決",
+          "邏輯"
+        ],
+        "difficulty": "中"
+      },
+      "rag_output": {
+        "answer": "演算法是一組明確的指令或步驟，用來解決特定問題或完成特定任務。就像烹飪食譜一樣，演算法告訴我們如何一步一步地進行，以達到預期的結果。它在計算機科學中非常重要，因為它提供了一種系統化的方法來處理數據和執行計算。\n\n舉個簡單的例子，假設你想要排序一組數字，演算法就像是告訴你如何比較和交換這些數字的位置，以便最終得到一個從小到大或從大到小的排列。\n\n演算法的特性包括：\n\n1. **明確性**：每一步驟都必須清晰明確，沒有模糊的指令。\n2. **有限性**：演算法必須在有限的步驟內完成。\n3. **輸入和輸出**：演算法有零個或多個輸入，並產生至少一個輸出。\n4. **有效性**：每一步驟都必須是可行的，能夠在有限的時間內完成。\n\n演算法可以應用在各種領域，例如搜尋演算法、排序演算法、加密演算法等。你可以想想，日常生活中有哪些事情是可以用演算法來解決的呢？例如，如何在最短的時間內完成一系列任務，或是如何找到最短的路徑到達目的地。這些都是演算法可以幫助我們的地方。",
+        "context_count": 5,
+        "context_length": 1121
+      },
+      "scores": {
+        "answer_relevance": 0.0,
+        "context_faithfulness": 0.0,
+        "context_relevance": 0.0,
+        "answer_completeness": 1.0,
+        "overall_quality": 0.2
+      },
+      "timestamp": "2025-08-18T13:14:43.349579"
+    },
+    {
+      "test_case": {
+        "id": "intermediate_02",
+        "category": "資料結構",
+        "query": "陣列和串列有什麼差別？",
+        "expected_keywords": [
+          "陣列",
+          "串列",
+          "記憶體",
+          "存取"
+        ],
+        "difficulty": "中"
+      },
+      "rag_output": {
+        "answer": "這是一個很好的問題！陣列和串列都是用來儲存資料的結構，但它們在結構和操作上有一些重要的差異。\n\n1. **陣列（Array）**：\n   - **固定大小**：陣列的大小在創建時就已經確定，無法動態調整。例如，你創建了一個大小為10的整數陣列，那麼這個陣列就只能容納10個整數。\n   - **連續記憶體**：陣列中的元素在記憶體中是連續存放的，這使得陣列可以快速地透過索引來存取元素，時間複雜度為 $O(1)$。\n   - **類型一致**：陣列中的所有元素必須是相同的資料類型。\n\n2. **串列（List）**：\n   - **動態大小**：串列的大小可以動態調整，這意味著你可以在程式運行時增加或刪除元素。\n   - **非連續記憶體**：串列中的元素不必連續存放，這使得插入和刪除元素的操作更加靈活，特別是在中間插入或刪除元素時，時間複雜度通常為 $O(1)$。\n   - **類型靈活**：串列可以儲存不同類型的資料（視語言而定），例如整數、字串等。\n\n一個簡單的比喻是，陣列就像是一個固定大小的蛋盒，每個格子都只能放一顆蛋，而串列則像是一串珍珠項鍊，你可以隨時增加或移除珍珠。\n\n你對於陣列或串列的應用有什麼特別的興趣嗎？或者想了解它們在某些情境下的具體使用方式？",
+        "context_count": 5,
+        "context_length": 948
+      },
+      "scores": {
+        "answer_relevance": 0.0,
+        "context_faithfulness": 0.06666666666666667,
+        "context_relevance": 0.0,
+        "answer_completeness": 0.9,
+        "overall_quality": 0.19666666666666668
+      },
+      "timestamp": "2025-08-18T13:14:48.165767"
+    },
+    {
+      "test_case": {
+        "id": "advanced_01",
+        "category": "系統概念",
+        "query": "作業系統的主要功能是什麼？",
+        "expected_keywords": [
+          "管理",
+          "資源",
+          "程序",
+          "檔案"
+        ],
+        "difficulty": "難"
+      },
+      "rag_output": {
+        "answer": "作業系統是計算機中非常重要的軟體，它就像一個指揮家，負責協調和管理計算機硬體和軟體資源。作業系統的主要功能包括：\n\n1. **資源管理**：作業系統負責管理計算機的硬體資源，例如 CPU、記憶體、磁碟和輸入輸出設備。它確保這些資源能夠有效地被不同的程式使用。\n\n2. **處理器管理**：作業系統負責分配 CPU 時間給各個正在執行的程式，確保每個程式都能公平地使用 CPU。\n\n3. **記憶體管理**：作業系統管理計算機的記憶體，確保不同的程式不會互相干擾，並且能有效利用可用的記憶體空間。\n\n4. **檔案管理**：作業系統提供檔案系統，讓使用者能夠儲存和檢索資料。它負責管理檔案的存取權限和存儲位置。\n\n5. **輸入輸出管理**：作業系統負責管理所有的輸入和輸出操作，確保資料能夠正確地在計算機和外部設備之間傳輸。\n\n6. **安全性和存取控制**：作業系統提供安全性功能，保護系統免受未授權的存取和惡意攻擊。\n\n作業系統就像是一個交通指揮員，確保所有的車輛（程式和資源）能夠順利地在道路上（計算機系統）運行，而不發生碰撞或堵塞。這樣的功能使得使用者和程式能夠在計算機上流暢地工作。\n\n你是否對作業系統的某個功能有特別的興趣或想了解更多細節呢？例如，想知道作業系統如何管理記憶體或處理器？",
+        "context_count": 5,
+        "context_length": 1352
+      },
+      "scores": {
+        "answer_relevance": 0.0,
+        "context_faithfulness": 0.05263157894736842,
+        "context_relevance": 0.0,
+        "answer_completeness": 0.9,
+        "overall_quality": 0.19315789473684214
+      },
+      "timestamp": "2025-08-18T13:14:54.197232"
+    },
+    {
+      "test_case": {
+        "id": "edge_01",
+        "category": "邊界測試",
+        "query": "請解釋量子計算",
+        "expected_keywords": [],
+        "difficulty": "超範圍"
+      },
+      "error": "Error code: 429 - {'error': {'message': 'gpt-4o-ca模型免费API限制每日5次请求，请00:00后再试，如有更多需求，请访问 https://api.chatanywhere.tech/#/shop 购买付费API。The free account is limited to 5 requests per day. Please try again after 00:00 the next day. If you have additional requirements, please visit https://api.chatanywhere.tech/#/shop to purchase a premium key.(当前请求使用的ApiKey: sk-WDD****yzj0)【如果您遇到问题，欢迎加入QQ群咨询：1048463714】', 'type': 'chatanywhere_error', 'param': None, 'code': '429 TOO_MANY_REQUESTS'}}",
+      "timestamp": "2025-08-18T13:14:56.880288"
+    },
+    {
+      "test_case": {
+        "id": "edge_02",
+        "category": "邊界測試",
+        "query": "天氣如何？",
+        "expected_keywords": [],
+        "difficulty": "無關"
+      },
+      "error": "Error code: 429 - {'error': {'message': 'gpt-4o-ca模型免费API限制每日5次请求，请00:00后再试，如有更多需求，请访问 https://api.chatanywhere.tech/#/shop 购买付费API。The free account is limited to 5 requests per day. Please try again after 00:00 the next day. If you have additional requirements, please visit https://api.chatanywhere.tech/#/shop to purchase a premium key.(当前请求使用的ApiKey: sk-WDD****yzj0)【如果您遇到问题，欢迎加入QQ群咨询：1048463714】', 'type': 'chatanywhere_error', 'param': None, 'code': '429 TOO_MANY_REQUESTS'}}",
+      "timestamp": "2025-08-18T13:14:59.471195"
+    }
+  ],
+  "metrics": {
+    "answer_relevance": {
+      "average": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "count": 5
+    },
+    "context_faithfulness": {
+      "average": 0.052431077694235585,
+      "min": 0.0,
+      "max": 0.14285714285714285,
+      "count": 5
+    },
+    "context_relevance": {
+      "average": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "count": 5
+    },
+    "answer_completeness": {
+      "average": 0.9,
+      "min": 0.8,
+      "max": 1.0,
+      "count": 5
+    },
+    "overall_quality": {
+      "average": 0.19310776942355892,
+      "min": 0.16000000000000003,
+      "max": 0.21571428571428575,
+      "count": 5
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "successful_tests": 5,
+    "failed_tests": 2,
+    "category_analysis": {
+      "基礎概念": {
+        "average": 0.1878571428571429,
+        "count": 2
+      },
+      "程式設計": {
+        "average": 0.2,
+        "count": 1
+      },
+      "資料結構": {
+        "average": 0.19666666666666668,
+        "count": 1
+      },
+      "系統概念": {
+        "average": 0.19315789473684214,
+        "count": 1
+      }
+    }
+  }
+}
