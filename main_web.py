@@ -16,7 +16,8 @@ from fastapi.responses import FileResponse
 import sqlite3
 import uuid
 from contextlib import asynccontextmanager
-
+import glob
+import re
 
 # 載入 .env 檔案
 load_dotenv()   # 載入環境變數，像是 API 金鑰
@@ -148,6 +149,12 @@ class ChatHistoryItem(BaseModel):
 class ChatHistoryResponse(BaseModel):
     history: List[ChatHistoryItem]
     total_count: int
+
+# 新增圖片回應模型
+class ImageResponse(BaseModel):
+    image_url: str
+    image_name: str
+    message: str
 
 # 工具函數
 #把使用者輸入的密碼「加密（雜湊）」起來，這樣就不會明文儲存在資料庫中
@@ -517,6 +524,63 @@ async def clear_chat_history(current_user: str = Depends(get_current_user)):
     conn.close()
 
     return {"message": f"已清除 {deleted_count} 筆歷史紀錄"}
+
+@app.get("/test/image/{image_id}")
+async def get_test_image(image_id: int, current_user: str = Depends(get_current_user)):
+    """測試圖片顯示功能"""
+
+    # 檢查 images 資料夾是否存在
+    images_folder = "./images"
+    if not os.path.exists(images_folder):
+        raise HTTPException(status_code=404, detail="圖片資料夾不存在")
+
+    # 獲取資料夾中的所有圖片檔案
+    image_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.bmp', '*.webp']
+    image_files = []
+    for ext in image_extensions:
+        image_files.extend(glob.glob(os.path.join(images_folder, ext)))
+        image_files.extend(glob.glob(os.path.join(images_folder, ext.upper())))
+
+    # 按檔名排序
+    image_files.sort()
+
+    if not image_files:
+        raise HTTPException(status_code=404, detail="沒有找到任何圖片")
+
+    if image_id < 1 or image_id > len(image_files):
+        raise HTTPException(status_code=404, detail=f"圖片編號無效，請輸入 1 到 {len(image_files)} 之間的數字")
+
+    selected_image = image_files[image_id - 1]
+    image_name = os.path.basename(selected_image)
+
+    return ImageResponse(
+        image_url=f"/static/images/{image_name}",
+        image_name=image_name,
+        message=f"顯示第 {image_id} 張圖片：{image_name}"
+    )
+
+
+@app.get("/test/image-list")
+async def get_image_list(current_user: str = Depends(get_current_user)):
+    """獲取所有測試圖片列表"""
+    images_folder = "./images"
+    if not os.path.exists(images_folder):
+        return {"images": [], "count": 0, "message": "圖片資料夾不存在"}
+
+    image_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.bmp', '*.webp']
+    image_files = []
+    for ext in image_extensions:
+        image_files.extend(glob.glob(os.path.join(images_folder, ext)))
+        image_files.extend(glob.glob(os.path.join(images_folder, ext.upper())))
+
+    image_files.sort()
+    image_names = [os.path.basename(f) for f in image_files]
+
+    return {
+        "images": image_names,
+        "count": len(image_names),
+        "message": f"找到 {len(image_names)} 張圖片"
+    }
 
 if __name__ == "__main__":
     import uvicorn
