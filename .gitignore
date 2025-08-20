@@ -1,0 +1,29 @@
+# 環境設定檔案
+.env
+*.env
+
+# 資料庫檔案
+*.db
+*.sqlite
+*.sqlite3
+default.sqlite
+rag_users.db
+
+# 快取和索引檔案
+__pycache__/
+*.pyc
+*.pyo
+my_faiss_index/
+trulens_env_new/
+
+# Obsidian 設定
+.obsidian/
+
+# 測試資料 - 不上傳multi_data資料夾
+pdfFiles/multi_data/
+
+# 其他臨時檔案
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
