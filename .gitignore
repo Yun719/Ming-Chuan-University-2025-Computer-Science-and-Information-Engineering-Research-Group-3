@@ -20,6 +20,7 @@ trulens_env_new/
 # Enhanced RAG Helper 產生檔案
 chart_metadata.json
 temp_enhanced_docs/
+pdfFiles/enhanced_docs/
 
 # Obsidian 設定
 .obsidian/
