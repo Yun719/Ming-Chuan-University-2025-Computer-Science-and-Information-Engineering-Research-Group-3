@@ -28,6 +28,13 @@ pdfFiles/enhanced_docs/
 # 測試資料 - 不上傳multi_data資料夾
 pdfFiles/multi_data/
 
+# PDF圖表切割結果 - 不上傳處理結果
+test_ImageCut_result/
+modules/pdf_Cutting_TextReplaceImage/test_ImageCut_result/
+
+# 虛擬環境
+pdf_cutting_env/
+
 # 其他臨時檔案
 *.tmp
 *.log
