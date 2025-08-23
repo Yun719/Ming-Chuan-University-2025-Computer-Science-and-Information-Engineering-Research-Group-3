@@ -741,7 +741,26 @@ async def debug_users_table():
             "error": str(e),
             "message": "無法查詢 users 表格"
         }
-
+    
+@app.get("/debug/questions-log")
+async def debug_questions_log():
+    """問答紀錄"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT id, user_id, question, created_at, response_time
+            FROM questions_log
+            ORDER BY created_at DESC
+            LIMIT 20
+        """)
+        records = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return {"status": "success", "records": records}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+        
 @app.get("/debug/init-check")
 async def debug_init_check():
     """檢查初始化狀態和環境變數"""
