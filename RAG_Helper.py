@@ -128,24 +128,52 @@ class RAGHelper:
             for doc, score in docs_with_scores:
                 # FAISS 使用歐幾里得距離，分數越低表示越相似
                 # 轉換為相似度百分比（可選）
-                # similarity = 1 / (1 + score)  # 轉換公式，讓分數越高表示越相似
+
 
                 #print(f"📄 距離分數: {score:.4f}")
                 #print(f"   文件預覽: {doc.page_content[:100]}...")
 
+                similarity = 1 / (1 + score)  # 轉換公式，讓分數越高表示越相似
                 # 直接使用距離分數進行比較（分數越低越相似）
-                if score <= similarity_threshold:
-                    filtered_docs.append(doc)
+                if similarity >= similarity_threshold:
+                    filtered_docs.append((doc, similarity))
                     #print(f"   ✅ 通過門檻，保留此文件")
                 #else:
                     #print(f"   ❌ 高於門檻 {similarity_threshold}，過濾此文件")
 
             #print(f"📊 過濾結果：{len(docs_with_scores)} -> {len(filtered_docs)} 個文件")
-            return filtered_docs
+
+            weighted_docs = self._calculate_weights(filtered_docs)
+            return weighted_docs
 
         except Exception as e:
             print(f"❌ 檢索過程中發生錯誤: {e}")
             return []
+
+    def _calculate_weights(self, docs_with_scores):
+        """
+        計算權重，並直接修改 doc.page_content 在前面加上「重要性 XX%」
+        Args:
+            docs_with_scores (list): [(doc, similarity), ...]
+
+        """
+        if not docs_with_scores:
+            return []
+
+        total_similarity = sum(sim for _, sim in docs_with_scores)
+        if total_similarity == 0:
+            total_similarity = 1  # 避免除以 0
+
+        weighted_docs = []
+        for doc, sim in docs_with_scores:
+            weight = sim / total_similarity
+
+            # ✅ 直接修改 doc.page_content
+            doc.page_content = f"重要性 {weight:.0%} {doc.page_content}"
+
+            weighted_docs.append(doc)
+
+        return weighted_docs
 
     def get_retriever_with_threshold(self, k=5, similarity_threshold=0.7):
         """
