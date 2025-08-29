@@ -1,0 +1,1192 @@
+{
+  "source_pdf": "d:\\D_drive_BACKUP\\Code\\MyProject\\RAGproj\\Ming-Chuan-University-2025-Computer-Science-and-Information-Engineering-Research-Group-3\\pdfFiles\\ch1計概第一章.pdf",
+  "extraction_time": "2025-08-29T22:41:44.900291",
+  "output_directory": "charts",
+  "total_images": 74,
+  "images": [
+    {
+      "page": 1,
+      "bbox": [
+        28.3439998626709,
+        28.94000244140625,
+        583.8939819335938,
+        311.95001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p001_01.png",
+      "filename": "ch1_fig_p001_01.png",
+      "width": 1920,
+      "height": 979,
+      "extracted_at": "2025-08-29T22:41:43.806300",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        259.239990234375,
+        238.3200225830078,
+        583.8900146484375,
+        419.3600158691406
+      ],
+      "file_path": "charts\\ch1_fig_p001_02.png",
+      "filename": "ch1_fig_p001_02.png",
+      "width": 866,
+      "height": 482,
+      "extracted_at": "2025-08-29T22:41:43.820569",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        28.3439998626709,
+        260.82696533203125,
+        583.8939819335938,
+        781.3569946289062
+      ],
+      "file_path": "charts\\ch1_fig_p001_03.png",
+      "filename": "ch1_fig_p001_03.png",
+      "width": 1481,
+      "height": 1388,
+      "extracted_at": "2025-08-29T22:41:43.880166",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        336.3999938964844,
+        270.0870361328125,
+        353.1479797363281,
+        275.300048828125
+      ],
+      "file_path": "charts\\ch1_fig_p001_04.png",
+      "filename": "ch1_fig_p001_04.png",
+      "width": 45,
+      "height": 14,
+      "extracted_at": "2025-08-29T22:41:43.880166",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        68.9219970703125,
+        260.77001953125,
+        480.74200439453125,
+        331.85003662109375
+      ],
+      "file_path": "charts\\ch1_fig_p001_05.png",
+      "filename": "ch1_fig_p001_05.png",
+      "width": 859,
+      "height": 149,
+      "extracted_at": "2025-08-29T22:41:43.885153",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        68.9219970703125,
+        268.36102294921875,
+        353.3219909667969,
+        320.97003173828125
+      ],
+      "file_path": "charts\\ch1_fig_p001_06.png",
+      "filename": "ch1_fig_p001_06.png",
+      "width": 670,
+      "height": 146,
+      "extracted_at": "2025-08-29T22:41:43.890140",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 1,
+      "bbox": [
+        307.30999755859375,
+        271.01702880859375,
+        567.6600341796875,
+        340.9000244140625
+      ],
+      "file_path": "charts\\ch1_fig_p001_07.png",
+      "filename": "ch1_fig_p001_07.png",
+      "width": 694,
+      "height": 186,
+      "extracted_at": "2025-08-29T22:41:43.896124",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 2,
+      "bbox": [
+        65.25,
+        69.95100402832031,
+        83.1500015258789,
+        87.6300048828125
+      ],
+      "file_path": "charts\\ch1_fig_p002_01.png",
+      "filename": "ch1_fig_p002_01.png",
+      "width": 48,
+      "height": 47,
+      "extracted_at": "2025-08-29T22:41:43.953970",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 2,
+      "bbox": [
+        88.31999969482422,
+        109.08004760742188,
+        116.76000213623047,
+        132.24005126953125
+      ],
+      "file_path": "charts\\ch1_fig_p002_02.png",
+      "filename": "ch1_fig_p002_02.png",
+      "width": 79,
+      "height": 64,
+      "extracted_at": "2025-08-29T22:41:43.954966",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 2,
+      "bbox": [
+        138.83999633789062,
+        117.84001159667969,
+        303.8399963378906,
+        137.760009765625
+      ],
+      "file_path": "charts\\ch1_fig_p002_03.png",
+      "filename": "ch1_fig_p002_03.png",
+      "width": 458,
+      "height": 55,
+      "extracted_at": "2025-08-29T22:41:43.955963",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 2,
+      "bbox": [
+        406.8399963378906,
+        170.24801635742188,
+        519.280029296875,
+        260.20001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p002_04.png",
+      "filename": "ch1_fig_p002_04.png",
+      "width": 375,
+      "height": 300,
+      "extracted_at": "2025-08-29T22:41:43.965167",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 2,
+      "bbox": [
+        405.79998779296875,
+        597.4800415039062,
+        519.1099853515625,
+        652.7300415039062
+      ],
+      "file_path": "charts\\ch1_fig_p002_05.png",
+      "filename": "ch1_fig_p002_05.png",
+      "width": 314,
+      "height": 153,
+      "extracted_at": "2025-08-29T22:41:43.969589",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 3,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p003_01.png",
+      "filename": "ch1_fig_p003_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:43.995522",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 3,
+      "bbox": [
+        114.80000305175781,
+        195.35000610351562,
+        511.0999755859375,
+        492.95001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p003_02.png",
+      "filename": "ch1_fig_p003_02.png",
+      "width": 1321,
+      "height": 992,
+      "extracted_at": "2025-08-29T22:41:44.058354",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 4,
+      "bbox": [
+        65.25,
+        69.95100402832031,
+        83.1500015258789,
+        87.6300048828125
+      ],
+      "file_path": "charts\\ch1_fig_p004_01.png",
+      "filename": "ch1_fig_p004_01.png",
+      "width": 48,
+      "height": 47,
+      "extracted_at": "2025-08-29T22:41:44.078300",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 4,
+      "bbox": [
+        163.7100067138672,
+        292.9300231933594,
+        429.66998291015625,
+        379.70001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p004_02.png",
+      "filename": "ch1_fig_p004_02.png",
+      "width": 738,
+      "height": 241,
+      "extracted_at": "2025-08-29T22:41:44.101239",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 4,
+      "bbox": [
+        79.3499984741211,
+        541.093994140625,
+        100.64999389648438,
+        560.9400024414062
+      ],
+      "file_path": "charts\\ch1_fig_p004_03.png",
+      "filename": "ch1_fig_p004_03.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.102254",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 4,
+      "bbox": [
+        329.75,
+        598.3720703125,
+        392.95001220703125,
+        690.4200439453125
+      ],
+      "file_path": "charts\\ch1_fig_p004_04.png",
+      "filename": "ch1_fig_p004_04.png",
+      "width": 175,
+      "height": 255,
+      "extracted_at": "2025-08-29T22:41:44.107757",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 4,
+      "bbox": [
+        406.25,
+        602.0800170898438,
+        518.6199951171875,
+        686.780029296875
+      ],
+      "file_path": "charts\\ch1_fig_p004_05.png",
+      "filename": "ch1_fig_p004_05.png",
+      "width": 225,
+      "height": 169,
+      "extracted_at": "2025-08-29T22:41:44.113743",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 5,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p005_01.png",
+      "filename": "ch1_fig_p005_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.122718",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 5,
+      "bbox": [
+        405.30999755859375,
+        309.2900390625,
+        532.8699951171875,
+        465.1900329589844
+      ],
+      "file_path": "charts\\ch1_fig_p005_02.png",
+      "filename": "ch1_fig_p005_02.png",
+      "width": 355,
+      "height": 434,
+      "extracted_at": "2025-08-29T22:41:44.148649",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 5,
+      "bbox": [
+        291.4200134277344,
+        283.3100280761719,
+        299.9197998046875,
+        297.030029296875
+      ],
+      "file_path": "charts\\ch1_fig_p005_03.png",
+      "filename": "ch1_fig_p005_03.png",
+      "width": 23,
+      "height": 37,
+      "extracted_at": "2025-08-29T22:41:44.149647",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 5,
+      "bbox": [
+        321.3500061035156,
+        280.1240234375,
+        334.18701171875,
+        293.1600341796875
+      ],
+      "file_path": "charts\\ch1_fig_p005_04.png",
+      "filename": "ch1_fig_p005_04.png",
+      "width": 34,
+      "height": 35,
+      "extracted_at": "2025-08-29T22:41:44.150644",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 5,
+      "bbox": [
+        336.6700134277344,
+        280.0610046386719,
+        349.9530029296875,
+        293.20001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p005_05.png",
+      "filename": "ch1_fig_p005_05.png",
+      "width": 35,
+      "height": 35,
+      "extracted_at": "2025-08-29T22:41:44.150644",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 6,
+      "bbox": [
+        524.5499877929688,
+        73.8000259399414,
+        543.9949951171875,
+        92.9000244140625
+      ],
+      "file_path": "charts\\ch1_fig_p006_01.png",
+      "filename": "ch1_fig_p006_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.175590",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 6,
+      "bbox": [
+        65.25,
+        69.95100402832031,
+        83.1500015258789,
+        87.6300048828125
+      ],
+      "file_path": "charts\\ch1_fig_p006_02.png",
+      "filename": "ch1_fig_p006_02.png",
+      "width": 48,
+      "height": 47,
+      "extracted_at": "2025-08-29T22:41:44.176575",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 6,
+      "bbox": [
+        79.3499984741211,
+        368.5840148925781,
+        100.64999389648438,
+        388.4300231933594
+      ],
+      "file_path": "charts\\ch1_fig_p006_03.png",
+      "filename": "ch1_fig_p006_03.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.177572",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 6,
+      "bbox": [
+        430.20001220703125,
+        93.60000610351562,
+        570.300048828125,
+        286.760009765625
+      ],
+      "file_path": "charts\\ch1_fig_p006_04.png",
+      "filename": "ch1_fig_p006_04.png",
+      "width": 429,
+      "height": 591,
+      "extracted_at": "2025-08-29T22:41:44.197534",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 6,
+      "bbox": [
+        435.0,
+        394.8000183105469,
+        581.3499755859375,
+        492.45001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p006_05.png",
+      "filename": "ch1_fig_p006_05.png",
+      "width": 448,
+      "height": 299,
+      "extracted_at": "2025-08-29T22:41:44.207573",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 7,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p007_01.png",
+      "filename": "ch1_fig_p007_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.215552",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 7,
+      "bbox": [
+        79.3499984741211,
+        196.32403564453125,
+        100.64999389648438,
+        216.1700439453125
+      ],
+      "file_path": "charts\\ch1_fig_p007_02.png",
+      "filename": "ch1_fig_p007_02.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.216549",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 7,
+      "bbox": [
+        472.0799865722656,
+        222.48004150390625,
+        601.739990234375,
+        352.3800354003906
+      ],
+      "file_path": "charts\\ch1_fig_p007_03.png",
+      "filename": "ch1_fig_p007_03.png",
+      "width": 361,
+      "height": 361,
+      "extracted_at": "2025-08-29T22:41:44.233632",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        524.5499877929688,
+        73.8000259399414,
+        543.9949951171875,
+        92.9000244140625
+      ],
+      "file_path": "charts\\ch1_fig_p008_01.png",
+      "filename": "ch1_fig_p008_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.264549",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        65.25,
+        69.95100402832031,
+        83.1500015258789,
+        87.6300048828125
+      ],
+      "file_path": "charts\\ch1_fig_p008_02.png",
+      "filename": "ch1_fig_p008_02.png",
+      "width": 48,
+      "height": 47,
+      "extracted_at": "2025-08-29T22:41:44.265547",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        79.3499984741211,
+        98.13404083251953,
+        100.64999389648438,
+        117.98004150390625
+      ],
+      "file_path": "charts\\ch1_fig_p008_03.png",
+      "filename": "ch1_fig_p008_03.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.266544",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        459.4800109863281,
+        111.72005462646484,
+        594.5400390625,
+        229.74005126953125
+      ],
+      "file_path": "charts\\ch1_fig_p008_04.png",
+      "filename": "ch1_fig_p008_04.png",
+      "width": 376,
+      "height": 328,
+      "extracted_at": "2025-08-29T22:41:44.279510",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        220.8000030517578,
+        275.44000244140625,
+        390.6500244140625,
+        502.17999267578125
+      ],
+      "file_path": "charts\\ch1_fig_p008_05.png",
+      "filename": "ch1_fig_p008_05.png",
+      "width": 519,
+      "height": 693,
+      "extracted_at": "2025-08-29T22:41:44.311930",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 8,
+      "bbox": [
+        90.75,
+        543.7970581054688,
+        521.5499877929688,
+        736.8470458984375
+      ],
+      "file_path": "charts\\ch1_fig_p008_06.png",
+      "filename": "ch1_fig_p008_06.png",
+      "width": 1412,
+      "height": 633,
+      "extracted_at": "2025-08-29T22:41:44.341720",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 9,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p009_01.png",
+      "filename": "ch1_fig_p009_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.364690",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 9,
+      "bbox": [
+        406.67999267578125,
+        94.68000030517578,
+        547.739990234375,
+        220.5
+      ],
+      "file_path": "charts\\ch1_fig_p009_02.png",
+      "filename": "ch1_fig_p009_02.png",
+      "width": 392,
+      "height": 350,
+      "extracted_at": "2025-08-29T22:41:44.378622",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 9,
+      "bbox": [
+        414.6000061035156,
+        294.02001953125,
+        550.2000122070312,
+        408.6200256347656
+      ],
+      "file_path": "charts\\ch1_fig_p009_03.png",
+      "filename": "ch1_fig_p009_03.png",
+      "width": 415,
+      "height": 349,
+      "extracted_at": "2025-08-29T22:41:44.395577",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 9,
+      "bbox": [
+        442.20001220703125,
+        570.6000366210938,
+        558.6000366210938,
+        719.800048828125
+      ],
+      "file_path": "charts\\ch1_fig_p009_04.png",
+      "filename": "ch1_fig_p009_04.png",
+      "width": 356,
+      "height": 456,
+      "extracted_at": "2025-08-29T22:41:44.413559",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 10,
+      "bbox": [
+        524.4000244140625,
+        73.1500015258789,
+        543.8450317382812,
+        92.25
+      ],
+      "file_path": "charts\\ch1_fig_p010_01.png",
+      "filename": "ch1_fig_p010_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.432511",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 10,
+      "bbox": [
+        136.1999969482422,
+        325.7900085449219,
+        494.9000244140625,
+        506.1400146484375
+      ],
+      "file_path": "charts\\ch1_fig_p010_02.png",
+      "filename": "ch1_fig_p010_02.png",
+      "width": 1092,
+      "height": 549,
+      "extracted_at": "2025-08-29T22:41:44.481378",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 11,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p011_01.png",
+      "filename": "ch1_fig_p011_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.496342",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 11,
+      "bbox": [
+        479.5,
+        295.21002197265625,
+        578.4769897460938,
+        427.010009765625
+      ],
+      "file_path": "charts\\ch1_fig_p011_02.png",
+      "filename": "ch1_fig_p011_02.png",
+      "width": 244,
+      "height": 325,
+      "extracted_at": "2025-08-29T22:41:44.503288",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 11,
+      "bbox": [
+        456.0,
+        499.13604736328125,
+        582.5800170898438,
+        756.93603515625
+      ],
+      "file_path": "charts\\ch1_fig_p011_03.png",
+      "filename": "ch1_fig_p011_03.png",
+      "width": 381,
+      "height": 776,
+      "extracted_at": "2025-08-29T22:41:44.527477",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 11,
+      "bbox": [
+        60.2400016784668,
+        664.4429931640625,
+        230.41000366210938,
+        822.85302734375
+      ],
+      "file_path": "charts\\ch1_fig_p011_04.png",
+      "filename": "ch1_fig_p011_04.png",
+      "width": 60,
+      "height": 56,
+      "extracted_at": "2025-08-29T22:41:44.528474",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 11,
+      "bbox": [
+        75.5999984741211,
+        679.7810668945312,
+        199.70999145507812,
+        793.3810424804688
+      ],
+      "file_path": "charts\\ch1_fig_p011_05.png",
+      "filename": "ch1_fig_p011_05.png",
+      "width": 379,
+      "height": 349,
+      "extracted_at": "2025-08-29T22:41:44.542470",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 12,
+      "bbox": [
+        524.4000244140625,
+        73.1500015258789,
+        543.8450317382812,
+        92.25
+      ],
+      "file_path": "charts\\ch1_fig_p012_01.png",
+      "filename": "ch1_fig_p012_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.557429",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 12,
+      "bbox": [
+        63.79999923706055,
+        561.260009765625,
+        565.02001953125,
+        652.7100219726562
+      ],
+      "file_path": "charts\\ch1_fig_p012_02.png",
+      "filename": "ch1_fig_p012_02.png",
+      "width": 1414,
+      "height": 258,
+      "extracted_at": "2025-08-29T22:41:44.592960",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 13,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p013_01.png",
+      "filename": "ch1_fig_p013_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.619888",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 13,
+      "bbox": [
+        118.80000305175781,
+        300.6200256347656,
+        542.0999755859375,
+        510.3700256347656
+      ],
+      "file_path": "charts\\ch1_fig_p013_02.png",
+      "filename": "ch1_fig_p013_02.png",
+      "width": 1293,
+      "height": 640,
+      "extracted_at": "2025-08-29T22:41:44.727631",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        524.4000244140625,
+        73.1500015258789,
+        543.8450317382812,
+        92.25
+      ],
+      "file_path": "charts\\ch1_fig_p014_01.png",
+      "filename": "ch1_fig_p014_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.752533",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        440.0,
+        170.65000915527344,
+        483.2070007324219,
+        261.95001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p014_02.png",
+      "filename": "ch1_fig_p014_02.png",
+      "width": 120,
+      "height": 253,
+      "extracted_at": "2025-08-29T22:41:44.755525",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        489.29998779296875,
+        170.65000915527344,
+        532.5069580078125,
+        261.95001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p014_03.png",
+      "filename": "ch1_fig_p014_03.png",
+      "width": 120,
+      "height": 253,
+      "extracted_at": "2025-08-29T22:41:44.758517",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        537.1900024414062,
+        170.65000915527344,
+        580.39697265625,
+        261.95001220703125
+      ],
+      "file_path": "charts\\ch1_fig_p014_04.png",
+      "filename": "ch1_fig_p014_04.png",
+      "width": 120,
+      "height": 253,
+      "extracted_at": "2025-08-29T22:41:44.762305",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        42.584999084472656,
+        377.97003173828125,
+        356.4909973144531,
+        650.9410400390625
+      ],
+      "file_path": "charts\\ch1_fig_p014_05.png",
+      "filename": "ch1_fig_p014_05.png",
+      "width": 828,
+      "height": 659,
+      "extracted_at": "2025-08-29T22:41:44.806222",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        313.9200134277344,
+        419.8800354003906,
+        578.75,
+        609.4700317382812
+      ],
+      "file_path": "charts\\ch1_fig_p014_06.png",
+      "filename": "ch1_fig_p014_06.png",
+      "width": 92,
+      "height": 66,
+      "extracted_at": "2025-08-29T22:41:44.807188",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 14,
+      "bbox": [
+        329.3500061035156,
+        435.2900390625,
+        549.280029296875,
+        580.0400390625
+      ],
+      "file_path": "charts\\ch1_fig_p014_07.png",
+      "filename": "ch1_fig_p014_07.png",
+      "width": 673,
+      "height": 443,
+      "extracted_at": "2025-08-29T22:41:44.816195",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 15,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p015_01.png",
+      "filename": "ch1_fig_p015_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.822179",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 16,
+      "bbox": [
+        524.4000244140625,
+        73.1500015258789,
+        543.8450317382812,
+        92.25
+      ],
+      "file_path": "charts\\ch1_fig_p016_01.png",
+      "filename": "ch1_fig_p016_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.828131",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 17,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p017_01.png",
+      "filename": "ch1_fig_p017_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.831159",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 18,
+      "bbox": [
+        524.4000244140625,
+        73.1500015258789,
+        543.8450317382812,
+        92.25
+      ],
+      "file_path": "charts\\ch1_fig_p018_01.png",
+      "filename": "ch1_fig_p018_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.843124",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 18,
+      "bbox": [
+        63.70000076293945,
+        582.8499755859375,
+        85.0999984741211,
+        602.75
+      ],
+      "file_path": "charts\\ch1_fig_p018_02.png",
+      "filename": "ch1_fig_p018_02.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.844123",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 18,
+      "bbox": [
+        93.0,
+        108.60000610351562,
+        122.4000015258789,
+        131.760009765625
+      ],
+      "file_path": "charts\\ch1_fig_p018_03.png",
+      "filename": "ch1_fig_p018_03.png",
+      "width": 81,
+      "height": 64,
+      "extracted_at": "2025-08-29T22:41:44.845086",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 18,
+      "bbox": [
+        145.1999969482422,
+        117.96004486083984,
+        383.03997802734375,
+        147.36004638671875
+      ],
+      "file_path": "charts\\ch1_fig_p018_04.png",
+      "filename": "ch1_fig_p018_04.png",
+      "width": 660,
+      "height": 81,
+      "extracted_at": "2025-08-29T22:41:44.847081",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 18,
+      "bbox": [
+        95.30000305175781,
+        294.9300537109375,
+        548.6799926757812,
+        565.4300537109375
+      ],
+      "file_path": "charts\\ch1_fig_p018_05.png",
+      "filename": "ch1_fig_p018_05.png",
+      "width": 1232,
+      "height": 735,
+      "extracted_at": "2025-08-29T22:41:44.872046",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        527.5499877929688,
+        69.1500015258789,
+        546.9949951171875,
+        88.25
+      ],
+      "file_path": "charts\\ch1_fig_p019_01.png",
+      "filename": "ch1_fig_p019_01.png",
+      "width": 52,
+      "height": 51,
+      "extracted_at": "2025-08-29T22:41:44.877033",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        63.70000076293945,
+        96.5,
+        85.0999984741211,
+        116.5
+      ],
+      "file_path": "charts\\ch1_fig_p019_02.png",
+      "filename": "ch1_fig_p019_02.png",
+      "width": 57,
+      "height": 53,
+      "extracted_at": "2025-08-29T22:41:44.877998",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        300.6700134277344,
+        367.2840270996094,
+        308.9745178222656,
+        380.280029296875
+      ],
+      "file_path": "charts\\ch1_fig_p019_03.png",
+      "filename": "ch1_fig_p019_03.png",
+      "width": 23,
+      "height": 37,
+      "extracted_at": "2025-08-29T22:41:44.877998",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        329.9100036621094,
+        364.26202392578125,
+        342.4519958496094,
+        376.6100158691406
+      ],
+      "file_path": "charts\\ch1_fig_p019_04.png",
+      "filename": "ch1_fig_p019_04.png",
+      "width": 34,
+      "height": 35,
+      "extracted_at": "2025-08-29T22:41:44.878996",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        344.8800048828125,
+        364.21502685546875,
+        357.8580017089844,
+        376.6600341796875
+      ],
+      "file_path": "charts\\ch1_fig_p019_05.png",
+      "filename": "ch1_fig_p019_05.png",
+      "width": 35,
+      "height": 35,
+      "extracted_at": "2025-08-29T22:41:44.879993",
+      "description": null,
+      "description_vector": null
+    },
+    {
+      "page": 19,
+      "bbox": [
+        395.1499938964844,
+        381.72003173828125,
+        523.2999877929688,
+        547.7100219726562
+      ],
+      "file_path": "charts\\ch1_fig_p019_06.png",
+      "filename": "ch1_fig_p019_06.png",
+      "width": 332,
+      "height": 430,
+      "extracted_at": "2025-08-29T22:41:44.897261",
+      "description": null,
+      "description_vector": null
+    }
+  ]
+}
