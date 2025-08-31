@@ -156,20 +156,18 @@ class RAGHelper:
         Args:
             docs_with_scores (list): [(doc, similarity), ...]
 
+        Returns:
+            list: [(doc, similarity, weight), ...]
         """
         if not docs_with_scores:
             return []
 
-        total_similarity = sum(sim for _, sim in docs_with_scores)
-        if total_similarity == 0:
-            total_similarity = 1  # 避免除以 0
-
         weighted_docs = []
-        for doc, sim in docs_with_scores:
-            weight = sim / total_similarity
+        for i, (doc, sim) in enumerate(docs_with_scores):
+            # weight =  sim  / total_similarity
 
             # ✅ 直接修改 doc.page_content
-            doc.page_content = f"重要性 {weight:.0%} {doc.page_content}"
+            doc.page_content = f"重要性第 {i + 1}名 {doc.page_content}"
 
             weighted_docs.append(doc)
 
@@ -265,7 +263,7 @@ class RAGHelper:
         if not self.vectorstore:
             raise ValueError("請先執行 load_and_prepare()")
 
-        llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
+        llm = ChatOpenAI(model="gpt-4o", temperature=0.1)
 
         # 根據是否有相似度門檻選擇不同的檢索器
         if similarity_threshold is not None:
@@ -306,11 +304,11 @@ class RAGHelper:
 
         # 創建提示詞模板
         system_prompt = (
-            "你是一個基於 RAG 系統的計算機概論家教。請參考以下提供的內容來回答問題。"
+            "你是一個基於 RAG 系統的計算機概論家教。請參考提供的內容來回答問題。"
+            "如果問題和計算機概論無關，不要回答問題，告訴使用者問計算機概論相關問題"
+            "如果不知道如何回答問題或是問題沒意義，請提醒輸入更多資訊。"  
             "用詞上請多使用正向鼓勵的詞語，並基於現有問題延伸出更多相關的問題。"
             "請針對問題舉出簡單好懂的比喻或例子。"
-            "如果不知道如何回答問題，請說出來。"
-            "如果問題和計算機概論無關，請做出提醒，並且不要回答問題"
             "使用 LaTeX 時，請使用 $ 符號作為塊級公式"
             "請用繁體中文回答。\n\n"
             "{context}"

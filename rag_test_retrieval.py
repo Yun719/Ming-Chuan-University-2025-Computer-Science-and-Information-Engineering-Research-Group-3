@@ -113,7 +113,7 @@ class RAGTester:
                     filtered_docs_with_scores.append((doc, similarity))
                     print(f"   ✅ 通過門檻，保留此文件")
                 else:
-                    filtered_docs_with_scores.append((doc, similarity))
+                    #filtered_docs_with_scores.append((doc, similarity))
                     print(f"   ❌ 低於門檻 {similarity_threshold}，過濾此文件")
 
             if not filtered_docs_with_scores:
@@ -146,16 +146,12 @@ class RAGTester:
         if not docs_with_scores:
             return []
 
-        total_similarity = sum(sim for _, sim in docs_with_scores)
-        if total_similarity == 0:
-            total_similarity = 1  # 避免除以 0
-
         weighted_docs = []
-        for doc, sim in docs_with_scores:
-            weight =  sim  / total_similarity
+        for i,(doc,sim) in enumerate(docs_with_scores):
+            #weight =  sim  / total_similarity
 
             # ✅ 直接修改 doc.page_content
-            doc.page_content = f"重要性 {weight:.0%} {doc.page_content}"
+            doc.page_content = f"重要性第 {i + 1}名 {doc.page_content}"
 
             weighted_docs.append(doc)
 
