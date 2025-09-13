@@ -704,6 +704,299 @@ h1 {
     transform: translateY(-2px);
 }
 
+/* 對話管理區塊樣式 */
+.conversation-block {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.conversation-block h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+}
+
+/* 新對話按鈕 */
+.new-conversation-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.new-conversation-btn:hover {
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+}
+
+.new-conversation-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+/* 當前對話標題 */
+.current-conversation-title {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1976d2;
+    border-left: 4px solid #2196f3;
+    box-shadow: 0 1px 3px rgba(33, 150, 243, 0.2);
+}
+
+/* 對話列表容器 */
+.conversation-list {
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/* 自訂滾動條 */
+.conversation-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.conversation-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.conversation-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.conversation-list::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* 對話項目 */
+.conversation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    margin: 4px 0;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-item:hover {
+    background: #f0f8ff;
+    transform: translateX(2px);
+    border-left-color: #007bff;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.conversation-item.active {
+    background: linear-gradient(135deg, #e3f2fd 0%, #e1f5fe 100%);
+    border-left-color: #2196f3;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+/* 對話標題 */
+.conversation-title {
+    flex: 1;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.conversation-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+.conversation-date {
+    font-size: 11px;
+    color: #666;
+    font-weight: normal;
+}
+
+/* 對話操作按鈕 */
+.conversation-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.conversation-item:hover .conversation-actions {
+    opacity: 1;
+}
+
+.conversation-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+}
+
+.conversation-delete:hover {
+    background: #c82333;
+    transform: scale(1.1);
+}
+
+.conversation-delete:active {
+    transform: scale(0.95);
+}
+
+/* 狀態訊息 */
+.loading-conversations,
+.no-conversations,
+.error-message {
+    text-align: center;
+    padding: 20px 10px;
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.loading-conversations {
+    color: #007bff;
+}
+
+.error-message {
+    color: #dc3545;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.no-conversations {
+    color: #6c757d;
+    background: #f8f9fa;
+    border: 1px dashed #dee2e6;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .conversation-block {
+        margin-top: 15px;
+        padding: 12px;
+    }
+    
+    .conversation-list {
+        max-height: 200px;
+    }
+    
+    .conversation-item {
+        padding: 8px 10px;
+    }
+    
+    .conversation-title {
+        font-size: 12px;
+    }
+    
+    .conversation-date {
+        font-size: 10px;
+    }
+    
+    .new-conversation-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .current-conversation-title {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .conversation-block {
+        padding: 10px;
+    }
+    
+    .conversation-list {
+        max-height: 150px;
+    }
+    
+    .conversation-item {
+        padding: 6px 8px;
+    }
+    
+    .conversation-title {
+        font-size: 11px;
+    }
+    
+    .conversation-actions {
+        opacity: 1; /* 在小螢幕上始終顯示操作按鈕 */
+    }
+}
+
+/* 動畫效果 */
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.conversation-item {
+    animation: slideInFromLeft 0.3s ease-out;
+}
+
+/* 焦點樣式 */
+.new-conversation-btn:focus,
+.conversation-delete:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.conversation-item:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 1px;
+}
+
 /* 響應式設計 */
 @media (max-width: 768px) {
     .modal-content {
@@ -1235,3 +1528,4 @@ h1 {
         transform: scale(0.98) !important;
     }
 }
+

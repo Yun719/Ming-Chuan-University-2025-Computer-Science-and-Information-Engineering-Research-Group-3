@@ -93,17 +93,32 @@ def init_database():
         )
     ''')
 
+    # 新增對話表
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS conversations (
+            id SERIAL PRIMARY KEY,
+            conversation_id VARCHAR(255) UNIQUE NOT NULL,
+            user_id VARCHAR(255) NOT NULL,
+            title VARCHAR(500),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(user_id) REFERENCES users(user_id)
+        )
+    ''')
+
     # 問答紀錄表 - PostgreSQL 語法
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS questions_log (
             id SERIAL PRIMARY KEY,                    -- 問答紀錄編號
             user_id VARCHAR(255) NOT NULL,            -- 使用者 ID
+            conversation_id VARCHAR(255),  -- 新增這一行
             question TEXT NOT NULL,                   -- 問題內容
             answer TEXT NOT NULL,                     -- 回答內容
             sources_count INTEGER DEFAULT 0,          -- 來源段落數
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 問答發生時間
             response_time REAL,                       -- 回答耗時（秒）
-            FOREIGN KEY(user_id) REFERENCES users(user_id) -- 關聯到 users 表
+            FOREIGN KEY(user_id) REFERENCES users(user_id), -- 關聯到 users 表
+            FOREIGN KEY(conversation_id) REFERENCES conversations(conversation_id)  -- 新增外鍵約束
         )
     ''')
 
@@ -194,6 +209,16 @@ class ImageResponse(BaseModel):
     image_name: str
     message: str
 
+# 在現有的資料模型後新增
+class ConversationRequest(BaseModel):
+    question: str
+    conversation_id: Optional[str] = None  # 對話ID，新對話時為空
+
+class ConversationResponse(BaseModel):
+    answer: str
+    sources: List[dict]
+    conversation_id: str  # 返回對話ID
+
 # 工具函數
 def hash_password(password: str) -> str:
     """密碼雜湊"""
@@ -275,6 +300,75 @@ def is_chart_relevant(chart_info, source_content):
 
     return (any(keyword in source_content for keyword in description_keywords) or
             any(keyword in source_content for keyword in caption_keywords))
+
+
+def create_conversation(user_id: str, title: str = None):
+    """創建新對話"""
+    conversation_id = str(uuid.uuid4())
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+                   INSERT INTO conversations (conversation_id, user_id, title)
+                   VALUES (%s, %s, %s)
+                   ''', (conversation_id, user_id, title or "新對話"))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return conversation_id
+
+
+def get_conversation_history(conversation_id: str, limit: int = 10):
+    """獲取對話歷史"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+                   SELECT question, answer, created_at
+                   FROM questions_log
+                   WHERE conversation_id = %s
+                   ORDER BY created_at ASC
+                       LIMIT %s
+                   ''', (conversation_id, limit))
+
+    history = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return history
+
+
+def update_conversation_title(conversation_id: str, title: str):
+    """更新對話標題"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+                   UPDATE conversations
+                   SET title      = %s,
+                       updated_at = CURRENT_TIMESTAMP
+                   WHERE conversation_id = %s
+                   ''', (title, conversation_id))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+def log_question_with_conversation(user_id: str, conversation_id: str, question: str, answer: str, sources_count: int,
+                                   response_time: float):
+    """記錄問答到資料庫（包含對話ID）"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+                   INSERT INTO questions_log (user_id, conversation_id, question, answer, sources_count, response_time)
+                   VALUES (%s, %s, %s, %s, %s, %s)
+                   ''', (user_id, conversation_id, question, answer, sources_count, response_time))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
 
 # API 端點
 
@@ -379,33 +473,10 @@ async def initialize_system(current_user: str = Depends(get_current_user)):
 
 
 # 在 ask_question 函數中新增圖片測試邏輯
-@app.post("/ask", response_model=AnswerResponse)
-async def ask_question(request: QuestionRequest, current_user: str = Depends(get_current_user)):
+@app.post("/ask", response_model=ConversationResponse)
+async def ask_question(request: ConversationRequest, current_user: str = Depends(get_current_user)):
     """回答問題（需登入）"""
     global rag_instance
-
-    """
-    # 檢查是否為圖片測試指令
-    if re.match(r'^\d+$', request.question.strip()):
-        try:
-            image_id = int(request.question.strip())
-            image_response = await get_test_image(image_id, current_user)
-
-            # 記錄問答
-            start_time = datetime.now()
-            response_time = (datetime.now() - start_time).total_seconds()
-            log_question(current_user, request.question, f"顯示圖片：{image_response.image_name}", 0, response_time)
-
-            return AnswerResponse(
-                answer=f"IMAGE:{image_response.image_url}|{image_response.message}",
-                sources=[]
-            )
-        except HTTPException as e:
-            return AnswerResponse(
-                answer=f"❌ {e.detail}",
-                sources=[]
-            )
-    """
 
     if not rag_instance:
         raise HTTPException(status_code=400, detail="系統尚未初始化")
@@ -413,7 +484,31 @@ async def ask_question(request: QuestionRequest, current_user: str = Depends(get
     # 原有的 RAG 問答邏輯...
     try:
         start_time = datetime.now()
-        answer, sources = rag_instance.ask(request.question)
+
+        # 處理對話ID
+        conversation_id = request.conversation_id
+        if not conversation_id:
+            # 創建新對話
+            conversation_id = create_conversation(current_user)
+
+        # 獲取對話歷史（最近3輪，避免上下文過長）
+        history = get_conversation_history(conversation_id, limit=3)
+
+
+        # 構建上下文提示（只有在有歷史時才加入）
+        full_question = request.question
+        if history:
+            context_prompt = "\n以下是最近的對話記錄，供參考：\n"
+            for record in history:
+                # 簡化歷史記錄，只取問題和答案的前100字
+                question_preview = record['question'][:100]
+                answer_preview = record['answer'][:200]
+                context_prompt += f"Q: {question_preview}\nA: {answer_preview}\n\n"
+            context_prompt += "基於上述對話記錄回答新問題：\n"
+            full_question = context_prompt + request.question
+
+        # 調用RAG回答
+        answer, sources = rag_instance.ask(full_question)
         response_time = (datetime.now() - start_time).total_seconds()
 
         # 檢查是否有圖表內容並載入圖表資訊
@@ -480,9 +575,18 @@ async def ask_question(request: QuestionRequest, current_user: str = Depends(get
             final_answer = answer + chart_info_text + f"\nCHARTS:{json.dumps(chart_images, ensure_ascii=False)}"
 
         # 記錄問答
-        log_question(current_user, request.question, final_answer, len(sources), response_time)
+        log_question_with_conversation(current_user, conversation_id, request.question, final_answer, len(sources),response_time)
 
-        return AnswerResponse(answer=final_answer, sources=formatted_sources)
+        # 如果是新對話且沒有標題，自動生成標題
+        if len(history) == 0:
+            title = request.question[:50] + "..." if len(request.question) > 50 else request.question
+            update_conversation_title(conversation_id, title)
+
+        return ConversationResponse(
+            answer=final_answer,
+            sources=formatted_sources,
+            conversation_id=conversation_id
+        )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"回答問題時發生錯誤：{str(e)}")
@@ -853,6 +957,99 @@ async def force_init_database():
             "status": "error",
             "message": f"資料庫初始化失敗：{str(e)}"
         }
+
+
+@app.get("/conversations")
+async def get_conversations(current_user: str = Depends(get_current_user)):
+    """獲取用戶的對話列表"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+                   SELECT conversation_id, title, created_at, updated_at
+                   FROM conversations
+                   WHERE user_id = %s
+                   ORDER BY updated_at DESC LIMIT 50
+                   ''', (current_user,))
+
+    conversations = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return {"conversations": [dict(conv) for conv in conversations]}
+
+
+@app.delete("/conversations/{conversation_id}")
+async def delete_conversation(conversation_id: str, current_user: str = Depends(get_current_user)):
+    """刪除對話"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 先刪除相關的問答記錄
+    cursor.execute('''
+                   DELETE
+                   FROM questions_log
+                   WHERE conversation_id = %s
+                     AND user_id = %s
+                   ''', (conversation_id, current_user))
+
+    # 再刪除對話記錄
+    cursor.execute('''
+                   DELETE
+                   FROM conversations
+                   WHERE conversation_id = %s
+                     AND user_id = %s
+                   ''', (conversation_id, current_user))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return {"message": "對話已刪除"}
+
+
+# 在你的 main_web.py 中新增這個 API
+@app.get("/conversations/{conversation_id}/history")
+async def get_conversation_detail_history(
+        conversation_id: str,
+        current_user: str = Depends(get_current_user)
+):
+    """獲取特定對話的詳細歷史"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 確認對話屬於當前用戶
+    cursor.execute('''
+                   SELECT title
+                   FROM conversations
+                   WHERE conversation_id = %s
+                     AND user_id = %s
+                   ''', (conversation_id, current_user))
+
+    conversation = cursor.fetchone()
+    if not conversation:
+        cursor.close()
+        conn.close()
+        raise HTTPException(status_code=404, detail="對話不存在或無權訪問")
+
+    # 獲取對話歷史
+    cursor.execute('''
+                   SELECT question, answer, created_at, response_time, sources_count
+                   FROM questions_log
+                   WHERE conversation_id = %s
+                   ORDER BY created_at ASC
+                   ''', (conversation_id,))
+
+    messages = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return {
+        "conversation_id": conversation_id,
+        "title": conversation['title'],
+        "messages": [dict(msg) for msg in messages],
+        "total_messages": len(messages)
+    }
 
 if __name__ == "__main__":
     import uvicorn
