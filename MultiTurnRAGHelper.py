@@ -1,19 +1,21 @@
-# import asyncio
-import glob  # 用來找多個檔案
+import asyncio
+import glob
 import os
 import uuid
 from pathlib import Path
+from typing import List, Dict, Any, Optional
+
 # langchain 相關套件
-from langchain.text_splitter import RecursiveCharacterTextSplitter  # 切割文字
-from langchain_community.vectorstores import FAISS  # FAISS : Facebook 開發的向量資料庫，用來做快速相似度搜尋。
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI  # embeddings 用來將文字轉換成向量
-from langchain.chains import create_retrieval_chain  # 建立 RAG 架構中的「檢索＋問答」流程。
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain.chains import create_retrieval_chain, ConversationChain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
-from pydantic import PrivateAttr
-from langchain.schema import BaseRetriever, Document
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.memory import ConversationBufferWindowMemory, ConversationSummaryBufferMemory
+from langchain.schema import BaseRetriever, Document, AIMessage, HumanMessage
 from langchain.callbacks.manager import CallbackManagerForRetrieverRun
-from typing import List
+from pydantic import PrivateAttr
 
 # 可以讀取不同的檔案格式
 from langchain_community.document_loaders import (
@@ -25,21 +27,43 @@ from langchain_community.document_loaders import (
 from Split_Helper import SplitHelper
 
 
-class RAGHelper:
+class MultiTurnRAGHelper:
     def __init__(self, pdf_folder, chunk_size=300, chunk_overlap=50, pdf_target_len=500,
-                 pdf_tolerance=100):  # __init__ 是 python 的建構子
-        self.pdf_folder = pdf_folder  # 儲存 PDF 檔案的 PATH
+                 pdf_tolerance=100, memory_window=10, max_conversations=100):
+        self.pdf_folder = pdf_folder
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.pdf_target_len = pdf_target_len
         self.pdf_tolerance = pdf_tolerance
         self.vectorstore = None
         self.retrieval_chain = None
+        self.conversation_chain = None
+
+        # 多輪對話相關
+        self.conversation_memory = {}  # 存儲每個用戶的對話記憶
+        self.memory_window = memory_window  # 記憶窗口大小
 
         self.splitter_instance = SplitHelper()
-        self.splitter_instance.CENTER_ONLY = False  # 不要求標題居中
-        self.splitter_instance.NUMBERED_HEADERS_ONLY = False  # 不要求標題有編號
-        self.splitter_instance.SMART_CONSOLIDATE = True  # 啟用智能合併
+        self.splitter_instance.CENTER_ONLY = False
+        self.splitter_instance.NUMBERED_HEADERS_ONLY = False
+        self.splitter_instance.SMART_CONSOLIDATE = True
+        self.max_conversations = max_conversations
+
+    def get_or_create_memory(self, user_id: str) -> ConversationBufferWindowMemory:
+        """為每個用戶獲取或創建對話記憶"""
+        # 檢查是否超過最大對話數
+        if len(self.conversation_memory) >= self.max_conversations:
+            # 清理最舊的對話
+            oldest_key = min(self.conversation_memory.keys())
+            del self.conversation_memory[oldest_key]
+
+        if user_id not in self.conversation_memory:
+            self.conversation_memory[user_id] = ConversationBufferWindowMemory(
+                k=self.memory_window,  # 保留最近的 k 輪對話
+                return_messages=True,
+                memory_key="chat_history"
+            )
+        return self.conversation_memory[user_id]
 
     def get_loader(self, path: str):
         ext = Path(path).suffix.lower()
@@ -58,16 +82,14 @@ class RAGHelper:
 
     async def load_any_file_async(self, path: str):
         loader = self.get_loader(path)
-        # 有些 loader 是 async 的，有些不是
         if hasattr(loader, "alazy_load"):
             pages = []
             async for page in loader.alazy_load():
                 pages.append(page)
             return pages
         else:
-            return loader.load()  # 同步方式載入
+            return loader.load()
 
-    # 切割檔案
     def _split_documents(self, documents):
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
@@ -80,16 +102,13 @@ class RAGHelper:
     def _build_vectorstore(self, documents):
         print(f"建立向量資料庫... 共 {len(documents)} 個段落")
 
-        # 確保文檔格式正確
         from langchain.schema import Document as LangchainDocument
         formatted_docs = []
 
         for i, doc in enumerate(documents):
-            # 添加唯一 ID 到元數據
             metadata = doc.metadata.copy() if hasattr(doc, 'metadata') and doc.metadata else {}
             metadata['id'] = f"doc_{i}_{uuid.uuid4().hex[:8]}"
 
-            # 轉換為 Langchain Document
             formatted_doc = LangchainDocument(
                 page_content=doc.page_content if hasattr(doc, 'page_content') else str(doc),
                 metadata=metadata
@@ -99,47 +118,20 @@ class RAGHelper:
         embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
         self.vectorstore = FAISS.from_documents(formatted_docs, embeddings)
 
-    def retrieve_documents(self, query, k=5, similarity_threshold=0.7):
-        """
-        檢索相關文件，並根據相似度門檻過濾結果
-
-        Args:
-            query (str): 查詢字串
-            k (int): 檢索數量
-            similarity_threshold (float): 相似度門檻 (0.0-1.0)，低於此值的結果會被過濾
-
-        Returns:
-            list: 過濾後的文件列表
-        """
+    def retrieve_documents(self, query, k=5, similarity_threshold=0.45):
+        """檢索相關文件，並根據相似度門檻過濾結果"""
         if not self.vectorstore:
             print("❌ 向量資料庫未初始化，請先執行 load_and_prepare()")
             return []
 
         try:
-            # 使用 similarity_search_with_score 獲取帶有分數的結果
-            docs_with_scores = self.vectorstore.similarity_search_with_score(
-                query, k=k
-            )
-
-            # 根據相似度門檻過濾
+            docs_with_scores = self.vectorstore.similarity_search_with_score(query, k=k)
             filtered_docs = []
-            #print(f"🔍 檢索到 {len(docs_with_scores)} 個結果，應用相似度門檻 {similarity_threshold}")
 
             for doc, score in docs_with_scores:
-                # FAISS 使用歐幾里得距離，分數越低表示越相似
-                # 轉換為相似度百分比（可選）
-
-
-                #print(f"📄 距離分數: {score:.4f}")
-                #print(f"   文件預覽: {doc.page_content[:100]}...")
-
-                similarity = 1 / (1 + score)  # 轉換公式，讓分數越高表示越相似
-                # 直接使用距離分數進行比較（分數越低越相似）
+                similarity = 1 / (1 + score)
                 if similarity >= similarity_threshold:
                     filtered_docs.append(doc)
-                    #print(f"   ✅ 通過門檻，保留此文件")
-                #else:
-                    #print(f"   ❌ 高於門檻 {similarity_threshold}，過濾此文件")
 
             return filtered_docs
 
@@ -150,29 +142,21 @@ class RAGHelper:
     async def load_and_prepare(self, file_extensions=None):
         print("開始載入檔案...")
 
-        if os.path.exists("my_faiss_index"):  # 如果本地有向量資料庫，載入本地的向量資料庫
+        if os.path.exists("my_faiss_index"):
             print("已偵測到現有向量資料庫，直接載入...")
             self.vectorstore = FAISS.load_local(
                 "my_faiss_index",
                 OpenAIEmbeddings(model="text-embedding-3-large"),
                 allow_dangerous_deserialization=True
             )
-
         else:
-
-            """
-            載入並準備文件
-            file_extensions: 要載入的檔案副檔名列表，例如 ['.pdf', '.txt', '.docx']
-            如果為 None，則只載入 PDF 檔案（保持原有行為）
-            """
             print("正在建立和讀取向量資料庫")
 
             if file_extensions is None:
-                file_extensions = ['.pdf']  # 預設只載入 PDF
+                file_extensions = ['.pdf']
 
             all_chunks = []
 
-            # 根據指定的副檔名載入檔案
             for ext in file_extensions:
                 pattern = f"*{ext}"
                 file_paths = glob.glob(os.path.join(self.pdf_folder, pattern))
@@ -183,7 +167,6 @@ class RAGHelper:
                         print(f"讀取中: {fname}")
 
                         if Path(path).suffix.lower() == ".pdf":
-                            # ★ PDF 使用智慧切割（標題偵測 / 頁眉頁腳過濾 / 細切 + 智慧合併）
                             docs = self.splitter_instance.chunk_pdf_full_page(
                                 pdf_path=path,
                                 target_len=self.pdf_target_len,
@@ -192,7 +175,6 @@ class RAGHelper:
                             all_chunks.extend(docs)
                             print(f" {fname}（PDF 智慧切）完成，共 {len(docs)} 段")
                         else:
-                            # 其它副檔名維持原本流程
                             pages = await self.load_any_file_async(path)
                             chunks = self._split_documents(pages)
                             all_chunks.extend(chunks)
@@ -206,36 +188,24 @@ class RAGHelper:
             if len(all_chunks) == 0:
                 raise ValueError("沒有成功載入任何文件")
 
-            self._build_vectorstore(all_chunks)  # 將文字轉成向量，並建立向量資料庫
-            self.vectorstore.save_local("my_faiss_index")  # 將向量資料庫存到本地
+            self._build_vectorstore(all_chunks)
+            self.vectorstore.save_local("my_faiss_index")
 
     def setup_retrieval_chain(self, k=5, similarity_threshold=None):
-        """
-        設置檢索鏈
-
-        Args:
-            k (int): 檢索數量
-            similarity_threshold (float, optional): 相似度門檻，如果提供則使用過濾檢索器
-        """
+        """設置檢索鏈（支持多輪對話）"""
         if not self.vectorstore:
             raise ValueError("請先執行 load_and_prepare()")
 
         llm = ChatOpenAI(model="gpt-4o", temperature=0.1)
 
-        # 根據是否有相似度門檻選擇不同的檢索器
+        # 創建帶有相似度門檻的檢索器
         if similarity_threshold is not None:
-            # 使用帶有相似度門檻的檢索器
-            from langchain.schema import BaseRetriever
-            from langchain.callbacks.manager import CallbackManagerForRetrieverRun
-            from typing import List
-            from langchain.schema import Document
-
             class ThresholdRetriever(BaseRetriever):
-                _rag_helper: "RAGHelper" = PrivateAttr()
+                _rag_helper: "MultiTurnRAGHelper" = PrivateAttr()
                 _k: int = PrivateAttr()
                 _threshold: float = PrivateAttr()
 
-                def __init__(self, rag_helper: "RAGHelper", k: int, threshold: float):
+                def __init__(self, rag_helper: "MultiTurnRAGHelper", k: int, threshold: float):
                     super().__init__()
                     self._rag_helper = rag_helper
                     self._k = k
@@ -251,67 +221,130 @@ class RAGHelper:
                     return {"k": self._k, "threshold": self._threshold}
 
             retriever = ThresholdRetriever(self, k, similarity_threshold)
-            #print(f"🎯 使用相似度門檻檢索器 (k={k}, threshold={similarity_threshold})")
         else:
-            # 使用標準檢索器
-            retriever = self.vectorstore.as_retriever(
-                search_kwargs={"k": k}
-            )
-            #print(f"📋 使用標準檢索器 (k={k})")
+            retriever = self.vectorstore.as_retriever(search_kwargs={"k": k})
 
-        # 創建提示詞模板
+        # 創建多輪對話的提示詞模板
         system_prompt = (
-            "你是一個基於 RAG 系統的計算機概論家教。請參考提供的內容來回答問題。\n"
+            "你是一個基於 RAG 系統的計算機概論家教。請參考提供的內容和之前的對話歷史來回答問題。\n"
             "如果問題和計算機概論無關，不要回答問題。\n"
-            "如果問題和計算機概論有關，用詞上多使用正向鼓勵詞語，並基於現有問題延伸出相關的問題，針對問題舉出簡單好懂的比喻或例子。若問題和計算機概論無關則不要延伸問題和舉例\n。"
-            "如果不知道如何回答問題或是問題沒意義，請提醒輸入更多資訊。\n"  
+            "如果問題和計算機概論有關，用詞上多使用正向鼓勵詞語，並基於現有問題延伸出相關的問題，針對問題舉出簡單好懂的比喻或例子。\n"
+            "如果不知道如何回答問題或是問題沒意義，請提醒輸入更多資訊。\n"
             "使用 LaTeX 時，請使用 $ 符號作為塊級公式。\n"
             "請用繁體中文回答。\n\n"
-            "{context}"
+            "相關文檔內容：\n{context}\n\n"
+            "對話歷史：\n{chat_history}"
         )
+
         prompt = ChatPromptTemplate.from_messages([
             ("system", system_prompt),
             ("human", "{input}"),
         ])
-        # 創建文檔合併鏈
+
         question_answer_chain = create_stuff_documents_chain(llm, prompt)
-        # 創建檢索鏈
         self.retrieval_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-    def ask(self, query):
+    def ask_with_memory(self, query: str, user_id: str):
+        """帶有記憶的問答功能"""
         if not self.retrieval_chain:
             raise ValueError("請先執行 setup_retrieval_chain()")
+
+        # 獲取用戶的對話記憶
+        memory = self.get_or_create_memory(user_id)
+
         try:
-            result = self.retrieval_chain.invoke({"input": query})  # 將使用者的問題傳給問答鏈，鏈內部會檢索並將檢索到的段落和問題交給大語言模型
-            return result["answer"], result["context"]  # result["answer"] 是 語言模型給的答案，result["context"]  是檢索到的原始段落
+            # 獲取對話歷史
+            chat_history = memory.chat_memory.messages
+
+            # 格式化對話歷史為字符串
+            history_text = ""
+            for message in chat_history[-self.memory_window * 2:]:  # 限制歷史長度
+                if isinstance(message, HumanMessage):
+                    history_text += f"用戶: {message.content}\n"
+                elif isinstance(message, AIMessage):
+                    history_text += f"助手: {message.content}\n"
+
+            # 調用檢索鏈，傳入對話歷史
+            result = self.retrieval_chain.invoke({
+                "input": query,
+                "chat_history": history_text
+            })
+
+            answer = result["answer"]
+            sources = result["context"]
+
+            # 將當前對話存入記憶
+            memory.chat_memory.add_user_message(query)
+            memory.chat_memory.add_ai_message(answer)
+
+            return answer, sources
+
         except Exception as e:
             if "max_tokens_per_request" in str(e):
                 print("內容過長，嘗試使用較短的上下文...")
-                self.setup_retrieval_chain_with_shorter_context()
-                result = self.retrieval_chain.invoke({"input": query})
-                return result["answer"], result["context"]
+                # 可以實現降級策略
+                return self.ask_fallback(query, user_id)
             else:
                 raise e
 
-    def setup_retrieval_chain_with_shorter_context(self):
-        """設置更短上下文的檢索鏈"""
-        if not self.vectorstore:
-            raise ValueError("請先執行 load_and_prepare()")
+    def ask_fallback(self, query: str, user_id: str):
+        """降級策略：使用較短上下文"""
+        # 簡化的檢索和回答邏輯
+        docs = self.retrieve_documents(query, k=3, similarity_threshold=0.7)
 
-        llm = ChatOpenAI(model="gpt-4o", temperature=0.0)
-        # 更嚴格的檢索配置
-        retriever = self.vectorstore.as_retriever(
-            search_kwargs={"k": 3}
-        )
-        system_prompt = (
-            "你是一個問答助手。基於以下提供的內容來回答問題。"
-            "如果內容中沒有相關資訊，請說「根據提供的資料無法回答這個問題」。"
-            "請用繁體中文簡潔回答。\n\n"
-            "{context}"
-        )
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", system_prompt),
-            ("human", "{input}"),
-        ])
-        question_answer_chain = create_stuff_documents_chain(llm, prompt)
-        self.retrieval_chain = create_retrieval_chain(retriever, question_answer_chain)
+        llm = ChatOpenAI(model="gpt-4o", temperature=0.1)
+
+        context = "\n\n".join([doc.page_content[:200] for doc in docs])
+
+        simple_prompt = f"""
+        基於以下內容回答問題，如果內容不相關請說明：
+
+        內容：{context}
+
+        問題：{query}
+
+        請用繁體中文簡潔回答。
+        """
+
+        response = llm.invoke([{"role": "user", "content": simple_prompt}])
+        return response.content, docs
+
+    def clear_memory(self, user_id: str):
+        """清除指定用戶的對話記憶"""
+        if user_id in self.conversation_memory:
+            self.conversation_memory[user_id].clear()
+            return True
+        return False
+
+    def get_conversation_history(self, user_id: str) -> List[Dict[str, str]]:
+        """獲取用戶的對話歷史"""
+        if user_id not in self.conversation_memory:
+            return []
+
+        memory = self.conversation_memory[user_id]
+        history = []
+
+        for message in memory.chat_memory.messages:
+            if isinstance(message, HumanMessage):
+                history.append({"type": "user", "content": message.content})
+            elif isinstance(message, AIMessage):
+                history.append({"type": "assistant", "content": message.content})
+
+        return history
+
+    # 原有的 ask 方法保留向後兼容性
+    def ask(self, query):
+        """原有的問答方法（無記憶功能）"""
+        if not self.retrieval_chain:
+            raise ValueError("請先執行 setup_retrieval_chain()")
+        try:
+            result = self.retrieval_chain.invoke({
+                "input": query,
+                "chat_history": ""  # 空的對話歷史
+            })
+            return result["answer"], result["context"]
+        except Exception as e:
+            if "max_tokens_per_request" in str(e):
+                return self.ask_fallback(query, "default")
+            else:
+                raise e
