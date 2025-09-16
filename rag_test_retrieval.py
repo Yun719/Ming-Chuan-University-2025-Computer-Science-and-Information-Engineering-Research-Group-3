@@ -9,7 +9,7 @@ import os
 import json
 import asyncio
 from pathlib import Path
-from MultiTurnRAGHelper import MultiTurnRAGHelper
+from RAG_Helper import RAGHelper
 from dotenv import load_dotenv
 
 # 載入環境變數
@@ -23,7 +23,6 @@ class RAGTester:
         self.chunk_overlap = chunk_overlap
         self.rag_helper = None
         self.chart_data = {}
-        self.current_user_id = "test_user"  # 用於測試的固定用戶ID
 
     async def initialize(self):
         """初始化 RAG 系統"""
@@ -39,7 +38,7 @@ class RAGTester:
 
         try:
             # 初始化 RAG Helper
-            self.rag_helper = MultiTurnRAGHelper(
+            self.rag_helper = RAGHelper(
                 pdf_folder=self.pdf_folder,
                 chunk_size=self.chunk_size,
                 chunk_overlap=self.chunk_overlap
@@ -50,7 +49,7 @@ class RAGTester:
             await self.rag_helper.load_and_prepare(['.pdf', '.txt', '.docx', '.md', '.csv'])
 
             # 設定檢索鏈
-            # print("🔗 設定檢索鏈...")
+            #print("🔗 設定檢索鏈...")
             self.rag_helper.setup_retrieval_chain()
 
             # 載入圖表資訊
@@ -79,48 +78,7 @@ class RAGTester:
             print("⚠️ 未找到 chart_metadata.json 文件")
             self.chart_data = {}
 
-    def print_chat_history(self, user_id: str):
-        """列印指定用戶的聊天歷史"""
-        if not self.rag_helper:
-            print("❌ RAG 系統未初始化")
-            return
-
-        # 取得聊天歷史
-        history = self.rag_helper.get_conversation_history(user_id)
-
-        if not history:
-            print(f"📝 用戶 {user_id} 暫無聊天記錄")
-            return
-
-        print(f"\n📜 用戶 {user_id} 的聊天歷史：")
-        print("=" * 60)
-
-        for i, msg in enumerate(history, 1):
-            if msg["type"] == "user":
-                print(f"👤 用戶 ({i // 2 + 1})：{msg['content']}")
-            elif msg["type"] == "assistant":
-                print(f"🤖 助手 ({i // 2 + 1})：{msg['content'][:200]}{'...' if len(msg['content']) > 200 else ''}")
-            print("-" * 40)
-
-    def get_formatted_chat_history(self, user_id: str) -> str:
-        """取得格式化的聊天歷史字串（模擬 MultiTurnRAGHelper 中的格式）"""
-        if not self.rag_helper or user_id not in self.rag_helper.conversation_memory:
-            return ""
-
-        memory = self.rag_helper.conversation_memory[user_id]
-        chat_history = memory.chat_memory.messages
-
-        history_text = ""
-        for message in chat_history[-self.rag_helper.memory_window * 2:]:
-            if hasattr(message, '__class__'):
-                if message.__class__.__name__ == 'HumanMessage':
-                    history_text += f"用戶: {message.content}\n"
-                elif message.__class__.__name__ == 'AIMessage':
-                    history_text += f"助手: {message.content}\n"
-
-        return history_text
-
-    def retrieve_documents(self, query, k=5, similarity_threshold=0.45):
+    def retrieve_documents(self, query, k=5, similarity_threshold=0.7):
         """
         檢索相關文件，並根據相似度門檻過濾結果
 
@@ -281,77 +239,6 @@ class RAGTester:
 
         return related_charts
 
-    def test_query_with_memory(self, query, use_memory=True, k=5, similarity_threshold=0.45):
-        """
-        測試帶記憶的查詢功能，並顯示 prompt 中的 chat-history
-        """
-        print(f"\n{'=' * 60}")
-        print(f"🔍 測試查詢（{'帶記憶' if use_memory else '無記憶'}）：{query}")
-        print(f"🎯 相似度門檻：{similarity_threshold}")
-        print(f"{'=' * 60}")
-
-        if use_memory:
-            # 使用帶記憶的查詢
-            try:
-                print(f"\n💭 查詢前的聊天歷史：")
-                print("-" * 50)
-
-                # 取得格式化的聊天歷史
-                chat_history = self.get_formatted_chat_history(self.current_user_id)
-                if chat_history.strip():
-                    print(chat_history)
-                else:
-                    print("（暫無聊天記錄）")
-
-                # 進行帶記憶的查詢
-                answer, sources = self.rag_helper.ask_with_memory(query, self.current_user_id)
-
-                print(f"\n🤖 AI 回答：")
-                print("-" * 50)
-                print(answer)
-
-                print(f"\n📚 使用的文件來源（共 {len(sources)} 個）：")
-                print("-" * 50)
-
-                for i, doc in enumerate(sources, 1):
-                    source_file = os.path.basename(str(doc.metadata.get('source', '未知來源')))
-                    page_info = doc.metadata.get('page', None)
-                    if page_info is not None:
-                        page = page_info + 1
-                        page_str = f"第 {page} 頁"
-                    else:
-                        page_str = "頁碼未知"
-
-                    content_preview = doc.page_content[:200] if len(doc.page_content) > 200 else doc.page_content
-
-                    print(f"\n{i}. 來源：{source_file} ({page_str})")
-                    print(f"   內容預覽：{content_preview}")
-
-                # 查找相關圖表
-                related_charts = self.find_related_charts(sources)
-
-                if related_charts:
-                    print(f"\n🖼️ 找到 {len(related_charts)} 張相關圖表：")
-                    print("-" * 50)
-
-                    for i, chart in enumerate(related_charts, 1):
-                        print(f"\n{i}. 圖表 ID：{chart['chart_id']}")
-                        print(f"   圖表編號：{chart['chart_number']}")
-                        print(f"   標題：{chart['caption']}")
-                        print(f"   類型：{chart['chart_type']}")
-                        print(f"   來源檔案：{chart['source_file']}")
-                        print(f"   匹配原因：{chart['relevance_reason']}")
-                        print(f"   圖片路徑：{chart['image_path']}")
-                        print(f"   描述：{chart['description'][:150]}...")
-                else:
-                    print("\n🖼️ 未找到相關圖表")
-
-            except Exception as e:
-                print(f"❌ 帶記憶查詢失敗：{str(e)}")
-        else:
-            # 使用原本的無記憶查詢方式
-            self.test_query(query, k, similarity_threshold)
-
     def test_query(self, query, k=5, similarity_threshold=0.45):
         """
         測試單個查詢（更新版本，包含相似度門檻）
@@ -413,44 +300,22 @@ class RAGTester:
         print("=" * 60)
         print("輸入 'quit' 或 'exit' 結束程式")
         print("輸入 'help' 查看幫助")
-        print("輸入 'history' 查看聊天歷史")
-        print("輸入 'clear' 清除聊天記錄")
-        print("輸入 '!<問題>' 進行無記憶查詢（例如: !什麼是演算法）")
 
         while True:
             try:
-                user_input = input("\n請輸入測試問題：").strip()
+                query = input("\n請輸入測試問題：").strip()
 
-                if user_input.lower() in ['quit', 'exit', 'q']:
+                if query.lower() in ['quit', 'exit', 'q']:
                     print("👋 再見！")
                     break
-                elif user_input.lower() == 'help':
+                elif query.lower() == 'help':
                     self.show_help()
                     continue
-                elif user_input.lower() == 'history':
-                    self.print_chat_history(self.current_user_id)
-                    continue
-                elif user_input.lower() == 'clear':
-                    success = self.rag_helper.clear_memory(self.current_user_id)
-                    if success:
-                        print("✅ 聊天記錄已清除")
-                    else:
-                        print("⚠️ 沒有找到需要清除的記錄")
-                    continue
-                elif not user_input:
+                elif not query:
                     print("⚠️ 請輸入有效的問題")
                     continue
 
-                # 檢查是否是無記憶查詢
-                if user_input.startswith('!'):
-                    query = user_input[1:]  # 去掉 ! 符號
-                    if query:
-                        self.test_query_with_memory(query, use_memory=False)
-                    else:
-                        print("⚠️ 請在 ! 後面輸入問題")
-                else:
-                    # 進行帶記憶的查詢
-                    self.test_query_with_memory(user_input, use_memory=True)
+                self.test_query(query)
 
             except KeyboardInterrupt:
                 print("\n👋 程式已中斷")
@@ -460,15 +325,11 @@ class RAGTester:
 
     def show_help(self):
         """顯示幫助資訊"""
-        print("\n📖 使用說明（省錢模式）：")
-        print("- 輸入任何問題來測試帶記憶的文件檢索和圖表匹配")
-        print("- 程式會顯示完整的 prompt 構建過程，但不會發送給 LLM")
-        print("- 輸入 '!<問題>' 進行無記憶查詢（例如: !什麼是演算法）")
-        print("- 輸入 'history' 查看目前的聊天歷史")
-        print("- 輸入 'clear' 清除聊天記錄")
+        print("\n📖 使用說明：")
+        print("- 輸入任何問題來測試文件檢索和圖表匹配")
+        print("- 程式會顯示檢索到的文件段落和相關圖表")
         print("- 輸入 'quit' 或 'exit' 結束程式")
         print("- 輸入 'help' 查看此幫助")
-        print("💰 省錢模式：不消耗 OpenAI API 配額")
 
 
 async def main():

@@ -229,7 +229,6 @@ class MultiTurnRAGHelper:
             "你是一個基於 RAG 系統的計算機概論家教。請參考提供的內容和之前的對話歷史來回答問題。\n"
             "如果問題和計算機概論無關，不要回答問題。\n"
             "如果問題和計算機概論有關，用詞上多使用正向鼓勵詞語，並基於現有問題延伸出相關的問題，針對問題舉出簡單好懂的比喻或例子。\n"
-            "如果不知道如何回答問題或是問題沒意義，請提醒輸入更多資訊。\n"
             "使用 LaTeX 時，請使用 $ 符號作為塊級公式。\n"
             "請用繁體中文回答。\n\n"
             "相關文檔內容：\n{context}\n\n"
@@ -260,9 +259,9 @@ class MultiTurnRAGHelper:
             history_text = ""
             for message in chat_history[-self.memory_window * 2:]:  # 限制歷史長度
                 if isinstance(message, HumanMessage):
-                    history_text += f"用戶: {message.content}\n"
+                    history_text += f"使用者: {message.content}\n"
                 elif isinstance(message, AIMessage):
-                    history_text += f"助手: {message.content}\n"
+                    history_text += f"LLM 回答: {message.content}\n"
 
             # 調用檢索鏈，傳入對話歷史
             result = self.retrieval_chain.invoke({
