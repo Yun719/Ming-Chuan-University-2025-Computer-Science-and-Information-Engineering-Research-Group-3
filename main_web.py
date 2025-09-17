@@ -10,6 +10,10 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import List, Optional
 from RAG_Helper import RAGHelper
+# 導入Enhanced RAG Helper
+import sys
+sys.path.append('modules/pdf_Cutting_TextReplaceImage')
+from enhanced_version.backend.enhanced_rag_helper_sC import EnhancedRAGHelper
 from dotenv import load_dotenv
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -143,7 +147,7 @@ app.add_middleware(
 )
 
 # 全域 RAG 實例
-rag_instance: Optional[RAGHelper] = None
+rag_instance: Optional[EnhancedRAGHelper] = None
 
 # 安全相關
 security = HTTPBearer()
@@ -367,9 +371,9 @@ async def initialize_system(current_user: str = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail="找不到 pdfFiles 資料夾")
 
     try:
-        rag_instance = RAGHelper(pdf_folder="./pdfFiles", chunk_size=300, chunk_overlap=50)
-        await rag_instance.load_and_prepare(['.pdf', '.txt', '.docx', '.md', '.csv'])
-        rag_instance.setup_retrieval_chain(k=5, similarity_threshold=1.1)
+        rag_instance = EnhancedRAGHelper(pdf_directory="./pdfFiles")
+        # Enhanced RAG Helper 會自動載入增強向量索引和圖表元數據
+        rag_instance.load_enhanced_index()
 
         return StatusResponse(
             status="success",
@@ -420,7 +424,7 @@ async def ask_question(request: QuestionRequest, current_user: str = Depends(get
 
         # 檢查是否有圖表內容並載入圖表資訊
         chart_images = []
-        chart_info_file = Path("pdfFiles/chart_metadata.json")  # 調整為你的 JSON 檔案路徑
+        chart_info_file = Path("modules/pdf_Cutting_TextReplaceImage/chart_metadata.json")
 
         if chart_info_file.exists():
             try:
@@ -437,13 +441,13 @@ async def ask_question(request: QuestionRequest, current_user: str = Depends(get
                             # 檢查是否相關
                             if is_chart_relevant(chart_info, source_content):
                                 # 構建圖片路徑
-                                image_path = f"static/charts/{chart_id}.jpg"
+                                image_path = f"static/charts/{chart_id}.png"
 
                                 # 只有圖片存在才加入
                                 if os.path.exists(image_path):
                                     chart_images.append({
                                         'chart_id': chart_id,
-                                        'image_url': f"/static/charts/{chart_id}.jpg",
+                                        'image_url': f"/static/charts/{chart_id}.png",
                                         'caption': chart_info.get('original_caption', ''),
                                         'description': chart_info.get('generated_description', ''),
                                         'chart_type': chart_info.get('chart_type', ''),
