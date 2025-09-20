@@ -196,7 +196,7 @@ class MultiTurnRAGHelper:
         if not self.vectorstore:
             raise ValueError("請先執行 load_and_prepare()")
 
-        llm = ChatOpenAI(model="gpt-4o", temperature=0.1)
+        llm = ChatOpenAI(model="gpt-5-nano", temperature=0.1)
 
         # 創建帶有相似度門檻的檢索器
         if similarity_threshold is not None:
