@@ -29,7 +29,7 @@ from Split_Helper import SplitHelper
 
 class MultiTurnRAGHelper:
     def __init__(self, pdf_folder, chunk_size=300, chunk_overlap=50, pdf_target_len=500,
-                 pdf_tolerance=100, memory_window=10, max_conversations=100):
+                 pdf_tolerance=100, memory_window=3, max_conversations=100):
         self.pdf_folder = pdf_folder
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
