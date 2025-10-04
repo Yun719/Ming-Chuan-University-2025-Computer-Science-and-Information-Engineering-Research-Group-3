@@ -49,7 +49,8 @@ from llm_config import LLMConfig
 sys.path.append(os.path.join(os.path.dirname(__file__), 'modules', 'pdf_Cutting_TextReplaceImage'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'modules', 'pdf_Cutting_TextReplaceImage', 'enhanced_version', 'backend'))
 
-from pdf_chart_extractor import PDFChartExtractor
+# from pdf_chart_extractor import PDFChartExtractor  # 舊版，已封存為 pdf_chart_extractor_legacy.py
+from caption_extractor_sA import PDFCaptionContextProcessor
 
 
 class PreprocessLogger:
@@ -201,8 +202,8 @@ class PDFPreprocessor:
     def __init__(
             self,
             pdf_folder: str = "./pdfFiles",
-            output_folder: str = "./pdfFiles",
-            charts_folder: str = "./static/charts",
+            output_folder: str = "./pdfFiles/enhanced_docs",  # 修正：統一存放在子資料夾
+            charts_folder: str = "./pdfFiles/charts",  # 修正：改為 pdfFiles/charts
             use_mock_llm: bool = False,
             logger: Optional[PreprocessLogger] = None
     ):
@@ -223,8 +224,8 @@ class PDFPreprocessor:
         self.logger = logger or PreprocessLogger()
 
         # 建立必要目錄
-        self.output_folder.mkdir(exist_ok=True)
-        self.charts_folder.mkdir(exist_ok=True)
+        self.output_folder.mkdir(parents=True, exist_ok=True)
+        self.charts_folder.mkdir(parents=True, exist_ok=True)
 
         # 初始化檔案變更偵測器
         self.change_detector = FileChangeDetector()
@@ -248,7 +249,7 @@ class PDFPreprocessor:
 
     def stage_a_extract_charts(self, pdf_path: Path) -> Tuple[Dict, int]:
         """
-        【階段 A】圖表識別與擷取
+        【階段 A】圖表識別與擷取（使用 caption_extractor_sA）
 
         Args:
             pdf_path: PDF 檔案路徑
@@ -261,18 +262,39 @@ class PDFPreprocessor:
         self.logger.info(f"{'=' * 60}")
 
         try:
-            # 使用 PDFChartExtractor 擷取圖片
-            extractor = PDFChartExtractor(output_dir=str(self.charts_folder))
-            chart_metadata = extractor.extract_from_pdf(
-                str(pdf_path),
-                min_width=100,
-                min_height=100
+            # 使用 PDFCaptionContextProcessor（階段 A 完整版）
+            extractor = PDFCaptionContextProcessor(
+                context_window=200,
+                min_caption_length=5,
+                confidence_threshold=0.3
             )
+
+            # 處理 PDF 並擷取圖表（包含 Caption 識別）
+            caption_pairs = extractor.process_pdf(
+                str(pdf_path),
+                use_image_guided_search=True,
+                charts_output_dir=str(self.charts_folder)
+            )
+
+            # 轉換為 metadata 格式
+            chart_metadata = {}
+            for i, pair in enumerate(caption_pairs, 1):
+                chart_id = f"{pdf_path.stem}_chart_{i}"
+                chart_metadata[chart_id] = {
+                    "chart_id": chart_id,
+                    "chart_type": pair.caption.caption_type,
+                    "chart_number": pair.caption.number,
+                    "original_caption": pair.caption.text,
+                    "page_number": pair.caption.page_number,
+                    "confidence_score": pair.caption.confidence,
+                    "source_file": pdf_path.name,
+                    "context_references": [ctx.text for ctx in pair.contexts[:3]]  # 取前3個相關段落
+                }
 
             chart_count = len(chart_metadata)
             self.stats["total_charts"] += chart_count
 
-            self.logger.success(f"階段 A 完成：擷取了 {chart_count} 個圖表")
+            self.logger.success(f"階段 A 完成：識別了 {chart_count} 個圖表（含 Caption）")
             self.logger.debug(f"圖表資訊: {json.dumps(chart_metadata, ensure_ascii=False, indent=2)}")
 
             return chart_metadata, chart_count
@@ -310,7 +332,8 @@ class PDFPreprocessor:
                 return chart_metadata
 
             # 初始化 LLM Manager
-            provider = "mock" if self.use_mock_llm else "auto"
+            # 優先使用 llm_config.py 的統一配置，否則使用命令列參數
+            provider = LLMConfig.CHART_DESCRIPTION_PROVIDER if LLMConfig.CHART_DESCRIPTION_PROVIDER != "auto" else ("mock" if self.use_mock_llm else "auto")
             llm_manager = LLMManager(preferred_provider=provider)
 
             self.logger.info(f"使用 LLM 提供者: {llm_manager.get_current_provider()}")
@@ -398,6 +421,14 @@ class PDFPreprocessor:
             # 使用PDF檔名作為前綴
             pdf_basename = pdf_path.stem
 
+            # 建立單一 enhanced 文檔內容
+            all_content = f"""{'=' * 80}
+{pdf_basename}.pdf - Enhanced Document
+包含圖表: {len(chart_metadata)} 張
+{'=' * 80}
+
+"""
+
             for page_num in range(len(doc)):
                 page = doc[page_num]
                 page_text = page.get_text()
@@ -408,34 +439,41 @@ class PDFPreprocessor:
                     if chart_info.get('page_number') == page_num + 1
                 ]
 
-                # 建立增強文檔內容
-                enhanced_content = f"=== {pdf_basename} - 頁面 {page_num + 1} ===\n\n"
-                enhanced_content += page_text
+                # 添加頁面標題
+                all_content += f"\n{'=' * 60}\n"
+                all_content += f"頁面 {page_num + 1}\n"
+                all_content += f"{'=' * 60}\n\n"
+
+                # 添加原始文字
+                all_content += page_text
 
                 # 如果有圖表，附加描述
                 if page_charts:
-                    enhanced_content += "\n\n=== 圖表資訊 ===\n"
+                    all_content += "\n\n--- 本頁圖表 ---\n"
                     for chart in page_charts:
+                        chart_type = chart.get('chart_type', 'figure')
+                        chart_num = chart.get('chart_number', '')
                         caption = chart.get('original_caption', '')
                         description = chart.get('generated_description', '')
+                        chart_id = chart.get('chart_id', '')
 
-                        enhanced_content += f"\n【{chart.get('chart_type', 'figure')} {chart.get('chart_number', '')}】\n"
-                        if caption:
-                            enhanced_content += f"標題: {caption}\n"
-                        if description:
-                            enhanced_content += f"描述: {description}\n"
+                        all_content += f"\n[📊 圖表 {chart_num}: {caption}]\n"
+                        all_content += f"類型: {chart_type}\n"
+                        all_content += f"Chart ID: {chart_id}\n"
+                        all_content += f"LLM 描述: {description}\n"
+                        all_content += f"---\n"
 
-                # 儲存到檔案
-                output_path = self.output_folder / f"enhanced_doc_{page_num}.txt"
-                with open(output_path, 'w', encoding='utf-8') as f:
-                    f.write(enhanced_content)
-
-                enhanced_docs.append(output_path)
+                all_content += "\n"
 
             doc.close()
 
-            self.logger.success(f"階段 C 完成：產生 {len(enhanced_docs)} 個增強文檔")
-            return enhanced_docs
+            # 儲存單一檔案，使用 PDF 檔名
+            output_path = self.output_folder / f"{pdf_basename}_enhanced.txt"
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(all_content)
+
+            self.logger.success(f"階段 C 完成：產生增強文檔 {output_path.name}")
+            return [output_path]
 
         except Exception as e:
             self.logger.error(f"階段 C 失敗: {e}")
@@ -576,13 +614,13 @@ def main():
     )
     parser.add_argument(
         "--output-folder",
-        default="./pdfFiles",
-        help="輸出目錄 (預設: ./pdfFiles)"
+        default="./pdfFiles/enhanced_docs",
+        help="輸出目錄 (預設: ./pdfFiles/enhanced_docs)"
     )
     parser.add_argument(
         "--charts-folder",
-        default="./static/charts",
-        help="圖表圖片目錄 (預設: ./static/charts)"
+        default="./pdfFiles/charts",
+        help="圖表圖片目錄 (預設: ./pdfFiles/charts)"
     )
     parser.add_argument(
         "--use-mock",

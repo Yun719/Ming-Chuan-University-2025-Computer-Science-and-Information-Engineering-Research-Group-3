@@ -52,8 +52,9 @@ class LLMConfig:
     CHART_DESCRIPTION_TEMPERATURE = float(os.getenv("CHART_DESCRIPTION_TEMPERATURE", "0.3"))
     CHART_DESCRIPTION_MAX_TOKENS = int(os.getenv("CHART_DESCRIPTION_MAX_TOKENS", "300"))
 
-    # 圖表描述的預設提供者（openai/mock）
-    CHART_DESCRIPTION_PROVIDER = os.getenv("CHART_DESCRIPTION_PROVIDER", "auto")
+    # 圖表描述的提供者（openai/mock/auto）
+    # ⚠️ 測試時請設定為 "mock"，正式使用時改為 "openai"
+    CHART_DESCRIPTION_PROVIDER = os.getenv("CHART_DESCRIPTION_PROVIDER", "openai")  # 👈 使用真實 LLM
 
     # ==================== RAG 檢索配置 ====================
     # 檢索數量

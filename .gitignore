@@ -45,6 +45,7 @@ pdfFiles/multi_data/
 # PDF圖表切割結果 - 不上傳處理結果
 test_ImageCut_result/
 modules/pdf_Cutting_TextReplaceImage/test_ImageCut_result/
+pdfFiles/charts_filtered_out/
 
 # 虛擬環境
 pdf_cutting_env/
