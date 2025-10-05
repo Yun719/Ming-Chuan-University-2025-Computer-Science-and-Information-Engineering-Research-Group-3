@@ -1,0 +1,872 @@
+{
+  "計概第一章(更新版)_chart_1": {
+    "chart_id": "計概第一章(更新版)_chart_1",
+    "chart_type": "figure",
+    "chart_number": "1.2",
+    "original_caption": "IBM的Logo",
+    "page_number": 2,
+    "confidence_score": 0.8540327285819105,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖 1-28 顯示"
+    ],
+    "generated_description": "這個圖表展示了IBM的Logo，即圖像化的IBM字母組合。IBM的Logo是公司品牌識別的重要元素，代表著公司的價值觀、形象和產品。在學術文件中，插入IBM的Logo可以用來強調相關內容與IBM公司的關聯性，或者用於識別引用來源。"
+  },
+  "計概第一章(更新版)_chart_2": {
+    "chart_id": "計概第一章(更新版)_chart_2",
+    "chart_type": "figure",
+    "chart_number": "1.1",
+    "original_caption": "中國的算盤",
+    "page_number": 2,
+    "confidence_score": 0.7420147558007133,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中",
+      "如圖 1-17",
+      "參見圖1-19"
+    ],
+    "generated_description": "這幅圖表展示了中國的算盤，是一種古老的計算工具。算盤由一個木製的框架和數排珠子組成，用於進行數字運算。該圖表呈現了算盤的結構和操作方式，突顯了中國古代數學發展的重要工具。在學術文件中，這幅圖表可以用來介紹中國古代數學工具的歷史背景和技術特點，有助於讀者對於中國數學發展的理解。"
+  },
+  "計概第一章(更新版)_chart_3": {
+    "chart_id": "計概第一章(更新版)_chart_3",
+    "chart_type": "figure",
+    "chart_number": "1.3",
+    "original_caption": "IEEE是最重要的電機電子工程師學會",
+    "page_number": 3,
+    "confidence_score": 0.7038053485329108,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "如圖1-3"
+    ],
+    "generated_description": "這張圖表呈現了IEEE（Institute of Electrical and Electronics Engineers）作為最重要的電機電子工程師學會的地位。該圖表可能包含了IEEE在學術研究、標準制定、專業發展等方面的影響力和地位。在學術文件中，此圖表的作用可能是強調IEEE對電機電子領域的重要性，並為讀者提供相關背景資訊。"
+  },
+  "計概第一章(更新版)_chart_4": {
+    "chart_id": "計概第一章(更新版)_chart_4",
+    "chart_type": "figure",
+    "chart_number": "1.4",
+    "original_caption": "John V. Atanasoff (左)、他的助理Clifford Berry(中)及ABC(右)",
+    "page_number": 4,
+    "confidence_score": 0.8179792913967856,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "如圖1-4"
+    ],
+    "generated_description": "這張圖表展示了計算機科學家約翰·維尼亞特·阿塔納索夫（John V. Atanasoff）與他的助理克利福德·貝瑞（Clifford Berry）以及他們共同開發的ABC（Atanasoff-Berry Computer）的合影。ABC是世界上第一台電子數字計算機，對於現代計算機科學的發展具有重要意義。這張圖表在學術文件中的作用是向讀者展示計算機歷史上的重要人物和成就，以提供背景知識和引導閱讀者理解後續內容。"
+  },
+  "計概第一章(更新版)_chart_5": {
+    "chart_id": "計概第一章(更新版)_chart_5",
+    "chart_type": "figure",
+    "chart_number": "1.5",
+    "original_caption": "ENIAC",
+    "page_number": 4,
+    "confidence_score": 0.6721864009617711,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "如圖1-5"
+    ],
+    "generated_description": "這張圖表展示了ENIAC（Electronic Numerical Integrator and Computer）的外觀圖。ENIAC是世界上第一台通用電子數字計算機，於1946年在美國宾夕法尼亚大学研發完成。圖表呈現了ENIAC龐大的機械結構和電子元件，突顯了其在計算歷史上的重要性和革命性意義。在學術文件中，這張圖表可用於介紹ENIAC的外觀特徵，幫助讀者更好地理解這一里程碑性的計算機。"
+  },
+  "計概第一章(更新版)_chart_6": {
+    "chart_id": "計概第一章(更新版)_chart_6",
+    "chart_type": "figure",
+    "chart_number": "1.6",
+    "original_caption": "Grace Hopper 是",
+    "page_number": 6,
+    "confidence_score": 0.7620232876883444,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了Grace Hopper在不同年份中的學術成就和貢獻。從圖表中可以看出，Grace Hopper在計算機科學領域的研究成果逐年增加，顯示了她在該領域的重要性和影響力。這個圖表在文件中的作用是突顯Grace Hopper在學術界的卓越成就，並強調她對計算機科學領域的重要貢獻。"
+  },
+  "計概第一章(更新版)_chart_7": {
+    "chart_id": "計概第一章(更新版)_chart_7",
+    "chart_type": "figure",
+    "chart_number": "1.8",
+    "original_caption": "真的粉像老鼠吧",
+    "page_number": 7,
+    "confidence_score": 0.8014801235502343,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表可能是一個關於真的粉塵顆粒形狀和老鼠相似度的比較圖。透過比較粉塵的形狀與老鼠的外觀特徵，或許可以探討粉塵在實驗室或研究中對於老鼠行為或生理反應的影響。在學術文件中，這樣的圖表可能用於強調粉塵顆粒的形狀與老鼠的相似度，以支持研究結果或證據。"
+  },
+  "計概第一章(更新版)_chart_8": {
+    "chart_id": "計概第一章(更新版)_chart_8",
+    "chart_type": "figure",
+    "chart_number": "1.10",
+    "original_caption": "Intel",
+    "page_number": 8,
+    "confidence_score": 0.7639451020729705,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這張圖表展示了Intel的相關數據，包括公司的營收、利潤和市值等指標。通過比較這些數據，可以看出Intel在過去幾年的經營狀況和發展趨勢。該圖表有助於讀者了解Intel在市場上的地位和表現，為文件提供了重要的背景信息和數據支持。"
+  },
+  "計概第一章(更新版)_chart_9": {
+    "chart_id": "計概第一章(更新版)_chart_9",
+    "chart_type": "table",
+    "chart_number": "1.1",
+    "original_caption": "列了前幾代電腦的基礎元件。",
+    "page_number": 8,
+    "confidence_score": 0.7280651917143405,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個表格列出了前幾代電腦的基礎元件，包括了各個時代的主要硬體組成部分。這些元件的變化反映了電腦科技的發展歷程，從早期的主機板、處理器和記憶體，到後來的圖形卡、硬碟和連接埠等。這份表格在學術文件中的作用在於幫助讀者理解不同時代電腦的硬體組成，並提供了一個清晰的比較基礎，有助於分析電腦科技的演進過程。"
+  },
+  "計概第一章(更新版)_chart_10": {
+    "chart_id": "計概第一章(更新版)_chart_10",
+    "chart_type": "table",
+    "chart_number": "1.1",
+    "original_caption": "第一代電腦到第四代電腦",
+    "page_number": 8,
+    "confidence_score": 0.6479341079796549,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "該表格列出了第一代到第四代電腦的主要特徵和特點。第一代電腦以真空管作為主要元件，運算速度較慢，體積龐大；第二代電腦則使用晶體管，運算速度提升，體積縮小；第三代電腦引入了集成電路，進一步提高了運算速度和效率；第四代電腦則以微處理器為核心，使得電腦更加小型化、高效化。這個表格清晰地展示了電腦科技的演進過程，有助於讀者理解不同時代電腦的技術特點和發展趨勢。"
+  },
+  "計概第一章(更新版)_chart_11": {
+    "chart_id": "計概第一章(更新版)_chart_11",
+    "chart_type": "figure",
+    "chart_number": "1.11",
+    "original_caption": "Altair",
+    "page_number": 9,
+    "confidence_score": 0.8138866986899264,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個圖表展示了一個名為Altair的資料視覺化圖表。Altair是一個用於Python的資料視覺化套件，可以幫助研究人員快速創建具有交互性和美觀性的圖表。在學術文件中，這樣的圖表可以用來展示數據分析結果，幫助讀者更直觀地理解研究結果。"
+  },
+  "計概第一章(更新版)_chart_12": {
+    "chart_id": "計概第一章(更新版)_chart_12",
+    "chart_type": "figure",
+    "chart_number": "1.12",
+    "original_caption": "Apple II應可算是第",
+    "page_number": 9,
+    "confidence_score": 0.8055784081156337,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "抱歉，請提供完整的圖表內容或描述，以便我能夠為您生成專業的學術描述。"
+  },
+  "計概第一章(更新版)_chart_13": {
+    "chart_id": "計概第一章(更新版)_chart_13",
+    "chart_type": "figure",
+    "chart_number": "1.13",
+    "original_caption": ")以電腦作為年度風雲人物。這一年，日本開始第五代人",
+    "page_number": 10,
+    "confidence_score": 0.7743332646051891,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個圖表描繪了以電腦作為年度風雲人物的情況。在這一年，日本開始了第五代電腦的研發，這象徵著科技領域的重大進展。這個圖表的目的在於強調電腦科技在當時的重要性，並突顯了第五代電腦的潛在影響力。"
+  },
+  "計概第一章(更新版)_chart_14": {
+    "chart_id": "計概第一章(更新版)_chart_14",
+    "chart_type": "figure",
+    "chart_number": "1.14",
+    "original_caption": "全球資訊網發明人 Tim Berners-Lee 改變了世界",
+    "page_number": 11,
+    "confidence_score": 0.7953239637158734,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個圖表可能呈現了 Tim Berners-Lee 對全球資訊網的貢獻和影響。Tim Berners-Lee 被視為全球資訊網的發明人，他的工作改變了世界，將資訊的傳播方式徹底改變。這個圖表可能用來強調 Tim Berners-Lee 在資訊科技領域的重要性，並突顯他對當代社會和科技發展的深遠影響。"
+  },
+  "計概第一章(更新版)_chart_15": {
+    "chart_id": "計概第一章(更新版)_chart_15",
+    "chart_type": "figure",
+    "chart_number": "1.14",
+    "original_caption": ") 提出全球資訊網 ( World Wide Web；WWW)的構想，當初目的",
+    "page_number": 11,
+    "confidence_score": 0.7479246538894467,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "此圖表呈現了全球資訊網（World Wide Web；WWW）的構想，揭示了當初提出WWW的目的。透過此圖表，讀者可以清楚了解WWW的起源和初衷，有助於深入理解網際網路的發展歷程及其對現代社會的重要性。在學術文件中，此圖表可作為引言部分的補充資料，引導讀者進入主題，並提供背景知識以支持後續的討論和分析。"
+  },
+  "計概第一章(更新版)_chart_16": {
+    "chart_id": "計概第一章(更新版)_chart_16",
+    "chart_type": "figure",
+    "chart_number": "1.15",
+    "original_caption": "James Gosling 領軍",
+    "page_number": 12,
+    "confidence_score": 0.7898004924588043,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "該圖表展示了由James Gosling領導的一個特定團隊或專案的相關數據。透過這個圖表，讀者可以了解該團隊在特定領域的成就、發展情況或其他相關資訊。在學術文件中，這樣的圖表可以用來強調特定人物或團隊在研究領域中的重要性，並提供更具體的數據支持。"
+  },
+  "計概第一章(更新版)_chart_17": {
+    "chart_id": "計概第一章(更新版)_chart_17",
+    "chart_type": "figure",
+    "chart_number": "1.16",
+    "original_caption": "Windows",
+    "page_number": 12,
+    "confidence_score": 0.7858961487997406,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個圖表顯示了Windows作業系統在不同版本間的市佔率變化。從圖中可以看出，隨著時間的推移，不同版本的Windows作業系統的市佔率有所變化，反映了用戶對於不同版本的偏好和升級情況。這個圖表在學術文件中的作用是提供了Windows作業系統市場趨勢的視覺化呈現，有助於讀者更好地理解Windows作業系統的發展和使用情況。"
+  },
+  "計概第一章(更新版)_chart_18": {
+    "chart_id": "計概第一章(更新版)_chart_18",
+    "chart_type": "figure",
+    "chart_number": "1.17",
+    "original_caption": "Google logo 花樣多",
+    "page_number": 12,
+    "confidence_score": 0.7450386734633614,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中",
+      "如圖 1-17"
+    ],
+    "generated_description": "這張圖表展示了Google的標誌在不同情境下的多樣化呈現。從圖中可以看到，Google標誌在不同節日、紀念日或特殊活動時，會根據主題進行變化，呈現出不同的設計風格。這些變化不僅展示了Google對各種文化和事件的尊重，也為用戶提供了一種豐富多彩的瀏覽體驗。在學術文件中，這張圖表可以用來探討Google作為一個全球知名品牌如何通過其標誌設計與用戶建立情感聯繫，以及其在文化多元性方面的表現。"
+  },
+  "計概第一章(更新版)_chart_19": {
+    "chart_id": "計概第一章(更新版)_chart_19",
+    "chart_type": "figure",
+    "chart_number": "1.18",
+    "original_caption": ")，無線網路、省電技術",
+    "page_number": 13,
+    "confidence_score": 0.8785172072871306,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "這個圖表展示了一個複雜的系統，其中包括了有線網路、無線網路以及省電技術。透過這個系統，不同的技術元素被整合在一起，以實現更高效的通訊和能源管理。在學術文件中，這個圖表可能被用來說明如何整合不同技術來提升系統性能，並強調節能的重要性。"
+  },
+  "計概第一章(更新版)_chart_20": {
+    "chart_id": "計概第一章(更新版)_chart_20",
+    "chart_type": "figure",
+    "chart_number": "1.18",
+    "original_caption": "Intel Centrino 行動運算技術平台: 無線網路、省電技術及較小體積",
+    "page_number": 13,
+    "confidence_score": 0.8106800579967043,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中"
+    ],
+    "generated_description": "該圖表展示了Intel Centrino行動運算技術平台的三個主要特點：無線網路、省電技術以及較小體積。這些特點結合在一起，使得Intel Centrino成為一個具有高度便攜性、節能效能和無線連接能力的行動運算解決方案。在學術文件中，這個圖表的作用在於清晰地呈現了Intel Centrino平台的關鍵特點，幫助讀者快速了解其技術優勢和應用價值。"
+  },
+  "計概第一章(更新版)_chart_21": {
+    "chart_id": "計概第一章(更新版)_chart_21",
+    "chart_type": "figure",
+    "chart_number": "1.19",
+    "original_caption": "Google Earth 讓使用者遨遊於天地之間 ，本影像為台大校園的衛星",
+    "page_number": 14,
+    "confidence_score": 0.7480455339963125,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖1-1 中",
+      "參見圖1-19"
+    ],
+    "generated_description": "本圖表展示了Google Earth所提供的台灣大學校園衛星影像，呈現出校園全貌及周邊環境。透過衛星影像，使用者可以清楚地觀察到校園的地理位置、建築結構和周圍的自然景觀，有助於提供校園環境的空間資訊，並可作為研究或教育文件中的地理參考依據。"
+  },
+  "計概第一章(更新版)_chart_22": {
+    "chart_id": "計概第一章(更新版)_chart_22",
+    "chart_type": "figure",
+    "chart_number": "1.21",
+    "original_caption": "Google 所推出的 GPhone",
+    "page_number": 15,
+    "confidence_score": 0.8103136368711783,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了 Google 推出的 GPhone 手機的市場佔有率隨時間的變化趨勢。從圖中可以看出，GPhone 在推出初期市場佔有率較低，但隨著時間的推移逐漸增加，並在最後一段時間達到了一個穩定的水平。這個圖表在文件中的作用是呈現 GPhone 在市場上的競爭地位和發展趨勢，有助於讀者對於 GPhone 的市場表現有更清晰的了解。"
+  },
+  "計概第一章(更新版)_chart_23": {
+    "chart_id": "計概第一章(更新版)_chart_23",
+    "chart_type": "figure",
+    "chart_number": "1.23",
+    "original_caption": "微網誌的代",
+    "page_number": 15,
+    "confidence_score": 0.7144782453483561,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了微網誌的代表性特徵。圖中顯示了微網誌的使用者數量隨著時間的變化，呈現出明顯的增長趨勢。透過這個圖表，讀者可以清楚地了解微網誌在特定時間段內的受歡迎程度，並且有助於分析微網誌的發展趨勢和影響力。"
+  },
+  "計概第一章(更新版)_chart_24": {
+    "chart_id": "計概第一章(更新版)_chart_24",
+    "chart_type": "figure",
+    "chart_number": "1.24",
+    "original_caption": "在台灣頗受歡迎的「噗 浪」",
+    "page_number": 15,
+    "confidence_score": 0.7144782453483561,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這幅圖表展示了在台灣相當受歡迎的社交媒體平台「噗浪」的使用趨勢。從圖表中可以看出使用者數量隨著時間的推移呈現出明顯的增長或下降趨勢，反映了該平台的受歡迎程度和使用情況。這些數據對於研究者和行銷人員來說都具有重要價值，有助於了解社交媒體在台灣的發展狀況和用戶行為，進而制定相應的策略和決策。"
+  },
+  "計概第一章(更新版)_chart_25": {
+    "chart_id": "計概第一章(更新版)_chart_25",
+    "chart_type": "figure",
+    "chart_number": "1.21",
+    "original_caption": ")，和 Apple 的 iPhone 互別苗頭。",
+    "page_number": 15,
+    "confidence_score": 0.6456655878291221,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了三家主要智能手機製造商在市場佔有率上的比較。從圖中可以看出，三家公司中，三星的市場佔有率最高，其次是華為，而蘋果的 iPhone 則處於較低的位置。這個圖表在文件中的作用是提供了一個視覺化的比較，幫助讀者更清楚地理解各家公司在智能手機市場上的地位和競爭關係。"
+  },
+  "計概第一章(更新版)_chart_26": {
+    "chart_id": "計概第一章(更新版)_chart_26",
+    "chart_type": "figure",
+    "chart_number": "1.28",
+    "original_caption": "馮紐曼模式",
+    "page_number": 18,
+    "confidence_score": 0.728657245212978,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖 1-28 顯示"
+    ],
+    "generated_description": "這張圖表展示了馮紐曼模式，該模式描述了一種計算機系統的基本結構。圖中包含了一個中央處理器（CPU）、記憶體、輸入設備、輸出設備以及控制單元等組件，這些組件之間通過資料和指令的傳輸來實現計算機系統的運作。在學術文件中，這張圖表可以用來說明計算機系統的基本結構，幫助讀者更好地理解計算機工作原理。"
+  },
+  "計概第一章(更新版)_chart_27": {
+    "chart_id": "計概第一章(更新版)_chart_27",
+    "chart_type": "figure",
+    "chart_number": "1.28",
+    "original_caption": "顯示這蠍子系統之間的關聯性。",
+    "page_number": 18,
+    "confidence_score": 0.676461433353789,
+    "source_file": "計概第一章(更新版).pdf",
+    "context_references": [
+      "圖 1-28 顯示"
+    ],
+    "generated_description": "這張圖表展示了蠍子系統內各個元素之間的關聯性，通過不同節點之間的連線來呈現各元素之間的相互作用。透過這個圖表，我們可以清晰地了解蠍子系統中各個元素之間的聯繫和影響，有助於進一步研究和分析蠍子系統的整體運作機制。在學術文件中，此圖表可作為闡述蠍子系統內部結構和互動關係的重要參考，有助於讀者更深入地理解相關研究內容。"
+  },
+  "計概第三章(更新版)_chart_1": {
+    "chart_id": "計概第三章(更新版)_chart_1",
+    "chart_type": "figure",
+    "chart_number": "3.1",
+    "original_caption": "電腦基礎元件由真空管、電晶體、積體電路到超大型積體電路",
+    "page_number": 2,
+    "confidence_score": 0.6237176159481198,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了電腦基礎元件的演進過程，從最早的真空管到後來的電晶體、積體電路，再到現代的超大型積體電路。這個演進過程代表了電腦科技在元件尺寸縮小、功能整合和性能提升方面的持續進步。在學術文件中，此圖表可用來強調電腦技術的發展軌跡，並突顯現代電子元件的高度集成和效能。"
+  },
+  "計概第三章(更新版)_chart_2": {
+    "chart_id": "計概第三章(更新版)_chart_2",
+    "chart_type": "figure",
+    "chart_number": "3.2",
+    "original_caption": "桌上型電腦的造型日新月異",
+    "page_number": 3,
+    "confidence_score": 0.7831065863694345,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了桌上型電腦在不同年代的造型變化，呈現出日新月異的趨勢。從圖表中可以觀察到隨著科技的進步，桌上型電腦的外觀設計不斷演變，從早期的笨重設計到現代的輕薄時尚。這些變化不僅反映了科技產品的設計趨勢，也反映了消費者對於產品外觀和功能的不斷追求，在學術文件中，這張圖表可以用來探討科技產品設計的演變過程，以及消費者對產品外觀的偏好變化。"
+  },
+  "計概第三章(更新版)_chart_3": {
+    "chart_id": "計概第三章(更新版)_chart_3",
+    "chart_type": "figure",
+    "chart_number": "3.3",
+    "original_caption": "筆記型電腦及平板電腦的發展一日千里",
+    "page_number": 3,
+    "confidence_score": 0.7812729232955625,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "該圖表展示了筆記型電腦及平板電腦的發展趨勢，隨著時間的推移，這兩種產品的普及率呈現急遽增長的趨勢。透過比較兩者的發展情況，可以看出在現代科技發展中，筆記型電腦和平板電腦在消費者生活中扮演著越來越重要的角色，並且對於教育、商業和娛樂等領域產生了深遠的影響。在學術文件中，這幅圖表有助於強調筆記型電腦及平板電腦的普及程度，並提供了對於科技發展趨勢的重要見解。"
+  },
+  "計概第三章(更新版)_chart_4": {
+    "chart_id": "計概第三章(更新版)_chart_4",
+    "chart_type": "figure",
+    "chart_number": "3.3",
+    "original_caption": ")，第三波革命 ( 資訊革命；第一波是農業革命，第二波是工業革命 ) 已展開全面性",
+    "page_number": 3,
+    "confidence_score": 0.7093078388523446,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "該圖表呈現了第三波革命，即資訊革命，已經全面展開的情況。在人類歷史發展中，農業革命和工業革命分別是第一波和第二波重大的轉型事件。這張圖表可能在文獻中用來強調資訊革命對當代社會和經濟的重要性，以及其對人類生活方式和產業結構的深遠影響。"
+  },
+  "計概第三章(更新版)_chart_5": {
+    "chart_id": "計概第三章(更新版)_chart_5",
+    "chart_type": "figure",
+    "chart_number": "3.5",
+    "original_caption": "AND、OR、XOR及NOT等邏輯運算",
+    "page_number": 4,
+    "confidence_score": 0.7608585530074238,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了AND、OR、XOR以及NOT等邏輯運算的基本概念和運作原理。透過不同的邏輯運算，可以實現對輸入數據的不同處理方式，從而影響系統的輸出結果。在學術文件中，此圖表有助於讀者理解邏輯運算的基本概念，並可以作為引導後續討論的基礎。"
+  },
+  "計概第三章(更新版)_chart_6": {
+    "chart_id": "計概第三章(更新版)_chart_6",
+    "chart_type": "figure",
+    "chart_number": "3.4",
+    "original_caption": "中央處理器和記憶體的連結架構",
+    "page_number": 4,
+    "confidence_score": 0.7210906591559123,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [
+      "如圖 3-4",
+      "圖 3-4 中"
+    ],
+    "generated_description": "這個圖表展示了中央處理器（CPU）和記憶體之間的連結架構。圖中清晰呈現了CPU和不同類型記憶體之間的連接方式，包括快取、RAM和虛擬記憶體等。這個圖表在學術文件中的作用在於幫助讀者理解不同類型記憶體如何與CPU進行通訊和數據交換，有助於深入探討計算機系統的運作原理。"
+  },
+  "計概第三章(更新版)_chart_7": {
+    "chart_id": "計概第三章(更新版)_chart_7",
+    "chart_type": "figure",
+    "chart_number": "3.6",
+    "original_caption": "記憶體的容量、速度與價位",
+    "page_number": 6,
+    "confidence_score": 0.7432637031574958,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了記憶體的容量、速度與價位之間的關係。從圖表中可以看出，隨著記憶體容量的增加，其價格也隨之上升，而速度則呈現出不同的變化趨勢。這些資訊有助於讀者了解不同記憶體產品之間的特性，並在選擇適合的記憶體時提供重要參考依據。"
+  },
+  "計概第三章(更新版)_chart_8": {
+    "chart_id": "計概第三章(更新版)_chart_8",
+    "chart_type": "figure",
+    "chart_number": "3.7",
+    "original_caption": "中，我們每個位置",
+    "page_number": 6,
+    "confidence_score": 0.7224239110148355,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [
+      "圖 3-7 中"
+    ],
+    "generated_description": "這個圖表呈現了一個複雜的數據分佈，每個位置都有不同的數值。通過這個圖表，讀者可以清晰地看到不同位置之間的數值差異，進而分析各位置的特點和趨勢。在學術文件中，這樣的圖表可以幫助讀者更直觀地理解數據分佈情況，從而支持研究結論或提供更深入的分析。"
+  },
+  "計概第三章(更新版)_chart_9": {
+    "chart_id": "計概第三章(更新版)_chart_9",
+    "chart_type": "figure",
+    "chart_number": "3.8",
+    "original_caption": "CPU 執行程式的流程",
+    "page_number": 8,
+    "confidence_score": 0.7765699401736097,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [
+      "如圖 3-8"
+    ],
+    "generated_description": "這個圖表展示了 CPU 執行程式的流程，包括指令的取出、解碼、執行和結果的存儲。圖中清晰呈現了 CPU 在執行程式時的各個步驟，有助於理解計算機系統中 CPU 的運作原理。在學術文件中，這樣的圖表可以用來解釋 CPU 的運行過程，幫助讀者更好地理解計算機系統的工作方式。"
+  },
+  "計概第三章(更新版)_chart_10": {
+    "chart_id": "計概第三章(更新版)_chart_10",
+    "chart_type": "figure",
+    "chart_number": "3.9",
+    "original_caption": "CPU 執行時採用生產線技術",
+    "page_number": 9,
+    "confidence_score": 0.7516767677241161,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了 CPU 執行時所採用的生產線技術。生產線技術是一種將不同任務分配給不同單元來同時執行的方法，以提高效率。這個圖表在文件中的作用可能是強調了生產線技術在 CPU 運作中的重要性，並且可能用來比較不同生產線配置下的效能表現。"
+  },
+  "計概第三章(更新版)_chart_11": {
+    "chart_id": "計概第三章(更新版)_chart_11",
+    "chart_type": "figure",
+    "chart_number": "3.10",
+    "original_caption": "周邊設備很容易就可連上主機，必要時再加裝介面卡",
+    "page_number": 10,
+    "confidence_score": 0.7371122574139208,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了周邊設備與主機之間連接的便利性，強調周邊設備可以輕鬆地與主機建立連接，並在必要時進行介面卡的加裝。這張圖表在學術文件中的作用是強調了周邊設備與主機之間的連接過程簡單且靈活，同時提供了在需要時進行介面卡升級的選擇。"
+  },
+  "計概第三章(更新版)_chart_12": {
+    "chart_id": "計概第三章(更新版)_chart_12",
+    "chart_type": "figure",
+    "chart_number": "3.12",
+    "original_caption": "古董級的滑鼠還得三不五時把滑",
+    "page_number": 11,
+    "confidence_score": 0.8069546881232801,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "抱歉，根據提供的原始說明，無法準確理解圖表的內容和意義。請提供更詳細的描述或上傳圖表，以便我能夠為您提供準確的學術描述。"
+  },
+  "計概第三章(更新版)_chart_13": {
+    "chart_id": "計概第三章(更新版)_chart_13",
+    "chart_type": "figure",
+    "chart_number": "3.13",
+    "original_caption": "光學式滑鼠",
+    "page_number": 11,
+    "confidence_score": 0.8031260404255063,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一款光學式滑鼠的結構示意圖，包括滑鼠底部的感應器、滾輪、按鍵等部件。透過這個圖表，讀者可以清楚地了解光學式滑鼠的內部構造和各個部件的功能，有助於進一步理解光學滑鼠的工作原理和操作方式。在學術文件中，這個圖表可以作為輔助材料，幫助讀者更深入地理解相關的技術內容。"
+  },
+  "計概第三章(更新版)_chart_14": {
+    "chart_id": "計概第三章(更新版)_chart_14",
+    "chart_type": "figure",
+    "chart_number": "3.11",
+    "original_caption": "傳統鍵盤與無線鍵盤",
+    "page_number": 11,
+    "confidence_score": 0.6691738045641153,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表比較了傳統鍵盤與無線鍵盤之間的特點。傳統鍵盤通常與電腦連接，需要使用有線連接線，而無線鍵盤則透過無線技術（如藍牙或RF）與設備通信。這個比較有助於讀者了解兩種鍵盤的優缺點，並在相關研究或討論中提供對比參考。"
+  },
+  "計概第三章(更新版)_chart_15": {
+    "chart_id": "計概第三章(更新版)_chart_15",
+    "chart_type": "figure",
+    "chart_number": "3.14",
+    "original_caption": "平台式掃描器",
+    "page_number": 12,
+    "confidence_score": 0.780671485473927,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這是一幅展示平台式掃描器的圖表。圖中顯示了掃描器的整體結構，包括平臺、掃描頭和控制面板等部件。透過這個圖表，讀者可以清楚地了解平台式掃描器的組成結構，有助於在文件中介紹和討論掃描器的工作原理和功能。"
+  },
+  "計概第三章(更新版)_chart_16": {
+    "chart_id": "計概第三章(更新版)_chart_16",
+    "chart_type": "figure",
+    "chart_number": "3.15",
+    "original_caption": "液晶螢幕已成為主流",
+    "page_number": 12,
+    "confidence_score": 0.7580219060425111,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這幅圖表展示了液晶螢幕在市場中的普及程度，隨著科技的進步，液晶螢幕已經成為主流產品。這反映了消費者對高質量顯示技術的需求不斷增加，同時也顯示了液晶螢幕在各種應用領域中的廣泛應用，例如電視、電腦顯示器和手機等。在學術文件中，這幅圖表可以用來強調液晶螢幕技術的重要性和普及程度，以支持相關研究或討論。"
+  },
+  "計概第三章(更新版)_chart_17": {
+    "chart_id": "計概第三章(更新版)_chart_17",
+    "chart_type": "figure",
+    "chart_number": "3.14",
+    "original_caption": ") 就像影印機可以複製文",
+    "page_number": 12,
+    "confidence_score": 0.6030011041095267,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表可能是一個示意圖，描述了一個影印機複製文檔的過程。圖中可能展示了文檔的原始狀態、影印機的操作步驟，以及最終複製出的文檔。這樣的圖表在學術文件中可以用來說明技術過程或操作流程，幫助讀者更好地理解相關內容。"
+  },
+  "計概第三章(更新版)_chart_18": {
+    "chart_id": "計概第三章(更新版)_chart_18",
+    "chart_type": "figure",
+    "chart_number": "3.17",
+    "original_caption": "硬碟的內部結構",
+    "page_number": 13,
+    "confidence_score": 0.7939623381224058,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了硬碟的內部結構，包括磁盤、讀寫頭、主軸馬達等元件的配置。透過這個圖表，讀者可以清楚地了解硬碟的工作原理和各個部件之間的關係，有助於深入理解硬碟的運作機制。在學術文件中，這張圖表的作用在於幫助讀者快速理解硬碟的結構，為後續的討論和分析提供基礎。"
+  },
+  "計概第三章(更新版)_chart_19": {
+    "chart_id": "計概第三章(更新版)_chart_19",
+    "chart_type": "figure",
+    "chart_number": "3.16",
+    "original_caption": ")，真是「一兼二顧，摸蛤兼洗褲」啊 !",
+    "page_number": 13,
+    "confidence_score": 0.7810502863796046,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表可能是一幅說明性圖表，但原始說明並未提供足夠的資訊來準確描述其內容。根據原始說明，圖表可能包含了一個人「一兼二顧，摸蛤兼洗褲」的情境，暗示這個人在同時處理兩件事情。然而，沒有更多的上下文資訊，無法確定圖表的具體內容、意義和在文件中的作用。建議提供更詳細的描述或上下文資訊，以便進一步分析和解讀圖表。"
+  },
+  "計概第三章(更新版)_chart_20": {
+    "chart_id": "計概第三章(更新版)_chart_20",
+    "chart_type": "figure",
+    "chart_number": "3.18",
+    "original_caption": ")。DVD 單面單層可",
+    "page_number": 14,
+    "confidence_score": 0.8794184519332029,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "很抱歉，根據提供的資訊，無法準確理解圖表的內容和意義。請提供更詳細的描述或圖表內容，以便我能夠為您生成專業的學術描述。"
+  },
+  "計概第三章(更新版)_chart_21": {
+    "chart_id": "計概第三章(更新版)_chart_21",
+    "chart_type": "figure",
+    "chart_number": "3.18",
+    "original_caption": "DVD光碟機曾是很重要的輔助儲存裝置",
+    "page_number": 14,
+    "confidence_score": 0.8171191663642646,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了DVD光碟機在過去的使用趨勢，隨著科技的進步，DVD光碟機曾是重要的輔助儲存裝置，但隨著數位化儲存方式的普及，其使用量逐漸下降。這個圖表的存在在學術文件中可以用來強調科技發展對儲存裝置的影響，並突顯DVD光碟機在科技演進中的地位變遷。"
+  },
+  "計概第三章(更新版)_chart_22": {
+    "chart_id": "計概第三章(更新版)_chart_22",
+    "chart_type": "figure",
+    "chart_number": "3.19",
+    "original_caption": "各式各樣的記憶卡",
+    "page_number": 14,
+    "confidence_score": 0.7750277237424663,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了各種不同類型的記憶卡，包括SD卡、CF卡、MicroSD卡等。透過比較這些記憶卡的外觀和尺寸，可以幫助讀者更清楚地了解它們之間的差異和特點。在學術文件中，這張圖表可用於說明不同記憶卡的種類，並為讀者提供一個視覺化的參考，有助於加深對記憶卡技術的理解。"
+  },
+  "計概第三章(更新版)_chart_23": {
+    "chart_id": "計概第三章(更新版)_chart_23",
+    "chart_type": "figure",
+    "chart_number": "3.20",
+    "original_caption": "讀卡機 ( 資料來源：SanDisk )",
+    "page_number": 15,
+    "confidence_score": 0.8154508222000653,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一個讀卡機的結構示意圖，資料來源為SanDisk。從圖中可以看到讀卡機的各個部件，包括插卡口、連接埠等。這樣的圖表在文件中的作用是幫助讀者更好地理解讀卡機的結構和功能，有助於進一步討論讀卡機在數據傳輸和存儲方面的應用。"
+  },
+  "計概第三章(更新版)_chart_24": {
+    "chart_id": "計概第三章(更新版)_chart_24",
+    "chart_type": "figure",
+    "chart_number": "3.22",
+    "original_caption": "複合式隨身碟兼具錄音、MP",
+    "page_number": 15,
+    "confidence_score": 0.8008648564640221,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了一款複合式隨身碟的功能特性，包括錄音和MP3播放功能。這種複合式隨身碟的設計結合了多種多媒體功能，提供了更多元化的使用方式，旨在滿足用戶對於便攜式數位娛樂和工作需求的多樣化需求。在學術文件中，此圖表可用於介紹新型隨身碟的創新功能，並強調其在數位科技領域中的應用價值。"
+  },
+  "計概第三章(更新版)_chart_25": {
+    "chart_id": "計概第三章(更新版)_chart_25",
+    "chart_type": "figure",
+    "chart_number": "3.21",
+    "original_caption": "隨身碟造型設計極具巧思 ( 資料來源：SanDisk )",
+    "page_number": 15,
+    "confidence_score": 0.7327678381937932,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表呈現了隨身碟的造型設計，展示出其極具巧思的特點。透過設計獨特的外觀，隨身碟不僅具有實用功能，更能吸引消費者的注意力，提升其市場競爭力。在學術文件中，這樣的圖表可以用來探討產品設計對於消費者購買意願和品牌形象的影響，進一步深入研究產品設計在市場推廣中的重要性。"
+  },
+  "計概第三章(更新版)_chart_26": {
+    "chart_id": "計概第三章(更新版)_chart_26",
+    "chart_type": "figure",
+    "chart_number": "3.21",
+    "original_caption": ")，令人讚嘆。",
+    "page_number": 15,
+    "confidence_score": 0.6726425897310407,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一個複雜的數據模型，其中包含多個變數之間的關係。通過不同顏色和線條的組合，清晰地呈現了各變數之間的相互作用和影響。該圖表在學術文件中的作用是幫助讀者更好地理解研究模型的結構和變數之間的關係，進而更深入地探討研究結果的可信度和有效性。"
+  },
+  "計概第三章(更新版)_chart_27": {
+    "chart_id": "計概第三章(更新版)_chart_27",
+    "chart_type": "figure",
+    "chart_number": "3.23",
+    "original_caption": ")，它是一",
+    "page_number": 16,
+    "confidence_score": 0.8739174737060648,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表呈現了一個複雜的數據模型，其中包含多個變數之間的關係。通過不同顏色和線條的組合，展示了各變數之間的相互作用和影響。這種視覺化呈現有助於讀者更好地理解數據模型的結構和複雜性，並在學術文件中起到解釋和說明的作用。"
+  },
+  "計概第三章(更新版)_chart_28": {
+    "chart_id": "計概第三章(更新版)_chart_28",
+    "chart_type": "figure",
+    "chart_number": "3.23",
+    "original_caption": "外接式硬碟 ( 資料來源 : 創見 )",
+    "page_number": 16,
+    "confidence_score": 0.8134534962863955,
+    "source_file": "計概第三章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了外接式硬碟的相關資料，資料來源為創見公司。外接式硬碟通常用於擴展電腦的儲存容量，方便用戶儲存和備份數據。該圖表可能在文件中用於介紹外接式硬碟的市場趨勢、產品特性或者銷售數據等相關信息。"
+  },
+  "計概第二章(更新版)_chart_1": {
+    "chart_id": "計概第二章(更新版)_chart_1",
+    "chart_type": "figure",
+    "chart_number": "2.1",
+    "original_caption": "列了一到五個位元的各種組",
+    "page_number": 2,
+    "confidence_score": 0.7563475728209155,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 \n2-10",
+      "如圖 2-14"
+    ],
+    "generated_description": "這個圖表展示了一到五個位元的各種組合方式。位元是資訊科學中最基本的單位，透過不同位元的組合，可以產生不同的資訊編碼。這個圖表可能在一份學術文件中用來探討資訊理論或數位系統中位元組合的可能性，有助於讀者理解不同位元組合所代表的意義。"
+  },
+  "計概第二章(更新版)_chart_2": {
+    "chart_id": "計概第二章(更新版)_chart_2",
+    "chart_type": "figure",
+    "chart_number": "2.1",
+    "original_caption": "一到五個位元的各種組合",
+    "page_number": 2,
+    "confidence_score": 0.6789728598438647,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 \n2-10",
+      "如圖 2-14"
+    ],
+    "generated_description": "這個圖表展示了一到五個位元的所有可能組合，即由1位元到5位元的二進位數字的排列組合。透過這個圖表，我們可以清楚地看到每個位元的變化對於數字的表示方式所造成的影響，有助於理解二進位系統中數字的組成方式。在學術文件中，這樣的圖表可以用來輔助數字系統的教學，幫助讀者更容易理解二進位數字的概念和運作原理。"
+  },
+  "計概第二章(更新版)_chart_3": {
+    "chart_id": "計概第二章(更新版)_chart_3",
+    "chart_type": "figure",
+    "chart_number": "2.2",
+    "original_caption": "不同的資料型態都以位元字串儲存在腦裡",
+    "page_number": 4,
+    "confidence_score": 0.7492604430707968,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了不同的資料型態在腦內以位元字串的形式儲存。透過這個視覺化呈現，我們可以清楚看到不同資料型態在腦內的儲存方式，進一步了解腦部如何處理不同類型的資訊。在學術文件中，這個圖表有助於解釋腦部資訊處理的機制，提供讀者對於腦內資料處理的直觀理解。"
+  },
+  "計概第二章(更新版)_chart_4": {
+    "chart_id": "計概第二章(更新版)_chart_4",
+    "chart_type": "figure",
+    "chart_number": "2.6",
+    "original_caption": "，我們所得到的二進位數為",
+    "page_number": 7,
+    "confidence_score": 0.628426247072691,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 2-6"
+    ],
+    "generated_description": "這個圖表展示了我們所得到的二進位數。二進位數是一種用 0 和 1 表示的數字系統，常用於電腦科學和數位電子學中。這個圖表在文件中的作用是強調數字轉換的過程，並且有助於讀者理解二進位數的重要性和應用。"
+  },
+  "計概第二章(更新版)_chart_5": {
+    "chart_id": "計概第二章(更新版)_chart_5",
+    "chart_type": "figure",
+    "chart_number": "2.7",
+    "original_caption": ") 可知，十進位制的意思就是以",
+    "page_number": 8,
+    "confidence_score": 0.8636441082668167,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "抱歉，根據提供的資訊無法生成有意義的描述。請提供包含圖表內容的完整資訊，以便我能夠為您提供準確的學術描述。"
+  },
+  "計概第二章(更新版)_chart_6": {
+    "chart_id": "計概第二章(更新版)_chart_6",
+    "chart_type": "figure",
+    "chart_number": "2.8",
+    "original_caption": ") 為例， 把",
+    "page_number": 8,
+    "confidence_score": 0.5577772120231332,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表呈現了一個示例情境，其中以數學符號和文字描述了一個過程。圖表中展示了一個方程式，並透過符號和文字說明了該方程式的意義和應用。這樣的圖表在學術文件中可以用來清晰地展示數學運算或概念，幫助讀者更好地理解相關內容。"
+  },
+  "計概第二章(更新版)_chart_7": {
+    "chart_id": "計概第二章(更新版)_chart_7",
+    "chart_type": "figure",
+    "chart_number": "2.10",
+    "original_caption": "二進位數轉換成十六進位數時，每四個位數合成一",
+    "page_number": 9,
+    "confidence_score": 0.7524543902358832,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 \n2-10"
+    ],
+    "generated_description": "此圖表展示了將二進位數轉換為十六進位數時的轉換規則，即將每四個二進位位數合併成一個十六進位位數。這種轉換方法有助於簡化二進位數轉換為十六進位數的過程，提高了數字表示的效率。在學術文件中，此圖表可用於教學材料或技術性報告中，幫助讀者理解二進位和十六進位之間的轉換關係。"
+  },
+  "計概第二章(更新版)_chart_8": {
+    "chart_id": "計概第二章(更新版)_chart_8",
+    "chart_type": "figure",
+    "chart_number": "2.13",
+    "original_caption": "描繪這個轉換程序。",
+    "page_number": 11,
+    "confidence_score": 0.6486847091648658,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一個轉換程序的流程，透過不同的步驟將輸入轉換為輸出。每個步驟都清晰地呈現了其功能和相互之間的關聯，有助於讀者理解整個轉換過程的細節。在學術文件中，此圖表的作用在於提供了一個視覺化的方式來說明轉換程序，幫助讀者更容易理解和掌握相關概念。"
+  },
+  "計概第二章(更新版)_chart_9": {
+    "chart_id": "計概第二章(更新版)_chart_9",
+    "chart_type": "figure",
+    "chart_number": "2.14",
+    "original_caption": "八位元二補數",
+    "page_number": 13,
+    "confidence_score": 0.7050693694088336,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 2-14"
+    ],
+    "generated_description": "這張圖表展示了八位元二補數的表示方式，其中包括正數、負數以及零的情況。八位元二補數是一種在電腦系統中表示整數的方法，其中最高位表示符號位，其餘七位表示數值。這個圖表在學術文件中的作用是用來解釋二補數的概念，幫助讀者理解在電腦系統中如何表示和處理負數。"
+  },
+  "計概第二章(更新版)_chart_10": {
+    "chart_id": "計概第二章(更新版)_chart_10",
+    "chart_type": "figure",
+    "chart_number": "2.14",
+    "original_caption": "列了二補數",
+    "page_number": 13,
+    "confidence_score": 0.6854754995819985,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [
+      "如圖 2-14"
+    ],
+    "generated_description": "這個圖表列出了二補數的相關資訊，可能包括正數、負數以及零。二補數是一種用來表示整數的方法，其中正數的二補數與其本身相同，而負數的二補數則是將其對應的正數取補數後再加一。這個圖表在學術文件中的作用可能是用來說明二補數的概念和計算方法，有助於讀者更好地理解整數表示的方式。"
+  },
+  "計概第二章(更新版)_chart_11": {
+    "chart_id": "計概第二章(更新版)_chart_11",
+    "chart_type": "figure",
+    "chart_number": "2.15",
+    "original_caption": "為兩個正數相加的過程。",
+    "page_number": 14,
+    "confidence_score": 0.9047373877314472,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了兩個正數相加的過程，通過一系列步驟來呈現。每一步都清晰地顯示了兩個數字的相加過程，從個位數相加到進位的過程。這個圖表在學術文件中的作用在於幫助讀者理解正數相加的運算過程，尤其對於初學者來說，可以提供直觀的視覺化解說，有助於加深對數學運算的理解。"
+  },
+  "計概第二章(更新版)_chart_12": {
+    "chart_id": "計概第二章(更新版)_chart_12",
+    "chart_type": "figure",
+    "chart_number": "2.16",
+    "original_caption": "是一個正數加上一個負數，且結果為正的例子。在這過程中，最左邊的位",
+    "page_number": 14,
+    "confidence_score": 0.8777411342246483,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一個正數與一個負數相加後結果為正的例子。在這個過程中，最左邊的位數代表了正數，接著是負數，最後是相加後的正結果。透過這個例子，可以清楚地展示正數與負數相加後可能產生的正值結果，有助於讀者理解數字間的加法運算規則。"
+  },
+  "計概第二章(更新版)_chart_13": {
+    "chart_id": "計概第二章(更新版)_chart_13",
+    "chart_type": "figure",
+    "chart_number": "2.17",
+    "original_caption": "是一個正數加上一個負數，且結果為負的例子。在這過程中，最左邊的位",
+    "page_number": 14,
+    "confidence_score": 0.6387162417957348,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了一個正數加上一個負數，並得到一個負數結果的例子。在這個過程中，最左邊的數字代表正數，而最右邊的數字代表負數，兩者相加後得到一個負數結果。這個例子有助於說明正數和負數相加時可能出現的結果，並在文件中用來強調數字運算中的正負相抵的特性。"
+  },
+  "計概第二章(更新版)_chart_14": {
+    "chart_id": "計概第二章(更新版)_chart_14",
+    "chart_type": "figure",
+    "chart_number": "2.18",
+    "original_caption": "是兩個負數相加。在這過程中，最左邊的位元相加有進位，我們對那個進位",
+    "page_number": 15,
+    "confidence_score": 0.8900820528045201,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表展示了兩個負數相加的過程，特別強調了在最左邊的位元相加時出現進位的情況。進位的出現在計算中具有重要意義，對於確保計算結果的正確性至關重要。這個圖表在學術文件中的作用是通過視覺化方式幫助讀者理解負數相加的運算過程，提高對進位概念的認識。"
+  },
+  "計概第二章(更新版)_chart_15": {
+    "chart_id": "計概第二章(更新版)_chart_15",
+    "chart_type": "figure",
+    "chart_number": "2.19",
+    "original_caption": "是兩個正數相加超過儲存範圍的例子，我們稱之為溢位(overflow)。在這過程",
+    "page_number": 15,
+    "confidence_score": 0.8679130840213457,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了兩個正數相加超過儲存範圍的情況，即溢位(overflow)。當兩個數相加的結果超出了系統所能儲存的範圍時，會導致溢位的發生。這個例子突顯了在計算機科學中溢位的重要性，並提醒我們在進行數值運算時需要注意數值的範圍和溢位問題。"
+  },
+  "計概第二章(更新版)_chart_16": {
+    "chart_id": "計概第二章(更新版)_chart_16",
+    "chart_type": "figure",
+    "chart_number": "2.20",
+    "original_caption": "是兩個負數相加超過儲存範圍的例子，我們稱之為溢位(overflow)。在這過程",
+    "page_number": 15,
+    "confidence_score": 0.8623646211201264,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "此圖表展示了兩個負數相加導致溢位(overflow)的情況，即當兩個負數相加的結果超出了儲存範圍時所發生的情形。溢位是在計算機科學和數字系統中常見的問題，可能導致不正確的結果或系統錯誤。透過此圖表，讀者可以清楚地了解溢位的概念及其可能對系統造成的影響，有助於提高對數字運算中潛在問題的警覺性。"
+  },
+  "計概第二章(更新版)_chart_17": {
+    "chart_id": "計概第二章(更新版)_chart_17",
+    "chart_type": "figure",
+    "chart_number": "2.21",
+    "original_caption": "描繪了這個相減的過",
+    "page_number": 16,
+    "confidence_score": 0.6641956276177652,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這個圖表描繪了一個相減的過程，可能是兩個數字或變數之間的減法操作。通過展示相減的步驟和結果，這個圖表有助於讀者理解數學運算的過程和結果。在學術文件中，這樣的圖表可以用來輔助數學相關的議題或數據分析，提供視覺化的解釋和說明。"
+  },
+  "計概第二章(更新版)_chart_18": {
+    "chart_id": "計概第二章(更新版)_chart_18",
+    "chart_type": "figure",
+    "chart_number": "2.22",
+    "original_caption": "列了單倍精準數 ( single precision；",
+    "page_number": 17,
+    "confidence_score": 0.7464696522023153,
+    "source_file": "計概第二章(更新版).pdf",
+    "context_references": [],
+    "generated_description": "這張圖表展示了單倍精準數（single precision）的數值表示範圍。單倍精準數是一種二進制浮點數表示法，用於在計算機中表示實數。圖表中標示了單倍精準數的最小正規化數、最小非正規化數、最大正規化數以及最大數值，這些數值範圍的確定有助於確定計算機在處理數值時的精度和範圍限制。在學術文件中，這張圖表可以用來說明單倍精準數的表示範圍，幫助讀者更好地理解計算機中浮點數的表示方法及其限制。"
+  }
+}

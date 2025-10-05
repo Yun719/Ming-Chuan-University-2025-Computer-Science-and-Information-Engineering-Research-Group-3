@@ -27,11 +27,12 @@ rag_cache/
 preprocess_logs/
 
 # Enhanced RAG Helper 產生檔案
-chart_metadata.json
 temp_enhanced_docs/
-pdfFiles/enhanced_docs/
-pdfFiles/enhanced_doc_*.txt
 chart_images/
+
+# ✅ 允許上傳 enhanced_docs 和 chart_metadata（預處理成果）
+# pdfFiles/enhanced_docs/
+# chart_metadata.json
 
 # 測試檔案
 test_rag_enhanced.py
