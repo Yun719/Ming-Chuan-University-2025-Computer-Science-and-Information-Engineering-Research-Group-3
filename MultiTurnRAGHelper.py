@@ -25,6 +25,7 @@ from langchain_community.document_loaders import (
 )
 
 from Split_Helper import SplitHelper
+from llm_config import LLMConfig, get_openai_embeddings, get_chat_llm
 
 
 class MultiTurnRAGHelper:
@@ -115,7 +116,8 @@ class MultiTurnRAGHelper:
             )
             formatted_docs.append(formatted_doc)
 
-        embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+        # 使用統一配置的 Embedding 模型
+        embeddings = get_openai_embeddings()
         self.vectorstore = FAISS.from_documents(formatted_docs, embeddings)
 
     def retrieve_documents(self, query, k=5, similarity_threshold=0.45):
@@ -139,49 +141,86 @@ class MultiTurnRAGHelper:
             print(f"❌ 檢索過程中發生錯誤: {e}")
             return []
 
-    async def load_and_prepare(self, file_extensions=None):
+    async def load_and_prepare(self, file_extensions=None, use_enhanced_docs=True):
+        """
+        載入並準備文件
+
+        Args:
+            file_extensions: 要載入的檔案副檔名列表，例如 ['.pdf', '.txt', '.docx']
+            use_enhanced_docs: 是否優先使用 enhanced_doc_*.txt（預處理後的增強文件）
+        """
         print("開始載入檔案...")
 
         if os.path.exists("my_faiss_index"):
             print("已偵測到現有向量資料庫，直接載入...")
             self.vectorstore = FAISS.load_local(
                 "my_faiss_index",
-                OpenAIEmbeddings(model="text-embedding-3-large"),
+                get_openai_embeddings(),
                 allow_dangerous_deserialization=True
             )
         else:
             print("正在建立和讀取向量資料庫")
 
-            if file_extensions is None:
-                file_extensions = ['.pdf']
+            # ★ 優先檢查是否存在 enhanced_doc_*.txt（預處理後的增強文件）
+            enhanced_docs = []
+            if use_enhanced_docs:
+                enhanced_pattern = os.path.join(self.pdf_folder, "enhanced_doc_*.txt")
+                enhanced_docs = glob.glob(enhanced_pattern)
 
             all_chunks = []
 
-            for ext in file_extensions:
-                pattern = f"*{ext}"
-                file_paths = glob.glob(os.path.join(self.pdf_folder, pattern))
+            if enhanced_docs:
+                # ★ 發現 enhanced_doc 檔案，優先使用它們（已包含原文+圖表描述）
+                print(f"偵測到 {len(enhanced_docs)} 個 enhanced_doc 檔案，優先載入...")
 
-                for path in file_paths:
+                for path in enhanced_docs:
                     try:
                         fname = os.path.basename(path)
-                        print(f"讀取中: {fname}")
+                        print(f"讀取增強文件: {fname}")
 
-                        if Path(path).suffix.lower() == ".pdf":
-                            docs = self.splitter_instance.chunk_pdf_full_page(
-                                pdf_path=path,
-                                target_len=self.pdf_target_len,
-                                tol=self.pdf_tolerance
-                            )
-                            all_chunks.extend(docs)
-                            print(f" {fname}（PDF 智慧切）完成，共 {len(docs)} 段")
-                        else:
-                            pages = await self.load_any_file_async(path)
-                            chunks = self._split_documents(pages)
-                            all_chunks.extend(chunks)
-                            print(f" {fname} 分割完成，共 {len(chunks)} 段")
+                        # 使用 TextLoader 讀取增強文件
+                        loader = TextLoader(path, encoding='utf-8')
+                        pages = loader.load()
+
+                        # 使用標準文字切割
+                        chunks = self._split_documents(pages)
+                        all_chunks.extend(chunks)
+                        print(f" {fname} 載入完成，共 {len(chunks)} 段")
 
                     except Exception as e:
-                        print(f"載入 {os.path.basename(path)} 時發生錯誤: {e}")
+                        print(f"載入 {fname} 時發生錯誤: {e}")
+            else:
+                # ★ 沒有 enhanced_doc，回退到原本的 PDF/其他檔案處理流程
+                print("未發現 enhanced_doc 檔案，使用原始檔案處理流程...")
+
+                if file_extensions is None:
+                    file_extensions = ['.pdf']
+
+                for ext in file_extensions:
+                    pattern = f"*{ext}"
+                    file_paths = glob.glob(os.path.join(self.pdf_folder, pattern))
+
+                    for path in file_paths:
+                        try:
+                            fname = os.path.basename(path)
+                            print(f"讀取中: {fname}")
+
+                            if Path(path).suffix.lower() == ".pdf":
+                                docs = self.splitter_instance.chunk_pdf_full_page(
+                                    pdf_path=path,
+                                    target_len=self.pdf_target_len,
+                                    tol=self.pdf_tolerance
+                                )
+                                all_chunks.extend(docs)
+                                print(f" {fname}（PDF 智慧切）完成，共 {len(docs)} 段")
+                            else:
+                                pages = await self.load_any_file_async(path)
+                                chunks = self._split_documents(pages)
+                                all_chunks.extend(chunks)
+                                print(f" {fname} 分割完成，共 {len(chunks)} 段")
+
+                        except Exception as e:
+                            print(f"載入 {os.path.basename(path)} 時發生錯誤: {e}")
 
             print(f"所有檔案段落總數：{len(all_chunks)}")
 
@@ -196,7 +235,8 @@ class MultiTurnRAGHelper:
         if not self.vectorstore:
             raise ValueError("請先執行 load_and_prepare()")
 
-        llm = ChatOpenAI(model="gpt-5-nano", temperature=0.1)
+        # 使用統一配置的 LLM
+        llm = get_chat_llm()
 
         # 創建帶有相似度門檻的檢索器
         if similarity_threshold is not None:
