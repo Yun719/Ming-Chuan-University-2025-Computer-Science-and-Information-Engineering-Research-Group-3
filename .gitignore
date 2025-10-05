@@ -2,10 +2,6 @@
 .env
 *.env
 
-# Claude Code 設定
-CLAUDE.md
-.claude/
-
 # 資料庫檔案
 *.db
 *.sqlite
@@ -20,32 +16,21 @@ __pycache__/
 my_faiss_index/
 enhanced_faiss_index/
 trulens_env_new/
-rag_cache/
-
-# 預處理快取
-.preprocess_cache.json
-preprocess_logs/
 
 # Enhanced RAG Helper 產生檔案
-chart_metadata.json
+#chart_metadata.json
 temp_enhanced_docs/
-pdfFiles/enhanced_docs/
-pdfFiles/enhanced_doc_*.txt
-chart_images/
-
-# 測試檔案
-test_rag_enhanced.py
+#pdfFiles/enhanced_docs/
 
 # Obsidian 設定
 .obsidian/
 
 # 測試資料 - 不上傳multi_data資料夾
-pdfFiles/multi_data/
+#pdfFiles/multi_data/
 
 # PDF圖表切割結果 - 不上傳處理結果
 test_ImageCut_result/
 modules/pdf_Cutting_TextReplaceImage/test_ImageCut_result/
-pdfFiles/charts_filtered_out/
 
 # 虛擬環境
 pdf_cutting_env/
