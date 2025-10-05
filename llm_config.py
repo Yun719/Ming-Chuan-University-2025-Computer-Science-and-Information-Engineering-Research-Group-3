@@ -38,7 +38,7 @@ class LLMConfig:
 
     # ==================== 問答系統 LLM 配置 ====================
     # 用於 main_web.py 的對話問答
-    QA_MODEL_NAME = os.getenv("QA_MODEL_NAME", "gpt-4o")
+    QA_MODEL_NAME = os.getenv("QA_MODEL_NAME", "gpt-5-nano")
     QA_TEMPERATURE = float(os.getenv("QA_TEMPERATURE", "0.1"))
     QA_MAX_TOKENS = int(os.getenv("QA_MAX_TOKENS", "2000"))
 
