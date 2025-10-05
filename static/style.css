@@ -551,11 +551,11 @@ h1 {
 
 /* 確保在深色背景下的可讀性 */
 .bot-message .message-content .katex {
-    color: #ffffff;
+    color: #000000;
 }
 
 .user-message .message-content .katex {
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
     /* Q版人物對話區樣式 */
