@@ -408,7 +408,7 @@ h1 {
 .main-layout {
 	display: flex;
 	gap: 15px;
-	max-width: 1800px;
+	max-width: 1900px;
 	margin: 0 auto;
 	padding: 0px 0px 0px 0px;
 	height: 100vh; /* 占滿整個視窗高度 */
