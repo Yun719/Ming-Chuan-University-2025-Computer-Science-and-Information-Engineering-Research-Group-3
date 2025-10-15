@@ -194,7 +194,7 @@ class MultiTurnRAGHelper:
                 print("未發現 enhanced_doc 檔案，使用原始檔案處理流程...")
 
                 if file_extensions is None:
-                    file_extensions = ['.pdf']
+                    file_extensions = ['.txt']
 
                 for ext in file_extensions:
                     pattern = f"*{ext}"
