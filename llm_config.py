@@ -253,7 +253,7 @@ def get_chat_llm(model: Optional[str] = None, temperature: Optional[float] = Non
         model=model or LLMConfig.QA_MODEL_NAME,
         temperature=temperature if temperature is not None else LLMConfig.QA_TEMPERATURE,
         openai_api_key=LLMConfig.OPENAI_API_KEY,
-        openai_api_base=LLMConfig.OPENAI_BASE_URL,
+        openai_api_base=LLMConfig.OPENAI_BASE_URL
     )
 
 
